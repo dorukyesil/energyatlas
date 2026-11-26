@@ -41,6 +41,7 @@ streamlit run app.py
 ## Testler
 
 ```bash
+pip install -r requirements-dev.txt
 pytest
 ```
 
