@@ -215,3 +215,22 @@ def test_yeni_gorsel_grafikler():
     matris = k.set_index("donem")[["termik_pct", "ruzgar_pct"]].T
     assert len(charts.isi_haritasi(matris, "t", "turkuaz").data) == 1
     assert len(charts.depolama_kabarcik(data.isletmedeki_depolama(), "t").data) == 2
+
+
+def test_sunum_ozet_slayt_sayisi_ve_format():
+    import io
+    from pptx import Presentation
+    from src.energyatlas import export
+
+    prs = Presentation(io.BytesIO(export.ozet_sunum_bytes()))
+    assert len(prs.slides) == len(export.ozet_slaytlari())
+    assert len(prs.slides) >= 6
+
+
+def test_guncelleme_kaydi(tmp_path, monkeypatch):
+    from src.energyatlas import guncelleme
+
+    monkeypatch.setattr(guncelleme, "KAYIT_DOSYASI", tmp_path / "g.json")
+    kayit = guncelleme.guncelle()
+    assert kayit["son_guncelleme"]
+    assert guncelleme.oku()["son_guncelleme"] == kayit["son_guncelleme"]

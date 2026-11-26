@@ -5,7 +5,7 @@ from pathlib import Path
 import streamlit as st
 
 from config import APP_TITLE
-from src.energyatlas import theme
+from src.energyatlas import export, guncelleme, theme
 
 st.set_page_config(
     page_title=APP_TITLE,
@@ -14,6 +14,27 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 theme.uygula()
+
+
+@st.cache_data(show_spinner="Sunum hazırlanıyor…")
+def _sunum_bytes(surum: str) -> bytes:
+    """Sunum dosyasını üretir. `surum` (son güncelleme zamanı) değiştiğinde yeniden üretilir."""
+    return export.ozet_sunum_bytes()
+
+
+with st.sidebar:
+    st.caption(f"Son güncelleme: {guncelleme.son_guncelleme_metni()}")
+    if st.button("Verileri güncelle", use_container_width=True, help="Veri dosyalarını yeniden okur ve sunumu yeniler."):
+        st.cache_data.clear()
+        guncelleme.guncelle()
+        st.rerun()
+    st.download_button(
+        "Sunumu indir (.pptx)",
+        data=_sunum_bytes(guncelleme.son_guncelleme_metni()),
+        file_name="enerji_atlasi_ozet.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        use_container_width=True,
+    )
 
 
 def sayfa(yol: str, baslik: str, ikon: str, varsayilan: bool = False) -> st.Page:
