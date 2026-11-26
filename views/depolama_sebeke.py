@@ -3,10 +3,8 @@
 import numpy as np
 import streamlit as st
 
-from config import APP_TITLE
 from src.energyatlas import charts
 
-st.set_page_config(page_title=f"Depolama ve Şebeke | {APP_TITLE}", layout="wide")
 st.title("Elektrik Depolama ve Şebeke İlişkisi")
 st.caption("Bu sayfa kavramı anlatır. Grafikler şematiktir, gerçek veri değildir.")
 

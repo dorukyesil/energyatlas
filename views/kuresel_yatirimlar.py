@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Küresel Yatırımlar | {APP_TITLE}", layout="wide")
 st.title("Küresel Enerji Yatırımları")
 st.caption("Milyar USD. Toplam enerji, temiz enerji ve güneş yatırımlarının 2015-2025 gelişimi.")
 
@@ -45,8 +45,5 @@ st.info(
     "Bölge değerleri görselde etiketli olan üç bölge için verilmiştir; geri kalan bölgeler toplamdan hesaplanmıştır."
 )
 
-with st.expander("Veri tablolarını göster"):
-    st.markdown("**Küresel yatırımlar**")
-    st.dataframe(kuresel, use_container_width=True, hide_index=True)
-    st.markdown("**Bölgesel güneş yatırımları**")
-    st.dataframe(bolge, use_container_width=True, hide_index=True)
+ui.veri_tablosu(kuresel, "Küresel yatırım verisi", "kuresel_yatirim.csv")
+ui.veri_tablosu(bolge, "Bölgesel güneş yatırım verisi", "bolgesel_gunes_yatirim.csv")

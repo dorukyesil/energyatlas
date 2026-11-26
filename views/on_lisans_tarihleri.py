@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Ön Lisans Tarihleri | {APP_TITLE}", layout="wide")
 st.title("Depolama Ön Lisansları: Bitiş Tarihleri")
 st.caption("Ön lisans bitiş yılına göre proje adedi ve kapasite (MWe).")
 
@@ -32,5 +32,4 @@ st.markdown(
 """
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

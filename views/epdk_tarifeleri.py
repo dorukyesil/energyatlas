@@ -3,10 +3,10 @@
 import plotly.express as px
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"EPDK Tarifeleri | {APP_TITLE}", layout="wide")
 st.title("EPDK Elektrik Tarifeleri")
 st.caption(
     "Enerji bedelleri, kuruş/kWh (kr/kWh). 4 Nisan 2026 tarihinden itibaren geçerli, vergiler hariç. "
@@ -45,11 +45,11 @@ else:
         color="baglanti",
         labels={"tek_zamanli": "kr/kWh", "grup_etiket": "", "baglanti": "Bağlantı"},
         color_discrete_map={
-            "İletim Sistemi": "#6b7280",
-            "OG Çift Terim": "#1f4e79",
-            "OG Tek Terim": "#2a7f62",
-            "AG Tek Terim": "#f5b400",
-            "Genel Aydınlatma": "#c8102e",
+            "İletim Sistemi": "#64748B",
+            "OG Çift Terim": "#0B2545",
+            "OG Tek Terim": "#13A89E",
+            "AG Tek Terim": "#F4B942",
+            "Genel Aydınlatma": "#E76F51",
         },
     )
     fig.update_layout(template="plotly_white", yaxis=dict(autorange="reversed"), height=max(400, 30 * len(alt)))
@@ -70,6 +70,5 @@ st.caption(
     "Gündüz, puant ve gece dilimleri. Puant dilimi en pahalı, gece dilimi en ucuz dilimdir."
 )
 
-with st.expander("Tam tabloyu göster"):
-    st.dataframe(df.drop(columns=["grup_etiket"]), use_container_width=True, hide_index=True)
+ui.veri_tablosu(df.drop(columns=["grup_etiket"]), "Tam tabloyu göster")
 st.caption("AG: Alçak Gerilim. OG: Orta Gerilim. Çift terim ve tek terim bağlantı türleri EPDK tablosundaki gibi listelenmiştir.")

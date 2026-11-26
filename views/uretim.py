@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Üretim | {APP_TITLE}", layout="wide")
 st.title("Kaynaklara Göre Elektrik Üretimi")
 st.caption("Türkiye brüt elektrik üretimi, TWh. Pay değerleri yüzde olarak gösterilir.")
 
@@ -27,5 +27,4 @@ st.plotly_chart(
     use_container_width=True,
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

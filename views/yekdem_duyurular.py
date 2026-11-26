@@ -3,10 +3,10 @@
 import plotly.express as px
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"YEKDEM Duyurular | {APP_TITLE}", layout="wide")
 st.title("EPİAŞ YEKDEM Duyuruları")
 st.caption(
     "01.07.2021 - 31.12.2030 arasında işletmeye girecek YEK belgeli tesisler için uygulanacak fiyatlar. "
@@ -55,5 +55,4 @@ if secili_kaynak:
 else:
     st.info("Grafik için en az bir kaynak seçin.")
 
-with st.expander("Tam tabloyu göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Tam tabloyu göster")

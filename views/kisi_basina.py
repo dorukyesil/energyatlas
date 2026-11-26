@@ -2,10 +2,8 @@
 
 import streamlit as st
 
-from config import APP_TITLE
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Kişi Başına | {APP_TITLE}", layout="wide")
 st.title("Kişi Başına Elektrik Tüketimi")
 st.caption("kWh / kişi. OECD değeri 38 ülkenin ortalamasıdır.")
 

@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Ülke Karşılaştırma | {APP_TITLE}", layout="wide")
 st.title("Ülkeler Bazında Güneş Kurulu Gücü")
 st.caption("En büyük güneş kapasitesine sahip ülkeler, GW. Kaynak: IEA World Energy Outlook 2025, Renewables 2025 ve TEİAŞ.")
 
@@ -30,5 +30,4 @@ st.info(
     "Bu nedenle karşılaştırma tam olarak aynı yıl üzerinden yapılmamaktadır."
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

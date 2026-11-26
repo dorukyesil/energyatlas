@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"YEKDEM | {APP_TITLE}", layout="wide")
 st.title("YEKDEM Fiyatlandırması")
 st.caption("Yenilenebilir enerji kaynakları destekleme mekanizması (YEKDEM) fiyatları, USD/MWh.")
 
@@ -22,14 +22,14 @@ c3.metric("2025 ortalama PTF", f"{ptf_2025:.1f} USD/MWh")
 
 st.subheader("Taban, ortalama ve tavan")
 g1, g2 = st.columns(2)
-for kolon, teknoloji, renk in [(g1, "Güneş", "#f5b400"), (g2, "Elektrik Depolama", "#1f4e79")]:
+for kolon, teknoloji, renk in [(g1, "Güneş", "#F4B942"), (g2, "Elektrik Depolama", "#0B2545")]:
     alt = fiyat[fiyat["teknoloji"] == teknoloji]
     with kolon:
         st.plotly_chart(
             charts.deger_cubuk(
                 alt["gosterge"].tolist(),
                 alt["usd_mwh"].tolist(),
-                [renk, renk, renk, "#9ca3af"],
+                [renk, renk, renk, "#94A3B8"],
                 f"{teknoloji} YEKDEM (USD/MWh)",
                 "USD/MWh",
                 sablon="%{text:,.1f}",
@@ -44,7 +44,7 @@ with f1:
         charts.deger_cubuk(
             formul["bilesen"].tolist(),
             formul["agirlik_pct"].tolist(),
-            ["#1f4e79", "#2a7f62", "#f5b400", "#c8102e"],
+            ["#0B2545", "#13A89E", "#F4B942", "#E76F51"],
             "Formül bileşenlerinin ağırlığı (%)",
             "%",
             sablon="%{text:.0f}%",
@@ -63,5 +63,4 @@ st.caption(
     "Yerli katkı fiyatı, %100 yerli aksam kullanılması halinde alınabilecek azami tutarları gösterir."
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(fiyat, use_container_width=True, hide_index=True)
+ui.veri_tablosu(fiyat, "Veriyi tablo olarak göster")

@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"PTF | {APP_TITLE}", layout="wide")
 st.title("Fiyatlandırma: PTF")
 st.caption("Piyasa takas fiyatı (PTF), USD/MWh. Serbest piyasa elektrik fiyatlarının ABD doları bazındaki seyri.")
 
@@ -34,5 +34,4 @@ st.markdown(
 """
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df.reset_index(), use_container_width=True, hide_index=True)
+ui.veri_tablosu(df.reset_index(), "Veriyi tablo olarak göster")

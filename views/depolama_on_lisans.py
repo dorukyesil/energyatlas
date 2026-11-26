@@ -2,9 +2,7 @@
 
 import streamlit as st
 
-from config import APP_TITLE
 
-st.set_page_config(page_title=f"Ön Lisanslar | {APP_TITLE}", layout="wide")
 st.title("Elektrik Depolama Ön Lisansları")
 st.caption("Ön lisans başvurularının bölgesel yoğunluğu.")
 

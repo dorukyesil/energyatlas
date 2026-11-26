@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Tüketim | {APP_TITLE}", layout="wide")
 st.title("Brüt Elektrik Tüketimi")
 st.caption("Türkiye brüt elektrik tüketimi, TWh. Grafikteki noktaların üzerine gelerek olayları görebilirsiniz.")
 
@@ -29,5 +29,4 @@ olaylar = df[df["olay"].notna()]
 for _, satir in olaylar.iterrows():
     st.markdown(f"- **{satir['donem']}**: {satir['olay']} ({satir['tuketim_twh']:.0f} TWh)")
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

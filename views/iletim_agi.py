@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"İletim Ağı | {APP_TITLE}", layout="wide")
 st.title("Elektrik İletim Ağı ve Hedefler")
 st.caption("AC (alternatif akım) şebekesi ve HVDC (yüksek gerilim doğru akım) hedefleri.")
 
@@ -56,5 +56,4 @@ st.info(
     "**HVDC (Yüksek Gerilim Doğru Akım):** Özellikle uzun mesafelerde, düşük kayıpla ve yüksek kapasiteyle iletim sağlayan doğru akım teknolojisidir."
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(iletim, use_container_width=True, hide_index=True)
+ui.veri_tablosu(iletim, "Veriyi tablo olarak göster")

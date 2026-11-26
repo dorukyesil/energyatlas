@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Dünya Kurulu Güç | {APP_TITLE}", layout="wide")
 st.title("Dünya Güneş Paneli Sektörü: Kurulu Güç")
 st.caption("Dünya toplam kurulu gücü ve güneş enerjisi kapasitesi, GW. Kaynak: IEA World Energy Outlook 2025.")
 
@@ -32,5 +32,4 @@ st.markdown(
 """
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

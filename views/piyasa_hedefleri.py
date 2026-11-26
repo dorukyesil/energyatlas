@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Hedefler | {APP_TITLE}", layout="wide")
 st.title("Elektrik Piyasası Hedefleri")
 st.caption(
     "Kurulu güç hedefleri (GW). Kaynaklar: 2028 Stratejik Plan, 2035 Ulusal Enerji Planı "
@@ -62,5 +62,4 @@ st.markdown(
     f"**{tuketim_2035:.1f} TWh** olması hedefleniyor (yaklaşık %{(tuketim_2035 / tuketim_2025 - 1) * 100:.0f} artış)."
 )
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Veriyi tablo olarak göster")

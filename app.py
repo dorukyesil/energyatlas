@@ -1,42 +1,52 @@
-"""Enerji Atlası giriş sayfası."""
+"""Enerji Atlası: giriş noktası. Gezinme menüsünü ve sayfa kategorilerini tanımlar."""
 
 import streamlit as st
 
 from config import APP_TITLE
-from src.energyatlas import data
+from src.energyatlas import theme
 
-st.set_page_config(page_title=APP_TITLE, layout="wide")
+st.set_page_config(
+    page_title=APP_TITLE,
+    page_icon="⚡",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+theme.uygula()
 
-st.title(APP_TITLE)
-st.caption("Türkiye elektrik sektörü: kurulu güç, üretim, tüketim ve hedefler.")
+sayfalar = {
+    "Genel": [
+        st.Page("views/genel_bakis.py", title="Genel Bakış", icon="🏠", default=True),
+        st.Page("views/hakkinda.py", title="Hakkında", icon="📘"),
+    ],
+    "Kapasite ve üretim": [
+        st.Page("views/kurulu_guc.py", title="Kaynaklara göre kurulu güç", icon="⚡"),
+        st.Page("views/uretim.py", title="Kaynaklara göre üretim", icon="🏭"),
+        st.Page("views/tuketim.py", title="Brüt elektrik tüketimi", icon="📈"),
+        st.Page("views/kisi_basina.py", title="Kişi başına tüketim", icon="👥"),
+    ],
+    "Yenilenebilir ve depolama": [
+        st.Page("views/devam_eden_yatirimlar.py", title="Devam eden yatırımlar", icon="🏗️"),
+        st.Page("views/depolama_sebeke.py", title="Depolama ve şebeke", icon="🔋"),
+        st.Page("views/depolama_on_lisans.py", title="Depolama ön lisansları", icon="🗺️"),
+        st.Page("views/on_lisans_tarihleri.py", title="Ön lisans bitiş tarihleri", icon="📅"),
+        st.Page("views/isletmedeki_depolama.py", title="İşletmedeki depolama projeleri", icon="🏭"),
+    ],
+    "Fiyatlar ve tarifeler": [
+        st.Page("views/ptf.py", title="Piyasa takas fiyatı (PTF)", icon="💹"),
+        st.Page("views/epdk_tarifeleri.py", title="EPDK elektrik tarifeleri", icon="💡"),
+        st.Page("views/yekdem.py", title="YEKDEM fiyatlandırması", icon="⚖️"),
+        st.Page("views/yekdem_duyurular.py", title="YEKDEM duyuruları", icon="📢"),
+    ],
+    "Altyapı ve hedefler": [
+        st.Page("views/iletim_agi.py", title="Elektrik iletim ağı", icon="🔌"),
+        st.Page("views/piyasa_hedefleri.py", title="Piyasa hedefleri", icon="🎯"),
+    ],
+    "Dünya ve karşılaştırma": [
+        st.Page("views/dunya_kurulu_guc.py", title="Dünya kurulu güç", icon="🌍"),
+        st.Page("views/dunya_gunes_payi.py", title="Dünyada güneş payı", icon="☀️"),
+        st.Page("views/ulke_karsilastirma.py", title="Ülkeler: güneş kurulu gücü", icon="🗺️"),
+        st.Page("views/kuresel_yatirimlar.py", title="Küresel enerji yatırımları", icon="💰"),
+    ],
+}
 
-kurulu = data.kurulu_guc().set_index("donem")
-uretim = data.uretim().set_index("donem")
-tuketim = data.tuketim().set_index("donem")
-
-c1, c2, c3, c4 = st.columns(4)
-c1.metric("Kurulu güç (2026 9A)", f"{kurulu.loc['2026 9A', 'toplam_gw']:.1f} GW")
-c2.metric("Yenilenebilir üretim payı (2026 9A)", f"%{100 - uretim.loc['2026 9A', 'termik_pct']:.0f}")
-c3.metric("Tüketim (2025)", f"{tuketim.loc['2025', 'tuketim_twh']:.0f} TWh")
-c4.metric("Güneş payı (kurulu güç, 2026 9A)", f"%{kurulu.loc['2026 9A', 'gunes_pct']:.0f}")
-
-st.subheader("Bölümler")
-st.page_link("pages/1_Kurulu_Guc.py", label="Kaynaklara göre kurulu güç", icon="⚡")
-st.page_link("pages/2_Uretim.py", label="Kaynaklara göre üretim", icon="🏭")
-st.page_link("pages/3_Tuketim.py", label="Brüt elektrik tüketimi", icon="📈")
-st.page_link("pages/4_Kisi_Basina.py", label="Kişi başına tüketim", icon="👥")
-st.page_link("pages/5_Piyasa_Hedefleri.py", label="Piyasa hedefleri", icon="🎯")
-st.page_link("pages/6_Devam_Eden_Yatirimlar.py", label="Devam eden yatırımlar", icon="🏗️")
-st.page_link("pages/7_Iletim_Agi.py", label="Elektrik iletim ağı", icon="🔌")
-st.page_link("pages/8_Depolama_Sebeke.py", label="Depolama ve şebeke", icon="🔋")
-st.page_link("pages/9_Depolama_On_Lisans.py", label="Depolama ön lisansları", icon="🗺️")
-st.page_link("pages/10_On_Lisans_Tarihleri.py", label="Ön lisans bitiş tarihleri", icon="📅")
-st.page_link("pages/11_Isletmedeki_Depolama.py", label="İşletmedeki depolama projeleri", icon="🏭")
-st.page_link("pages/12_EPDK_Tarifeleri.py", label="EPDK elektrik tarifeleri", icon="💡")
-st.page_link("pages/13_PTF.py", label="Piyasa takas fiyatı (PTF)", icon="💹")
-st.page_link("pages/14_YEKDEM.py", label="YEKDEM fiyatlandırması", icon="⚖️")
-st.page_link("pages/15_YEKDEM_Duyurular.py", label="YEKDEM duyuruları", icon="📢")
-st.page_link("pages/16_Dunya_Kurulu_Guc.py", label="Dünya kurulu güç", icon="🌍")
-st.page_link("pages/17_Dunya_Gunes_Payi.py", label="Dünyada güneş payı", icon="☀️")
-st.page_link("pages/18_Ulke_Karsilastirma.py", label="Ülkeler: güneş kurulu gücü", icon="🗺️")
-st.page_link("pages/19_Kuresel_Yatirimlar.py", label="Küresel enerji yatırımları", icon="💰")
+st.navigation(sayfalar).run()

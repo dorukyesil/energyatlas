@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"İşletmedeki Depolama | {APP_TITLE}", layout="wide")
 st.title("İşletmedeki Depolama Lisanslı Projeler")
 st.caption("İşletmeye alınmış depolama tesisleri. Sıralama işletmedeki kapasiteye göre yapılmıştır.")
 
@@ -44,5 +44,4 @@ st.caption(
     "Artuklu GES Elektrik, Egesa mülkiyetindedir."
 )
 
-with st.expander("Tabloyu göster"):
-    st.dataframe(df, use_container_width=True, hide_index=True)
+ui.veri_tablosu(df, "Tabloyu göster")

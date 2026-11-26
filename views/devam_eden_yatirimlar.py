@@ -2,10 +2,10 @@
 
 import streamlit as st
 
-from config import APP_TITLE
+from src.energyatlas import ui
+
 from src.energyatlas import charts, data
 
-st.set_page_config(page_title=f"Devam Eden Yatırımlar | {APP_TITLE}", layout="wide")
 st.title("Devam Eden Yatırımlar")
 st.caption("Depolamalı rüzgar ve güneş santralleri ile YEKA projeleri, GW.")
 
@@ -58,5 +58,4 @@ with k3:
     st.markdown("**3. Öztüketim**")
     st.markdown("Aynı veya farklı bağlantı noktasında öztüketim ve şebekeden bağımsız (off-grid) kullanım.")
 
-with st.expander("Veriyi tablo olarak göster"):
-    st.dataframe(sirketler, use_container_width=True, hide_index=True)
+ui.veri_tablosu(sirketler, "Veriyi tablo olarak göster")
