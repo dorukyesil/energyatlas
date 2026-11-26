@@ -67,3 +67,28 @@ def test_kisi_basina_turkiye_below_oecd():
 def test_charts_build(build):
     fig = build()
     assert len(fig.data) > 0
+
+
+def test_depolama_kapasite_toplami_26_9_gw():
+    toplam = data.depolama_kapasite()["kapasite_gw"].sum()
+    assert abs(toplam - 26.9) < 0.05
+
+
+def test_depolama_teknoloji_toplami_eşit():
+    assert abs(16.4 + 10.5 - 26.9) < 0.05
+
+
+def test_sirket_toplamlari_tutarli():
+    df = data.depolama_sirketler()
+    assert ((df["ges_mw"] + df["res_mw"]) == df["toplam_mw"]).all()
+
+
+def test_devam_eden_toplam():
+    df = data.devam_eden_yatirim().set_index("kalem")
+    assert abs(df.loc["Depolamalı RES+GES", "gw"] + df.loc["YEKA (2025 ve 2026)", "gw"] - df.loc["Toplam", "gw"]) < 0.05
+
+
+def test_yeni_grafikler_olusur():
+    assert len(charts.sirket_yigin_cubuk(data.depolama_sirketler(), "t").data) == 2
+    assert len(charts.yillik_pay_cubuk(data.depolama_kapasite(), "devreye_giris", "t").data) == 2
+    assert len(charts.sematik_profil(list(range(3)), [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], "t").data) == 5

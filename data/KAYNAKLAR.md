@@ -12,3 +12,15 @@ Yayın öncesi her değer resmi kaynaktan (TEİAŞ, EPDK, EPİAŞ, Enerji ve Tab
 | `hedefler.csv` | Kurulu güç hedefleri (GW) | 2028 ve 2035 hedefleri. Yol haritasındaki `*` dipnotu görselde açıklanmadığı için not olarak eklenmedi. |
 
 Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yıllık değerlerle doğrudan karşılaştırılmamalıdır.
+
+## Eklenen veriler (6-9. bölümler)
+
+| Dosya | İçerik | Notlar |
+|---|---|---|
+| `devam_eden_yatirim.csv` | Depolamalı RES+GES (26,9 GW) ve YEKA 2025-2026 (6,2 GW) | Toplam 33,1 GW görselden. |
+| `depolama_kapasite.csv` | Depolamalı santral devreye giriş yılı ve güneş/rüzgar payı | 2023: 21,5 GW, 2024: 4,9 GW, 2025: 0,5 GW. |
+| `depolama_sirketler.csv` | Kalyon, ENTEK, Aksa, Enerjisa depolamalı proje kapasiteleri (MW) | Enerjisa projeleri Enerjisa Grubu dahilinde gösterilmektedir. |
+| `iletim.csv` | AC hattı, trafo merkezi, HVDC hedefleri, 28 milyar USD yatırım | 2025 HVDC değerleri görselde yok. |
+| `baglantilar.csv` | Sınır bağlantıları (8 ülke) | Görseldeki ülke listesi. |
+
+Ön lisans haritaları (9. bölüm) yalnızca görsel yoğunluk içerir. Sayısal il listesi için EPDK kaynağı gerekir.

@@ -149,3 +149,94 @@ def pay_halkasi(etiketler: list[str], degerler: list[float], baslik: str) -> go.
     )
     fig.update_layout(title=baslik, template="plotly_white", margin=dict(l=10, r=10, t=60, b=10))
     return fig
+
+
+def sirket_yigin_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Şirketlerin depolamalı GES ve RES kapasitelerini (MW) yığılmış gösterir."""
+    fig = go.Figure()
+    fig.add_trace(
+        go.Bar(
+            name="Güneş (GES)",
+            x=df["sirket"],
+            y=df["ges_mw"],
+            marker_color=RENKLER["Güneş"],
+            hovertemplate="GES: %{y:,.0f} MW<extra></extra>",
+        )
+    )
+    fig.add_trace(
+        go.Bar(
+            name="Rüzgar (RES)",
+            x=df["sirket"],
+            y=df["res_mw"],
+            marker_color=RENKLER["Rüzgar"],
+            hovertemplate="RES: %{y:,.0f} MW<extra></extra>",
+        )
+    )
+    fig.update_layout(barmode="stack")
+    return _duzenle(fig, baslik, "MW")
+
+
+def yillik_pay_cubuk(df: pd.DataFrame, donem: str, baslik: str) -> go.Figure:
+    """Devreye giriş yılına göre güneş ve rüzgar paylarını (%) gösterir."""
+    fig = go.Figure()
+    fig.add_trace(
+        go.Bar(
+            name="Güneş",
+            x=df[donem],
+            y=df["gunes_pct"],
+            marker_color=RENKLER["Güneş"],
+            text=df["gunes_pct"],
+            texttemplate="%{text}%",
+            hovertemplate="Güneş: %{y}%<extra></extra>",
+        )
+    )
+    fig.add_trace(
+        go.Bar(
+            name="Rüzgar",
+            x=df[donem],
+            y=df["ruzgar_pct"],
+            marker_color=RENKLER["Rüzgar"],
+            text=df["ruzgar_pct"],
+            texttemplate="%{text}%",
+            hovertemplate="Rüzgar: %{y}%<extra></extra>",
+        )
+    )
+    fig.update_layout(barmode="stack")
+    fig.update_yaxes(range=[0, 100])
+    return _duzenle(fig, baslik, "Pay (%)")
+
+
+def iki_donem_karsilastirma(df: pd.DataFrame, kategori: str, donem: str, deger: str, baslik: str, birim: str) -> go.Figure:
+    """Gösterge bazında iki yıl (örn. 2025 ve 2035) değerlerini yan yana gösterir."""
+    fig = go.Figure()
+    for yil, renk in [("2025", "#9ca3af"), ("2035", RENKLER["Toplam"])]:
+        alt = df[df[donem].astype(str) == yil]
+        fig.add_trace(
+            go.Bar(
+                name=yil,
+                x=alt[kategori],
+                y=alt[deger],
+                marker_color=renk,
+                text=alt[deger],
+                texttemplate="%{text:,.0f}",
+                textposition="outside",
+                hovertemplate=f"{yil}: %{{y:,.0f}} {birim}<extra></extra>",
+            )
+        )
+    fig.update_layout(barmode="group")
+    return _duzenle(fig, baslik, birim)
+
+
+def sematik_profil(saat: list[int], talep: list[float], termik: list[float], ruzgar: list[float], gunes: list[float], depolama: list[float], baslik: str) -> go.Figure:
+    """Şematik günlük profil. Gerçek veri değildir; kavramı göstermek için kullanılır."""
+    fig = go.Figure()
+    for isim, seri, renk in [
+        ("Termik (baz yük)", termik, RENKLER["Termik"]),
+        ("Rüzgar", ruzgar, RENKLER["Rüzgar"]),
+        ("Güneş", gunes, RENKLER["Güneş"]),
+        ("Depolama (boşaltma)", depolama, "#4f46e5"),
+    ]:
+        fig.add_trace(go.Scatter(name=isim, x=saat, y=seri, mode="lines", line=dict(color=renk, width=2), stackgroup=None))
+    fig.add_trace(go.Scatter(name="Elektrik talebi", x=saat, y=talep, mode="lines", line=dict(color="#c8102e", width=3, dash="dot")))
+    fig.update_xaxes(title="Saat", dtick=3)
+    return _duzenle(fig, baslik, "Göreli güç (şematik)")

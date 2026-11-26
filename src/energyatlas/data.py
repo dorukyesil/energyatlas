@@ -37,3 +37,23 @@ def kisi_basina() -> pd.DataFrame:
 
 def hedefler() -> pd.DataFrame:
     return load_dataset("hedefler")
+
+
+def devam_eden_yatirim() -> pd.DataFrame:
+    return load_dataset("devam_eden_yatirim")
+
+
+def depolama_kapasite() -> pd.DataFrame:
+    return load_dataset("depolama_kapasite")
+
+
+def depolama_sirketler() -> pd.DataFrame:
+    return load_dataset("depolama_sirketler")
+
+
+def iletim() -> pd.DataFrame:
+    return load_dataset("iletim")
+
+
+def baglantilar() -> pd.DataFrame:
+    return load_dataset("baglantilar")
