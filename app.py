@@ -57,6 +57,7 @@ sayfalar = {
         sayfa("views/devam_eden_yatirimlar.py", "Devam eden yatırımlar", "🏗️"),
         sayfa("views/depolama_sebeke.py", "Depolama ve şebeke", "🔋"),
         sayfa("views/depolama_on_lisans.py", "Depolama ön lisansları", "📅"),
+        sayfa("views/santral_listesi.py", "EPDK santral listesi", "📋"),
         sayfa("views/isletmedeki_depolama.py", "İşletmedeki depolama", "🏭"),
     ],
     "Fiyatlar ve tarifeler": [

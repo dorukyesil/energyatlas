@@ -121,3 +121,33 @@ def yillik_degisim(df: pd.DataFrame, deger: str) -> pd.DataFrame:
 def tam_yillar(df: pd.DataFrame) -> pd.DataFrame:
     """Dönem sütunu tam yıl olan satırları (9A ve H1 hariç) döndürür."""
     return df[df["donem"].astype(str).str.fullmatch(r"\d{4}")].reset_index(drop=True)
+
+
+def _epdk_tarihli(ad: str) -> pd.DataFrame:
+    df = load_dataset(ad)
+    df["bitis"] = pd.to_datetime(df["bitis"], errors="coerce")
+    df["baslangic"] = pd.to_datetime(df["baslangic"], errors="coerce")
+    return df
+
+
+def epdk_lisans() -> pd.DataFrame:
+    """EPDK lisanslı üretim tesisleri (santral bazında)."""
+    return _epdk_tarihli("epdk_lisans")
+
+
+def epdk_onlisans() -> pd.DataFrame:
+    """EPDK ön lisanslı üretim tesisleri (santral bazında)."""
+    return _epdk_tarihli("epdk_onlisans")
+
+
+def weo_dunya() -> pd.DataFrame:
+    """IEA WEO 2026 dünya verisi: kapasite (GW) ve üretim (TWh), senaryo ve yıl bazında."""
+    return load_dataset("weo_dunya")
+
+
+SENARYO_ADLARI = {
+    "Current Policies Scenario": "Mevcut politikalar",
+    "Stated Policies Scenario": "Belirlenmiş politikalar",
+    "Net Zero Emissions by 2050 Scenario": "Net sıfır (2050)",
+    "Historical": "Gerçekleşen",
+}

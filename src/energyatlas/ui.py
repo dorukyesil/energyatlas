@@ -117,6 +117,9 @@ TABLO_KAYNAKLARI = {
     "dunya_gunes.csv": "IEA World Energy Outlook 2025.",
     "kuresel_yatirim.csv": "Küresel enerji yatırım verileri. Sunum grafiklerinden okunmuştur.",
     "bolgesel_gunes_yatirim.csv": "Küresel güneş yatırım verileri. Sunum grafiklerinden okunmuştur.",
+    "epdk_lisans.csv": "EPDK, lisanslı üretim tesisleri listesi (depolamalı santraller).",
+    "epdk_onlisans.csv": "EPDK, ön lisanslı üretim tesisleri listesi.",
+    "weo_dunya.csv": "IEA World Energy Outlook 2026, Annex A ücretsiz veri seti (dünya).",
 }
 
 

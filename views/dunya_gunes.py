@@ -1,5 +1,6 @@
-"""Dünya güneş kapasitesi: toplam kurulu güç, güneşin payı ve Türkiye'nin konumu."""
+"""Dünya güneş kapasitesi ve üretimi: IEA WEO 2026 senaryolarına göre."""
 
+import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, ui
@@ -7,43 +8,58 @@ from src.energyatlas import charts, data, ui
 ui.sayfa_basligi(
     "Dünya ve karşılaştırma",
     "Dünya güneş kapasitesi",
-    "Dünya toplam kurulu gücü, güneş kapasitesi ve güneşin payı. Kaynak: IEA World Energy Outlook 2025.",
+    "IEA World Energy Outlook 2026. Senaryoyu seçerek güneşin dünya kapasitesi ve üretimindeki yerini inceleyin.",
 )
 
-kurulu = data.dunya_kurulu_guc()
-pay = data.dunya_gunes_payi().astype({"donem": str})
-son = kurulu[kurulu["donem"] == 2024].iloc[0]
-ilk = kurulu[kurulu["donem"] == 2010].iloc[0]
-son_pay = pay[pay["donem"] == "2024"].iloc[0]
+ham = data.weo_dunya()
+senaryolar = {
+    "Mevcut politikalar": "Current Policies Scenario",
+    "Belirlenmiş politikalar": "Stated Policies Scenario",
+    "Net sıfır (2050)": "Net Zero Emissions by 2050 Scenario",
+}
+secim = ui.segment(list(senaryolar.keys()), "dunya_senaryo")
+kod = senaryolar[secim]
 
+gecmis = ham[(ham["senaryo"] == "Historical") & (ham["gosterge"] == "Kurulu güç (GW)")]
+gelecek = ham[(ham["senaryo"] == kod) & (ham["gosterge"] == "Kurulu güç (GW)")]
+kapasite = pd.concat([gecmis, gelecek])
+pivot = kapasite.pivot_table(index="yil", columns="kaynak", values="deger").reset_index()
+pivot = pivot[pivot["yil"].isin([2010, 2024, 2025, 2035, 2040, 2050])]
+pivot["Güneş pay (%)"] = pivot["Solar PV"] / pivot["Total"] * 100
+
+son_gecmis = pivot[pivot["yil"] == 2025].iloc[0]
+son_senaryo = pivot[pivot["yil"] == 2050].iloc[0]
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Dünya güneş kurulu gücü (2024)", f"{ui.sayi(son['gunes_gw'], 0)} GW")
-c2.metric("Dünya toplam kurulu gücü (2024)", f"{ui.sayi(son['toplam_gw'], 0)} GW")
-c3.metric("Güneş / toplam (2024)", f"%{ui.sayi(son_pay['gunes_toplam_pct'], 0)}")
-c4.metric("Güneş / yenilenebilir (2024)", f"%{ui.sayi(son_pay['gunes_yenilenebilir_pct'], 0)}")
+c1.metric("Dünya güneş kapasitesi (2025)", f"{ui.sayi(son_gecmis['Solar PV'], 0)} GW")
+c2.metric("Güneş payı (2025)", f"%{ui.sayi(son_gecmis['Güneş pay (%)'], 0)}")
+c3.metric(f"Güneş kapasitesi (2050, {secim.lower()})", f"{ui.sayi(son_senaryo['Solar PV'], 0)} GW")
+c4.metric("Güneş payı (2050)", f"%{ui.sayi(son_senaryo['Güneş pay (%)'], 0)}")
 
-sekme_kapasite, sekme_pay = st.tabs(["Kapasite (GW)", "Güneşin payı (%)"])
+ui.bolum("01", "Kapasite", "Toplam kurulu güç ve güneş kapasitesi, GW. 2010, 2024 ve 2025 gerçekleşen; sonrası seçilen senaryo.")
+st.plotly_chart(
+    charts.dunya_kurulu_cubuk(
+        pivot.rename(columns={"yil": "donem", "Total": "toplam_gw", "Solar PV": "gunes_gw"}).assign(donem=lambda d: d["donem"].astype(str)),
+        f"Dünya toplam kurulu güç ve güneş, {secim.lower()} (GW)",
+    ),
+    use_container_width=True,
+)
 
-with sekme_kapasite:
-    ui.bolum("01", "Toplam kapasite ve güneş", "2010-2050 arası dünya toplam kurulu gücü ve güneş kapasitesi, GW.")
-    st.plotly_chart(charts.dunya_kurulu_cubuk(kurulu.astype({"donem": str}), "Dünya toplam kurulu güç ve güneş (GW)"), use_container_width=True)
-    ui.kaynak("2035, 2040 ve 2050 değerleri senaryo tahminleridir.")
-    st.markdown(
-        f"""
-- 2010'da **{ui.sayi(ilk['gunes_gw'], 0)} GW** olan dünya güneş kapasitesi 2024'te **{ui.sayi(son['gunes_gw'], 0)} GW**'a ulaştı.
-- 2050 için tahmin edilen güneş kapasitesi **{ui.sayi(kurulu[kurulu['donem'] == 2050].iloc[0]['gunes_gw'], 0)} GW**.
-- 2024 itibarıyla Türkiye'nin güneş kurulu gücü yaklaşık **20 GW** seviyesinde ve dünya güneş kapasitesinin yaklaşık **%1**'i.
-"""
-    )
+ui.bolum("02", "Güneşin payı", "Güneşin toplam kurulu güç içindeki payı, %.")
+st.plotly_chart(
+    charts.toplam_cubuk(
+        pivot.assign(donem=pivot["yil"].astype(str), pay=pivot["Güneş pay (%)"].round(1)),
+        "pay", "Güneşin toplam kurulu güç içindeki payı (%)", "%",
+    ),
+    use_container_width=True,
+)
 
-with sekme_pay:
-    ui.bolum("01", "Güneşin kurulu güç içindeki payı", "Dünya toplam ve yenilenebilir kurulu güç içinde güneşin payı, %.")
-    st.plotly_chart(charts.dunya_pay_nokta(pay, "Güneşin kurulu güç içindeki payı (%)"), use_container_width=True)
-    ui.bolum("02", "Türkiye 2024")
-    tr1, tr2 = st.columns(2)
-    tr1.metric("Türkiye: güneş / toplam", "%17", "toplam kurulu güç ~116 GW", delta_color="off")
-    tr2.metric("Türkiye: güneş / yenilenebilir", "%29", "yenilenebilir kurulu güç ~69 GW", delta_color="off")
-    ui.kaynak("Türkiye yüzdeleri sunumdaki açıklama metninden alınmıştır. Dünya değerleri grafiklerden okunmuştur.")
+ui.bolum("03", "Üretim", "Güneş elektrik üretimi, TWh (seçilen senaryo).")
+uretim = ham[(ham["gosterge"] == "Elektrik üretimi (TWh)") & (ham["kaynak"] == "Solar PV") & (ham["senaryo"].isin(["Historical", kod]))]
+uretim = uretim[uretim["yil"].isin([2010, 2024, 2025, 2035, 2040, 2050])].sort_values("yil")
+st.plotly_chart(
+    charts.toplam_cubuk(uretim.assign(donem=uretim["yil"].astype(str)), "deger", "Dünya güneş elektrik üretimi (TWh)", "TWh"),
+    use_container_width=True,
+)
+ui.kaynak("Kaynak: IEA World Energy Outlook 2026, Annex A ücretsiz veri seti. 2010-2025 gerçekleşen; sonraki yıllar seçilen senaryodur.")
 
-veri = kurulu.merge(pay.astype({"donem": int}), on="donem", how="left")
-ui.veri_tablosu(veri, "Veri tablosu", "dunya_gunes.csv")
+ui.veri_tablosu(ham, "Veri tablosu (tüm senaryolar)", "weo_dunya.csv")

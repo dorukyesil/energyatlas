@@ -18,7 +18,8 @@ st.markdown(
 - **TEİAŞ:** Kurulu güç, üretim, tüketim, iletim ağı
 - **EPDK:** Elektrik tarifeleri, ön lisans bilgileri, depolama lisansları
 - **EPİAŞ:** Piyasa takas fiyatı (PTF), YEKDEM duyuruları
-- **IEA (Uluslararası Enerji Ajansı):** Dünya kurulu güç ve güneş verileri
+- **IEA World Energy Outlook 2026 (Annex A ücretsiz veri seti):** Dünya kurulu güç, üretim ve senaryolar. Yayım: World Energy Outlook 2025 raporu bağlamı için kullanılmıştır.
+- **EPDK lisanslı ve ön lisanslı üretim tesisi listeleri:** Santral bazında kurulu güç, depolama ve bitiş tarihleri. Kişisel iletişim bilgileri portala alınmamıştır.
 - **Enerji ve Tabii Kaynaklar Bakanlığı:** Stratejik plan ve yol haritası hedefleri
 - **Küresel yatırım verileri:** Yenilenebilir enerji yatırım eğilimleri
 """

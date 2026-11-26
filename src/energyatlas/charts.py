@@ -553,3 +553,23 @@ def depolama_kabarcik(df: pd.DataFrame, baslik: str) -> go.Figure:
         )
     fig.update_layout(xaxis_title="Depolama gücü (MWe)", yaxis_title="Süre (saat)", xaxis=dict(type="log", tickvals=[4, 7, 10, 20, 30, 50, 100], ticktext=["4", "7", "10", "20", "30", "50", "100"]), title=baslik, template=SABLON)
     return fig
+
+
+def il_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """İllere göre kurulu gücü yatay çubukla gösterir (büyükten küçüğe)."""
+    fig = go.Figure(
+        go.Bar(
+            x=df["kurulu_mwe"],
+            y=df["il"],
+            orientation="h",
+            marker_color=RENKLER["Toplam"],
+            text=df["kurulu_mwe"],
+            texttemplate="%{text:,.0f} MWe",
+            textposition="outside",
+            cliponaxis=False,
+            hovertemplate="%{y}: %{x:,.1f} MWe<extra></extra>",
+        )
+    )
+    fig.update_layout(title=baslik, template=SABLON, xaxis_title="MWe", yaxis=dict(autorange="reversed", automargin=True),
+                      margin=dict(l=10, r=70, t=60, b=10))
+    return fig

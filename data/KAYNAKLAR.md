@@ -56,3 +56,16 @@ Dünya güneş kapasitesi 2024 değeri (2.164 GW) ile ülke kartındaki toplam g
 | `gunes_yatirim_bolge.csv` | Bölgelere göre küresel güneş yatırımları: Asya ve Pasifik, Kuzey Amerika, Avrupa | Yalnızca etiketli bölgeler yazıldı. Diğer bölgeler (Afrika, Merkez ve Güney Amerika, Orta Doğu, Avrasya) toplamdan hesaplanır, sayfada "hesaplanan" olarak işaretli. |
 
 Toplam güneş değeri (441 milyar USD 2025) iki görselde aynıdır, kodda test edilmiştir.
+
+## Kaynak dosyalarından içe aktarılan veriler (kaynak dosya sürümü: Kasım 2026)
+
+Bu veriler `scripts/import_kaynak_verileri.py` ile üretilir. Yeniden üretmek için:
+`PYTHONPATH=. python scripts/import_kaynak_verileri.py <kaynak_klasörü>`
+
+| Dosya | Kaynak | İçerik | Not |
+|---|---|---|---|
+| `epdk_lisans.csv` | EPDK, lisanslı üretim tesisleri listesi | 164 tesis, kurulu güç, depolama, işletmedeki depolama | Kişisel iletişim bilgileri çıkarıldı. |
+| `epdk_onlisans.csv` | EPDK, ön lisanslı üretim tesisleri listesi | 502 tesis, bitiş tarihleri, kurulu güç, depolama | Görselden okunan eski değerlerden (530 proje) farklı; liste güncel olduğu için bu esas alınır. |
+| `weo_dunya.csv` | IEA World Energy Outlook 2026, Annex A ücretsiz veri seti (dünya) | Kurulu güç (GW) ve elektrik üretimi (TWh), senaryolar: Gerçekleşen, Mevcut politikalar, Belirlenmiş politikalar, Net sıfır (2050) | Güneş 2024: 2.190 GW, 2025: 2.823 GW. Önceki görsel değerleri (2.164 GW) farklı bir sürümdendir. Türkiye ayrı bir kırılım olarak yok. |
+
+Referans: IEA, World Energy Outlook 2025 raporu (PDF). Senaryo tanımları ve politika notları için kullanılmıştır.
