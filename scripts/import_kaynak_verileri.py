@@ -69,6 +69,45 @@ def weo_dunya(yol: Path) -> pd.DataFrame:
     )
 
 
+YATIRIM_SATIRLARI = {
+    "Total Billion USD (2024, MER)": "Toplam",
+    "of which: Clean energy": "Temiz enerji",
+    "Fossil fuels": "Fosil yakıtlar",
+    "Fuels": "Yakıtlar",
+    "Generation": "Elektrik üretimi",
+    "Renewables": "Yenilenebilir elektrik",
+    "o/w solar": "Güneş",
+    "o/w wind": "Rüzgar",
+    "Nuclear": "Nükleer",
+    "Battery storage": "Batarya depolama",
+    "Electricity networks": "Elektrik şebekeleri",
+    "Energy efficiency": "Enerji verimliliği",
+}
+YATIRIM_SAYFALARI = [
+    "World", "Advanced economies", "EMDE", "China", "North America", "Central and South America",
+    "Europe", "Africa", "Middle East", "Eurasia", "Asia Pacific",
+]
+BOLGE_ADLARI = {"EMDE": "Gelişmekte olan ekonomiler (çin hariç)", "Advanced economies": "İleri ekonomiler"}
+
+
+def yatirim_tablosu(yol: Path) -> pd.DataFrame:
+    """Dünya enerji yatırımları dosyasını bölge, kategori, yıl biçiminde uzun tabloya çevirir (milyar USD, 2024 MER)."""
+    satirlar = []
+    for sayfa in YATIRIM_SAYFALARI:
+        d = pd.read_excel(yol, sheet_name=sayfa, header=None)
+        yillar = d.iloc[1, 2:].tolist()
+        bolge = BOLGE_ADLARI.get(sayfa, sayfa)
+        etiketler = d.iloc[:, 1].tolist()
+        for etiket, ad in YATIRIM_SATIRLARI.items():
+            if etiket not in etiketler:
+                continue
+            satir = d.iloc[etiketler.index(etiket), 2:].tolist()
+            for yil, deger in zip(yillar, satir):
+                if pd.notna(yil) and pd.notna(deger):
+                    satirlar.append({"bolge": bolge, "kategori": ad, "yil": int(yil), "deger": float(deger)})
+    return pd.DataFrame(satirlar)
+
+
 def main(klasor: Path) -> None:
     lisans = list(klasor.glob("*Lisanslar*.xls"))
     onlisans = list(klasor.glob("*O_nlisanslar*.xls"))
@@ -79,6 +118,10 @@ def main(klasor: Path) -> None:
     if onlisans:
         epdk_tablosu(onlisans[0]).to_csv(DATA_DIR / "epdk_onlisans.csv", index=False, encoding="utf-8-sig")
         print("epdk_onlisans.csv yazıldı")
+    yatirim = list(klasor.glob("*WorldEnergyInvestment*.xlsx"))
+    if yatirim:
+        yatirim_tablosu(yatirim[0]).to_csv(DATA_DIR / "yatirim_bolge.csv", index=False, encoding="utf-8-sig")
+        print("yatirim_bolge.csv yazıldı")
     if weo:
         weo_dunya(weo[0]).to_csv(DATA_DIR / "weo_dunya.csv", index=False, encoding="utf-8-sig")
         print("weo_dunya.csv yazıldı")

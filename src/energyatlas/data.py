@@ -151,3 +151,8 @@ SENARYO_ADLARI = {
     "Net Zero Emissions by 2050 Scenario": "Net sıfır (2050)",
     "Historical": "Gerçekleşen",
 }
+
+
+def yatirim_bolge() -> pd.DataFrame:
+    """IEA Dünya Enerji Yatırımları 2025: bölge, kategori, yıl (milyar USD, 2024 MER)."""
+    return load_dataset("yatirim_bolge")

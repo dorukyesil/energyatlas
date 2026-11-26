@@ -1,0 +1,1453 @@
+﻿bolge,kategori,yil,deger
+World,Toplam,2015,2703.3
+World,Toplam,2016,2489.4
+World,Toplam,2017,2492.7
+World,Toplam,2018,2493.1
+World,Toplam,2019,2452.9
+World,Toplam,2020,2239.5
+World,Toplam,2021,2430.5
+World,Toplam,2022,2744.5
+World,Toplam,2023,3049.1
+World,Toplam,2024,3232.2
+World,Toplam,2025,3303.2
+World,Temiz enerji,2015,1209.9
+World,Temiz enerji,2016,1262.5
+World,Temiz enerji,2017,1285.1
+World,Temiz enerji,2018,1282.7
+World,Temiz enerji,2019,1287.8
+World,Temiz enerji,2020,1267.8
+World,Temiz enerji,2021,1392.6
+World,Temiz enerji,2022,1630.2
+World,Temiz enerji,2023,1870.2
+World,Temiz enerji,2024,2032.5
+World,Temiz enerji,2025,2154.5
+World,Fosil yakıtlar,2015,1308.3
+World,Fosil yakıtlar,2016,1050.2
+World,Fosil yakıtlar,2017,1045.6
+World,Fosil yakıtlar,2018,1067.8
+World,Fosil yakıtlar,2019,1038.7
+World,Fosil yakıtlar,2020,860.6
+World,Fosil yakıtlar,2021,921.6
+World,Fosil yakıtlar,2022,984.8
+World,Fosil yakıtlar,2023,1030.4
+World,Fosil yakıtlar,2024,1033.0
+World,Fosil yakıtlar,2025,1008.3
+World,Yakıtlar,2015,1314.6
+World,Yakıtlar,2016,1056.8
+World,Yakıtlar,2017,1052.3
+World,Yakıtlar,2018,1074.0
+World,Yakıtlar,2019,1045.6
+World,Yakıtlar,2020,867.4
+World,Yakıtlar,2021,929.9
+World,Yakıtlar,2022,998.5
+World,Yakıtlar,2023,1046.4
+World,Yakıtlar,2024,1053.4
+World,Yakıtlar,2025,1037.0
+World,Elektrik üretimi,2015,606.7
+World,Elektrik üretimi,2016,595.8
+World,Elektrik üretimi,2017,578.1
+World,Elektrik üretimi,2018,581.8
+World,Elektrik üretimi,2019,599.9
+World,Elektrik üretimi,2020,596.2
+World,Elektrik üretimi,2021,634.6
+World,Elektrik üretimi,2022,779.9
+World,Elektrik üretimi,2023,941.3
+World,Elektrik üretimi,2024,1004.8
+World,Elektrik üretimi,2025,1013.9
+World,Yenilenebilir elektrik,2015,374.1
+World,Yenilenebilir elektrik,2016,374.6
+World,Yenilenebilir elektrik,2017,377.4
+World,Yenilenebilir elektrik,2018,400.5
+World,Yenilenebilir elektrik,2019,430.0
+World,Yenilenebilir elektrik,2020,435.8
+World,Yenilenebilir elektrik,2021,455.6
+World,Yenilenebilir elektrik,2022,579.9
+World,Yenilenebilir elektrik,2023,721.9
+World,Yenilenebilir elektrik,2024,759.6
+World,Yenilenebilir elektrik,2025,780.0
+World,Güneş,2015,142.3
+World,Güneş,2016,171.0
+World,Güneş,2017,167.5
+World,Güneş,2018,181.3
+World,Güneş,2019,191.0
+World,Güneş,2020,190.3
+World,Güneş,2021,227.7
+World,Güneş,2022,336.6
+World,Güneş,2023,447.5
+World,Güneş,2024,455.2
+World,Güneş,2025,440.8
+World,Rüzgar,2015,143.1
+World,Rüzgar,2016,118.7
+World,Rüzgar,2017,124.7
+World,Rüzgar,2018,130.9
+World,Rüzgar,2019,150.1
+World,Rüzgar,2020,158.1
+World,Rüzgar,2021,142.2
+World,Rüzgar,2022,157.9
+World,Rüzgar,2023,187.0
+World,Rüzgar,2024,213.2
+World,Rüzgar,2025,242.0
+World,Nükleer,2015,45.5
+World,Nükleer,2016,42.7
+World,Nükleer,2017,37.3
+World,Nükleer,2018,37.4
+World,Nükleer,2019,41.6
+World,Nükleer,2020,47.4
+World,Nükleer,2021,59.5
+World,Nükleer,2022,66.6
+World,Nükleer,2023,67.8
+World,Nükleer,2024,72.1
+World,Nükleer,2025,73.8
+World,Batarya depolama,2015,0.5
+World,Batarya depolama,2016,1.0
+World,Batarya depolama,2017,1.7
+World,Batarya depolama,2018,3.2
+World,Batarya depolama,2019,3.1
+World,Batarya depolama,2020,5.2
+World,Batarya depolama,2021,9.4
+World,Batarya depolama,2022,22.5
+World,Batarya depolama,2023,39.3
+World,Batarya depolama,2024,57.2
+World,Batarya depolama,2025,65.5
+World,Elektrik şebekeleri,2015,331.5
+World,Elektrik şebekeleri,2016,342.3
+World,Elektrik şebekeleri,2017,332.4
+World,Elektrik şebekeleri,2018,322.7
+World,Elektrik şebekeleri,2019,302.0
+World,Elektrik şebekeleri,2020,298.6
+World,Elektrik şebekeleri,2021,310.1
+World,Elektrik şebekeleri,2022,322.4
+World,Elektrik şebekeleri,2023,356.2
+World,Elektrik şebekeleri,2024,387.6
+World,Elektrik şebekeleri,2025,413.3
+World,Enerji verimliliği,2015,301.5
+World,Enerji verimliliği,2016,319.8
+World,Enerji verimliliği,2017,341.5
+World,Enerji verimliliği,2018,347.2
+World,Enerji verimliliği,2019,347.2
+World,Enerji verimliliği,2020,293.2
+World,Enerji verimliliği,2021,323.1
+World,Enerji verimliliği,2022,347.2
+World,Enerji verimliliği,2023,370.1
+World,Enerji verimliliği,2024,424.8
+World,Enerji verimliliği,2025,429.2
+İleri ekonomiler,Toplam,2015,1176.9
+İleri ekonomiler,Toplam,2016,1028.4
+İleri ekonomiler,Toplam,2017,1056.2
+İleri ekonomiler,Toplam,2018,1084.2
+İleri ekonomiler,Toplam,2019,1061.9
+İleri ekonomiler,Toplam,2020,981.4
+İleri ekonomiler,Toplam,2021,1086.7
+İleri ekonomiler,Toplam,2022,1228.8
+İleri ekonomiler,Toplam,2023,1355.0
+İleri ekonomiler,Toplam,2024,1398.0
+İleri ekonomiler,Toplam,2025,1426.7
+İleri ekonomiler,Temiz enerji,2015,571.8
+İleri ekonomiler,Temiz enerji,2016,574.6
+İleri ekonomiler,Temiz enerji,2017,586.3
+İleri ekonomiler,Temiz enerji,2018,606.0
+İleri ekonomiler,Temiz enerji,2019,627.1
+İleri ekonomiler,Temiz enerji,2020,662.4
+İleri ekonomiler,Temiz enerji,2021,741.5
+İleri ekonomiler,Temiz enerji,2022,829.0
+İleri ekonomiler,Temiz enerji,2023,934.7
+İleri ekonomiler,Temiz enerji,2024,992.5
+İleri ekonomiler,Temiz enerji,2025,1065.8
+İleri ekonomiler,Fosil yakıtlar,2015,550.8
+İleri ekonomiler,Fosil yakıtlar,2016,402.3
+İleri ekonomiler,Fosil yakıtlar,2017,425.7
+İleri ekonomiler,Fosil yakıtlar,2018,441.5
+İleri ekonomiler,Fosil yakıtlar,2019,404.1
+İleri ekonomiler,Fosil yakıtlar,2020,290.8
+İleri ekonomiler,Fosil yakıtlar,2021,319.2
+İleri ekonomiler,Fosil yakıtlar,2022,373.2
+İleri ekonomiler,Fosil yakıtlar,2023,391.7
+İleri ekonomiler,Fosil yakıtlar,2024,376.9
+İleri ekonomiler,Fosil yakıtlar,2025,342.8
+İleri ekonomiler,Yakıtlar,2015,553.7
+İleri ekonomiler,Yakıtlar,2016,405.3
+İleri ekonomiler,Yakıtlar,2017,429.1
+İleri ekonomiler,Yakıtlar,2018,444.8
+İleri ekonomiler,Yakıtlar,2019,407.4
+İleri ekonomiler,Yakıtlar,2020,294.6
+İleri ekonomiler,Yakıtlar,2021,323.3
+İleri ekonomiler,Yakıtlar,2022,379.2
+İleri ekonomiler,Yakıtlar,2023,400.7
+İleri ekonomiler,Yakıtlar,2024,388.1
+İleri ekonomiler,Yakıtlar,2025,357.2
+İleri ekonomiler,Elektrik üretimi,2015,274.7
+İleri ekonomiler,Elektrik üretimi,2016,256.3
+İleri ekonomiler,Elektrik üretimi,2017,233.6
+İleri ekonomiler,Elektrik üretimi,2018,233.0
+İleri ekonomiler,Elektrik üretimi,2019,228.5
+İleri ekonomiler,Elektrik üretimi,2020,233.9
+İleri ekonomiler,Elektrik üretimi,2021,261.5
+İleri ekonomiler,Elektrik üretimi,2022,301.8
+İleri ekonomiler,Elektrik üretimi,2023,333.2
+İleri ekonomiler,Elektrik üretimi,2024,354.3
+İleri ekonomiler,Elektrik üretimi,2025,378.4
+İleri ekonomiler,Yenilenebilir elektrik,2015,197.1
+İleri ekonomiler,Yenilenebilir elektrik,2016,183.3
+İleri ekonomiler,Yenilenebilir elektrik,2017,171.8
+İleri ekonomiler,Yenilenebilir elektrik,2018,179.9
+İleri ekonomiler,Yenilenebilir elektrik,2019,180.7
+İleri ekonomiler,Yenilenebilir elektrik,2020,185.5
+İleri ekonomiler,Yenilenebilir elektrik,2021,205.9
+İleri ekonomiler,Yenilenebilir elektrik,2022,240.4
+İleri ekonomiler,Yenilenebilir elektrik,2023,273.3
+İleri ekonomiler,Yenilenebilir elektrik,2024,293.4
+İleri ekonomiler,Yenilenebilir elektrik,2025,320.3
+İleri ekonomiler,Güneş,2015,84.8
+İleri ekonomiler,Güneş,2016,82.0
+İleri ekonomiler,Güneş,2017,75.9
+İleri ekonomiler,Güneş,2018,93.2
+İleri ekonomiler,Güneş,2019,103.2
+İleri ekonomiler,Güneş,2020,107.4
+İleri ekonomiler,Güneş,2021,124.1
+İleri ekonomiler,Güneş,2022,152.4
+İleri ekonomiler,Güneş,2023,178.6
+İleri ekonomiler,Güneş,2024,175.5
+İleri ekonomiler,Güneş,2025,171.1
+İleri ekonomiler,Rüzgar,2015,78.8
+İleri ekonomiler,Rüzgar,2016,70.6
+İleri ekonomiler,Rüzgar,2017,66.5
+İleri ekonomiler,Rüzgar,2018,59.8
+İleri ekonomiler,Rüzgar,2019,53.0
+İleri ekonomiler,Rüzgar,2020,55.6
+İleri ekonomiler,Rüzgar,2021,59.5
+İleri ekonomiler,Rüzgar,2022,62.4
+İleri ekonomiler,Rüzgar,2023,64.2
+İleri ekonomiler,Rüzgar,2024,81.8
+İleri ekonomiler,Rüzgar,2025,108.4
+İleri ekonomiler,Nükleer,2015,21.8
+İleri ekonomiler,Nükleer,2016,20.2
+İleri ekonomiler,Nükleer,2017,16.9
+İleri ekonomiler,Nükleer,2018,15.8
+İleri ekonomiler,Nükleer,2019,16.3
+İleri ekonomiler,Nükleer,2020,19.2
+İleri ekonomiler,Nükleer,2021,28.3
+İleri ekonomiler,Nükleer,2022,33.0
+İleri ekonomiler,Nükleer,2023,30.1
+İleri ekonomiler,Nükleer,2024,29.1
+İleri ekonomiler,Nükleer,2025,27.7
+İleri ekonomiler,Batarya depolama,2015,0.4
+İleri ekonomiler,Batarya depolama,2016,0.9
+İleri ekonomiler,Batarya depolama,2017,1.5
+İleri ekonomiler,Batarya depolama,2018,2.5
+İleri ekonomiler,Batarya depolama,2019,2.3
+İleri ekonomiler,Batarya depolama,2020,3.8
+İleri ekonomiler,Batarya depolama,2021,7.5
+İleri ekonomiler,Batarya depolama,2022,16.3
+İleri ekonomiler,Batarya depolama,2023,27.9
+İleri ekonomiler,Batarya depolama,2024,34.7
+İleri ekonomiler,Batarya depolama,2025,44.4
+İleri ekonomiler,Elektrik şebekeleri,2015,139.7
+İleri ekonomiler,Elektrik şebekeleri,2016,140.5
+İleri ekonomiler,Elektrik şebekeleri,2017,144.1
+İleri ekonomiler,Elektrik şebekeleri,2018,147.4
+İleri ekonomiler,Elektrik şebekeleri,2019,151.7
+İleri ekonomiler,Elektrik şebekeleri,2020,159.0
+İleri ekonomiler,Elektrik şebekeleri,2021,171.5
+İleri ekonomiler,Elektrik şebekeleri,2022,177.0
+İleri ekonomiler,Elektrik şebekeleri,2023,200.4
+İleri ekonomiler,Elektrik şebekeleri,2024,221.4
+İleri ekonomiler,Elektrik şebekeleri,2025,236.1
+İleri ekonomiler,Enerji verimliliği,2015,146.0
+İleri ekonomiler,Enerji verimliliği,2016,156.0
+İleri ekonomiler,Enerji verimliliği,2017,164.4
+İleri ekonomiler,Enerji verimliliği,2018,168.5
+İleri ekonomiler,Enerji verimliliği,2019,174.2
+İleri ekonomiler,Enerji verimliliği,2020,175.1
+İleri ekonomiler,Enerji verimliliği,2021,187.6
+İleri ekonomiler,Enerji verimliliği,2022,199.0
+İleri ekonomiler,Enerji verimliliği,2023,211.3
+İleri ekonomiler,Enerji verimliliği,2024,213.9
+İleri ekonomiler,Enerji verimliliği,2025,211.0
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2015,1439.7
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2016,1377.6
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2017,1346.1
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2018,1317.3
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2019,1308.2
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2020,1226.8
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2021,1297.6
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2022,1455.2
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2023,1632.8
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2024,1732.8
+Gelişmekte olan ekonomiler (çin hariç),Toplam,2025,1768.6
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2015,580.4
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2016,636.3
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2017,639.1
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2018,614.6
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2019,605.6
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2020,601.8
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2021,632.6
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2022,769.0
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2023,902.4
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2024,967.2
+Gelişmekte olan ekonomiler (çin hariç),Temiz enerji,2025,1009.2
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2015,728.6
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2016,616.3
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2017,589.3
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2018,596.8
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2019,606.8
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2020,542.1
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2021,574.7
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2022,583.3
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2023,610.4
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2024,627.5
+Gelişmekte olan ekonomiler (çin hariç),Fosil yakıtlar,2025,637.2
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2015,732.0
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2016,619.9
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2017,592.5
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2018,599.7
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2019,610.3
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2020,545.2
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2021,578.9
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2022,591.0
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2023,617.5
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2024,636.6
+Gelişmekte olan ekonomiler (çin hariç),Yakıtlar,2025,651.3
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2015,332.0
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2016,339.5
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2017,344.4
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2018,348.9
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2019,371.3
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2020,362.4
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2021,373.1
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2022,478.1
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2023,608.1
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2024,650.5
+Gelişmekte olan ekonomiler (çin hariç),Elektrik üretimi,2025,635.6
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2015,177.0
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2016,191.3
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2017,205.6
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2018,220.6
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2019,249.3
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2020,250.3
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2021,249.7
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2022,339.5
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2023,448.5
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2024,466.2
+Gelişmekte olan ekonomiler (çin hariç),Yenilenebilir elektrik,2025,459.7
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2015,57.5
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2016,89.0
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2017,91.6
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2018,88.1
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2019,87.8
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2020,82.9
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2021,103.6
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2022,184.2
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2023,268.9
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2024,279.7
+Gelişmekte olan ekonomiler (çin hariç),Güneş,2025,269.7
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2015,64.2
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2016,48.0
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2017,58.3
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2018,71.1
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2019,97.0
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2020,102.4
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2021,82.7
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2022,95.6
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2023,122.8
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2024,131.4
+Gelişmekte olan ekonomiler (çin hariç),Rüzgar,2025,133.6
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2015,23.7
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2016,22.5
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2017,20.4
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2018,21.6
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2019,25.3
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2020,28.2
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2021,31.2
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2022,33.6
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2023,37.7
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2024,43.0
+Gelişmekte olan ekonomiler (çin hariç),Nükleer,2025,46.1
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2015,0.0
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2016,0.1
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2017,0.2
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2018,0.7
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2019,0.8
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2020,1.4
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2021,1.9
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2022,6.2
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2023,11.4
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2024,22.5
+Gelişmekte olan ekonomiler (çin hariç),Batarya depolama,2025,21.1
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2015,191.8
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2016,201.8
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2017,188.2
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2018,175.3
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2019,150.3
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2020,139.7
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2021,138.7
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2022,145.4
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2023,155.8
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2024,166.2
+Gelişmekte olan ekonomiler (çin hariç),Elektrik şebekeleri,2025,177.2
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2015,97.7
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2016,112.2
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2017,117.3
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2018,116.6
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2019,118.0
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2020,114.5
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2021,117.0
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2022,116.0
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2023,125.7
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2024,138.6
+Gelişmekte olan ekonomiler (çin hariç),Enerji verimliliği,2025,139.7
+China,Toplam,2015,535.3
+China,Toplam,2016,547.6
+China,Toplam,2017,564.8
+China,Toplam,2018,561.9
+China,Toplam,2019,588.8
+China,Toplam,2020,570.9
+China,Toplam,2021,589.9
+China,Toplam,2022,721.8
+China,Toplam,2023,844.4
+China,Toplam,2024,883.6
+China,Toplam,2025,892.8
+China,Temiz enerji,2015,318.4
+China,Temiz enerji,2016,366.1
+China,Temiz enerji,2017,380.9
+China,Temiz enerji,2018,366.0
+China,Temiz enerji,2019,370.6
+China,Temiz enerji,2020,371.6
+China,Temiz enerji,2021,377.0
+China,Temiz enerji,2022,485.6
+China,Temiz enerji,2023,590.5
+China,Temiz enerji,2024,625.3
+China,Temiz enerji,2025,627.8
+China,Fosil yakıtlar,2015,164.3
+China,Fosil yakıtlar,2016,132.8
+China,Fosil yakıtlar,2017,137.8
+China,Fosil yakıtlar,2018,153.0
+China,Fosil yakıtlar,2019,178.1
+China,Fosil yakıtlar,2020,164.7
+China,Fosil yakıtlar,2021,177.0
+China,Fosil yakıtlar,2022,193.5
+China,Fosil yakıtlar,2023,202.7
+China,Fosil yakıtlar,2024,195.1
+China,Fosil yakıtlar,2025,199.9
+China,Yakıtlar,2015,165.1
+China,Yakıtlar,2016,134.0
+China,Yakıtlar,2017,139.1
+China,Yakıtlar,2018,154.0
+China,Yakıtlar,2019,178.9
+China,Yakıtlar,2020,165.3
+China,Yakıtlar,2021,178.7
+China,Yakıtlar,2022,197.4
+China,Yakıtlar,2023,205.4
+China,Yakıtlar,2024,198.6
+China,Yakıtlar,2025,206.1
+China,Elektrik üretimi,2015,175.9
+China,Elektrik üretimi,2016,184.3
+China,Elektrik üretimi,2017,195.6
+China,Elektrik üretimi,2018,194.7
+China,Elektrik üretimi,2019,216.7
+China,Elektrik üretimi,2020,218.7
+China,Elektrik üretimi,2021,212.6
+China,Elektrik üretimi,2022,294.6
+China,Elektrik üretimi,2023,401.6
+China,Elektrik üretimi,2024,428.8
+China,Elektrik üretimi,2025,416.4
+China,Yenilenebilir elektrik,2015,109.6
+China,Yenilenebilir elektrik,2016,123.1
+China,Yenilenebilir elektrik,2017,139.1
+China,Yenilenebilir elektrik,2018,143.0
+China,Yenilenebilir elektrik,2019,168.1
+China,Yenilenebilir elektrik,2020,174.9
+China,Yenilenebilir elektrik,2021,166.1
+China,Yenilenebilir elektrik,2022,239.3
+China,Yenilenebilir elektrik,2023,334.6
+China,Yenilenebilir elektrik,2024,344.6
+China,Yenilenebilir elektrik,2025,326.7
+China,Güneş,2015,41.1
+China,Güneş,2016,66.4
+China,Güneş,2017,65.4
+China,Güneş,2018,46.7
+China,Güneş,2019,43.3
+China,Güneş,2020,48.7
+China,Güneş,2021,65.6
+China,Güneş,2022,135.5
+China,Güneş,2023,211.7
+China,Güneş,2024,218.9
+China,Güneş,2025,203.9
+China,Rüzgar,2015,48.7
+China,Rüzgar,2016,32.2
+China,Rüzgar,2017,41.4
+China,Rüzgar,2018,56.1
+China,Rüzgar,2019,81.9
+China,Rüzgar,2020,85.8
+China,Rüzgar,2021,65.8
+China,Rüzgar,2022,76.4
+China,Rüzgar,2023,100.8
+China,Rüzgar,2024,107.0
+China,Rüzgar,2025,105.4
+China,Nükleer,2015,13.7
+China,Nükleer,2016,12.5
+China,Nükleer,2017,10.3
+China,Nükleer,2018,8.7
+China,Nükleer,2019,8.3
+China,Nükleer,2020,9.1
+China,Nükleer,2021,10.4
+China,Nükleer,2022,11.9
+China,Nükleer,2023,14.9
+China,Nükleer,2024,19.0
+China,Nükleer,2025,21.9
+China,Batarya depolama,2015,0.0
+China,Batarya depolama,2016,0.1
+China,Batarya depolama,2017,0.2
+China,Batarya depolama,2018,0.6
+China,Batarya depolama,2019,0.7
+China,Batarya depolama,2020,1.3
+China,Batarya depolama,2021,1.8
+China,Batarya depolama,2022,5.9
+China,Batarya depolama,2023,11.1
+China,Batarya depolama,2024,21.6
+China,Batarya depolama,2025,19.3
+China,Elektrik şebekeleri,2015,79.3
+China,Elektrik şebekeleri,2016,92.0
+China,Elektrik şebekeleri,2017,87.0
+China,Elektrik şebekeleri,2018,84.6
+China,Elektrik şebekeleri,2019,77.3
+China,Elektrik şebekeleri,2020,74.6
+China,Elektrik şebekeleri,2021,70.9
+China,Elektrik şebekeleri,2022,76.6
+China,Elektrik şebekeleri,2023,76.6
+China,Elektrik şebekeleri,2024,83.1
+China,Elektrik şebekeleri,2025,88.6
+China,Enerji verimliliği,2015,67.2
+China,Enerji verimliliği,2016,72.0
+China,Enerji verimliliği,2017,73.4
+China,Enerji verimliliği,2018,70.2
+China,Enerji verimliliği,2019,70.9
+China,Enerji verimliliği,2020,68.9
+China,Enerji verimliliği,2021,66.1
+China,Enerji verimliliği,2022,60.5
+China,Enerji verimliliği,2023,66.1
+China,Enerji verimliliği,2024,70.7
+China,Enerji verimliliği,2025,71.2
+North America,Toplam,2015,622.3
+North America,Toplam,2016,527.6
+North America,Toplam,2017,558.8
+North America,Toplam,2018,584.2
+North America,Toplam,2019,570.6
+North America,Toplam,2020,485.0
+North America,Toplam,2021,529.2
+North America,Toplam,2022,613.1
+North America,Toplam,2023,681.4
+North America,Toplam,2024,701.0
+North America,Toplam,2025,690.4
+North America,Temiz enerji,2015,238.2
+North America,Temiz enerji,2016,242.0
+North America,Temiz enerji,2017,240.1
+North America,Temiz enerji,2018,244.7
+North America,Temiz enerji,2019,260.3
+North America,Temiz enerji,2020,267.7
+North America,Temiz enerji,2021,289.8
+North America,Temiz enerji,2022,320.7
+North America,Temiz enerji,2023,373.2
+North America,Temiz enerji,2024,408.6
+North America,Temiz enerji,2025,441.0
+North America,Fosil yakıtlar,2015,362.9
+North America,Fosil yakıtlar,2016,263.0
+North America,Fosil yakıtlar,2017,298.9
+North America,Fosil yakıtlar,2018,324.3
+North America,Fosil yakıtlar,2019,299.0
+North America,Fosil yakıtlar,2020,205.8
+North America,Fosil yakıtlar,2021,229.7
+North America,Fosil yakıtlar,2022,281.8
+North America,Fosil yakıtlar,2023,295.8
+North America,Fosil yakıtlar,2024,279.7
+North America,Fosil yakıtlar,2025,240.0
+North America,Yakıtlar,2015,364.5
+North America,Yakıtlar,2016,264.7
+North America,Yakıtlar,2017,300.8
+North America,Yakıtlar,2018,325.8
+North America,Yakıtlar,2019,300.7
+North America,Yakıtlar,2020,207.7
+North America,Yakıtlar,2021,231.6
+North America,Yakıtlar,2022,285.3
+North America,Yakıtlar,2023,300.4
+North America,Yakıtlar,2024,285.4
+North America,Yakıtlar,2025,246.9
+North America,Elektrik üretimi,2015,102.0
+North America,Elektrik üretimi,2016,99.8
+North America,Elektrik üretimi,2017,83.5
+North America,Elektrik üretimi,2018,83.4
+North America,Elektrik üretimi,2019,84.3
+North America,Elektrik üretimi,2020,84.7
+North America,Elektrik üretimi,2021,86.5
+North America,Elektrik üretimi,2022,100.0
+North America,Elektrik üretimi,2023,120.1
+North America,Elektrik üretimi,2024,133.4
+North America,Elektrik üretimi,2025,143.3
+North America,Yenilenebilir elektrik,2015,66.3
+North America,Yenilenebilir elektrik,2016,64.2
+North America,Yenilenebilir elektrik,2017,52.4
+North America,Yenilenebilir elektrik,2018,58.4
+North America,Yenilenebilir elektrik,2019,65.4
+North America,Yenilenebilir elektrik,2020,68.2
+North America,Yenilenebilir elektrik,2021,70.6
+North America,Yenilenebilir elektrik,2022,79.8
+North America,Yenilenebilir elektrik,2023,96.1
+North America,Yenilenebilir elektrik,2024,107.4
+North America,Yenilenebilir elektrik,2025,116.4
+North America,Güneş,2015,35.1
+North America,Güneş,2016,39.8
+North America,Güneş,2017,30.7
+North America,Güneş,2018,34.7
+North America,Güneş,2019,40.7
+North America,Güneş,2020,43.8
+North America,Güneş,2021,49.7
+North America,Güneş,2022,60.2
+North America,Güneş,2023,76.2
+North America,Güneş,2024,83.5
+North America,Güneş,2025,84.5
+North America,Rüzgar,2015,24.7
+North America,Rüzgar,2016,20.2
+North America,Rüzgar,2017,17.4
+North America,Rüzgar,2018,19.4
+North America,Rüzgar,2019,20.5
+North America,Rüzgar,2020,20.1
+North America,Rüzgar,2021,16.1
+North America,Rüzgar,2022,13.4
+North America,Rüzgar,2023,11.8
+North America,Rüzgar,2024,14.3
+North America,Rüzgar,2025,20.8
+North America,Nükleer,2015,13.2
+North America,Nükleer,2016,12.0
+North America,Nükleer,2017,10.8
+North America,Nükleer,2018,9.4
+North America,Nükleer,2019,7.0
+North America,Nükleer,2020,4.4
+North America,Nükleer,2021,5.1
+North America,Nükleer,2022,8.2
+North America,Nükleer,2023,10.7
+North America,Nükleer,2024,12.0
+North America,Nükleer,2025,10.2
+North America,Batarya depolama,2015,0.2
+North America,Batarya depolama,2016,0.2
+North America,Batarya depolama,2017,0.3
+North America,Batarya depolama,2018,0.5
+North America,Batarya depolama,2019,0.7
+North America,Batarya depolama,2020,1.7
+North America,Batarya depolama,2021,3.8
+North America,Batarya depolama,2022,8.8
+North America,Batarya depolama,2023,13.1
+North America,Batarya depolama,2024,17.0
+North America,Batarya depolama,2025,20.4
+North America,Elektrik şebekeleri,2015,69.2
+North America,Elektrik şebekeleri,2016,70.8
+North America,Elektrik şebekeleri,2017,72.6
+North America,Elektrik şebekeleri,2018,73.0
+North America,Elektrik şebekeleri,2019,75.8
+North America,Elektrik şebekeleri,2020,81.1
+North America,Elektrik şebekeleri,2021,88.8
+North America,Elektrik şebekeleri,2022,93.3
+North America,Elektrik şebekeleri,2023,103.3
+North America,Elektrik şebekeleri,2024,113.5
+North America,Elektrik şebekeleri,2025,121.0
+North America,Enerji verimliliği,2015,61.9
+North America,Enerji verimliliği,2016,64.5
+North America,Enerji verimliliği,2017,68.0
+North America,Enerji verimliliği,2018,67.2
+North America,Enerji verimliliği,2019,70.1
+North America,Enerji verimliliği,2020,70.0
+North America,Enerji verimliliği,2021,74.4
+North America,Enerji verimliliği,2022,79.0
+North America,Enerji verimliliği,2023,84.3
+North America,Enerji verimliliği,2024,87.4
+North America,Enerji verimliliği,2025,84.2
+Central and South America,Toplam,2015,148.9
+Central and South America,Toplam,2016,126.6
+Central and South America,Toplam,2017,106.6
+Central and South America,Toplam,2018,100.3
+Central and South America,Toplam,2019,97.6
+Central and South America,Toplam,2020,89.2
+Central and South America,Toplam,2021,105.5
+Central and South America,Toplam,2022,114.5
+Central and South America,Toplam,2023,137.2
+Central and South America,Toplam,2024,134.7
+Central and South America,Toplam,2025,133.5
+Central and South America,Temiz enerji,2015,48.5
+Central and South America,Temiz enerji,2016,47.4
+Central and South America,Temiz enerji,2017,41.9
+Central and South America,Temiz enerji,2018,41.4
+Central and South America,Temiz enerji,2019,40.7
+Central and South America,Temiz enerji,2020,43.5
+Central and South America,Temiz enerji,2021,47.1
+Central and South America,Temiz enerji,2022,50.4
+Central and South America,Temiz enerji,2023,61.3
+Central and South America,Temiz enerji,2024,56.2
+Central and South America,Temiz enerji,2025,59.0
+Central and South America,Fosil yakıtlar,2015,95.0
+Central and South America,Fosil yakıtlar,2016,73.9
+Central and South America,Fosil yakıtlar,2017,59.6
+Central and South America,Fosil yakıtlar,2018,54.2
+Central and South America,Fosil yakıtlar,2019,53.1
+Central and South America,Fosil yakıtlar,2020,43.2
+Central and South America,Fosil yakıtlar,2021,55.9
+Central and South America,Fosil yakıtlar,2022,61.8
+Central and South America,Fosil yakıtlar,2023,73.1
+Central and South America,Fosil yakıtlar,2024,75.2
+Central and South America,Fosil yakıtlar,2025,74.3
+Central and South America,Yakıtlar,2015,96.0
+Central and South America,Yakıtlar,2016,74.7
+Central and South America,Yakıtlar,2017,60.4
+Central and South America,Yakıtlar,2018,55.2
+Central and South America,Yakıtlar,2019,54.4
+Central and South America,Yakıtlar,2020,44.3
+Central and South America,Yakıtlar,2021,57.4
+Central and South America,Yakıtlar,2022,63.3
+Central and South America,Yakıtlar,2023,75.5
+Central and South America,Yakıtlar,2024,78.0
+Central and South America,Yakıtlar,2025,77.7
+Central and South America,Elektrik üretimi,2015,32.0
+Central and South America,Elektrik üretimi,2016,26.8
+Central and South America,Elektrik üretimi,2017,22.9
+Central and South America,Elektrik üretimi,2018,22.4
+Central and South America,Elektrik üretimi,2019,21.3
+Central and South America,Elektrik üretimi,2020,21.2
+Central and South America,Elektrik üretimi,2021,25.3
+Central and South America,Elektrik üretimi,2022,28.4
+Central and South America,Elektrik üretimi,2023,28.8
+Central and South America,Elektrik üretimi,2024,27.4
+Central and South America,Elektrik üretimi,2025,24.6
+Central and South America,Yenilenebilir elektrik,2015,26.3
+Central and South America,Yenilenebilir elektrik,2016,21.3
+Central and South America,Yenilenebilir elektrik,2017,17.7
+Central and South America,Yenilenebilir elektrik,2018,17.5
+Central and South America,Yenilenebilir elektrik,2019,17.2
+Central and South America,Yenilenebilir elektrik,2020,18.4
+Central and South America,Yenilenebilir elektrik,2021,22.4
+Central and South America,Yenilenebilir elektrik,2022,25.1
+Central and South America,Yenilenebilir elektrik,2023,24.7
+Central and South America,Yenilenebilir elektrik,2024,22.6
+Central and South America,Yenilenebilir elektrik,2025,21.4
+Central and South America,Güneş,2015,4.3
+Central and South America,Güneş,2016,4.3
+Central and South America,Güneş,2017,4.8
+Central and South America,Güneş,2018,6.2
+Central and South America,Güneş,2019,6.3
+Central and South America,Güneş,2020,7.0
+Central and South America,Güneş,2021,10.1
+Central and South America,Güneş,2022,12.1
+Central and South America,Güneş,2023,11.9
+Central and South America,Güneş,2024,10.2
+Central and South America,Güneş,2025,8.4
+Central and South America,Rüzgar,2015,8.4
+Central and South America,Rüzgar,2016,7.1
+Central and South America,Rüzgar,2017,6.4
+Central and South America,Rüzgar,2018,5.5
+Central and South America,Rüzgar,2019,5.1
+Central and South America,Rüzgar,2020,5.9
+Central and South America,Rüzgar,2021,6.6
+Central and South America,Rüzgar,2022,6.9
+Central and South America,Rüzgar,2023,6.3
+Central and South America,Rüzgar,2024,5.9
+Central and South America,Rüzgar,2025,6.2
+Central and South America,Nükleer,2015,0.3
+Central and South America,Nükleer,2016,0.2
+Central and South America,Nükleer,2017,0.0
+Central and South America,Nükleer,2018,0.0
+Central and South America,Nükleer,2019,0.0
+Central and South America,Nükleer,2020,0.0
+Central and South America,Nükleer,2021,0.0
+Central and South America,Nükleer,2022,0.5
+Central and South America,Nükleer,2023,0.9
+Central and South America,Nükleer,2024,0.9
+Central and South America,Nükleer,2025,0.8
+Central and South America,Batarya depolama,2015,0.0
+Central and South America,Batarya depolama,2016,0.0
+Central and South America,Batarya depolama,2017,0.0
+Central and South America,Batarya depolama,2018,0.0
+Central and South America,Batarya depolama,2019,0.0
+Central and South America,Batarya depolama,2020,0.0
+Central and South America,Batarya depolama,2021,0.0
+Central and South America,Batarya depolama,2022,0.0
+Central and South America,Batarya depolama,2023,0.3
+Central and South America,Batarya depolama,2024,0.4
+Central and South America,Batarya depolama,2025,0.4
+Central and South America,Elektrik şebekeleri,2015,13.4
+Central and South America,Elektrik şebekeleri,2016,14.0
+Central and South America,Elektrik şebekeleri,2017,13.7
+Central and South America,Elektrik şebekeleri,2018,12.7
+Central and South America,Elektrik şebekeleri,2019,11.7
+Central and South America,Elektrik şebekeleri,2020,9.7
+Central and South America,Elektrik şebekeleri,2021,10.2
+Central and South America,Elektrik şebekeleri,2022,8.5
+Central and South America,Elektrik şebekeleri,2023,17.2
+Central and South America,Elektrik şebekeleri,2024,10.7
+Central and South America,Elektrik şebekeleri,2025,11.4
+Central and South America,Enerji verimliliği,2015,6.0
+Central and South America,Enerji verimliliği,2016,7.3
+Central and South America,Enerji verimliliği,2017,7.7
+Central and South America,Enerji verimliliği,2018,8.4
+Central and South America,Enerji verimliliği,2019,8.8
+Central and South America,Enerji verimliliği,2020,9.2
+Central and South America,Enerji verimliliği,2021,10.7
+Central and South America,Enerji verimliliği,2022,12.0
+Central and South America,Enerji verimliliği,2023,12.7
+Central and South America,Enerji verimliliği,2024,13.5
+Central and South America,Enerji verimliliği,2025,14.0
+Europe,Toplam,2015,369.3
+Europe,Toplam,2016,344.7
+Europe,Toplam,2017,352.8
+Europe,Toplam,2018,362.3
+Europe,Toplam,2019,365.5
+Europe,Toplam,2020,375.6
+Europe,Toplam,2021,432.4
+Europe,Toplam,2022,478.8
+Europe,Toplam,2023,526.6
+Europe,Toplam,2024,544.2
+Europe,Toplam,2025,575.8
+Europe,Temiz enerji,2015,247.6
+Europe,Temiz enerji,2016,249.2
+Europe,Temiz enerji,2017,260.7
+Europe,Temiz enerji,2018,273.0
+Europe,Temiz enerji,2019,279.1
+Europe,Temiz enerji,2020,304.0
+Europe,Temiz enerji,2021,355.6
+Europe,Temiz enerji,2022,404.9
+Europe,Temiz enerji,2023,448.3
+Europe,Temiz enerji,2024,462.1
+Europe,Temiz enerji,2025,494.4
+Europe,Fosil yakıtlar,2015,102.6
+Europe,Fosil yakıtlar,2016,79.2
+Europe,Fosil yakıtlar,2017,78.0
+Europe,Fosil yakıtlar,2018,76.6
+Europe,Fosil yakıtlar,2019,75.0
+Europe,Fosil yakıtlar,2020,61.7
+Europe,Fosil yakıtlar,2021,66.0
+Europe,Fosil yakıtlar,2022,62.7
+Europe,Fosil yakıtlar,2023,66.4
+Europe,Fosil yakıtlar,2024,69.2
+Europe,Fosil yakıtlar,2025,75.4
+Europe,Yakıtlar,2015,103.8
+Europe,Yakıtlar,2016,80.5
+Europe,Yakıtlar,2017,79.5
+Europe,Yakıtlar,2018,78.3
+Europe,Yakıtlar,2019,76.5
+Europe,Yakıtlar,2020,63.3
+Europe,Yakıtlar,2021,68.0
+Europe,Yakıtlar,2022,64.9
+Europe,Yakıtlar,2023,69.9
+Europe,Yakıtlar,2024,74.0
+Europe,Yakıtlar,2025,81.9
+Europe,Elektrik üretimi,2015,117.6
+Europe,Elektrik üretimi,2016,108.4
+Europe,Elektrik üretimi,2017,103.6
+Europe,Elektrik üretimi,2018,105.3
+Europe,Elektrik üretimi,2019,103.8
+Europe,Elektrik üretimi,2020,109.9
+Europe,Elektrik üretimi,2021,136.8
+Europe,Elektrik üretimi,2022,161.7
+Europe,Elektrik üretimi,2023,167.6
+Europe,Elektrik üretimi,2024,169.1
+Europe,Elektrik üretimi,2025,177.4
+Europe,Yenilenebilir elektrik,2015,92.0
+Europe,Yenilenebilir elektrik,2016,85.7
+Europe,Yenilenebilir elektrik,2017,84.0
+Europe,Yenilenebilir elektrik,2018,86.1
+Europe,Yenilenebilir elektrik,2019,82.4
+Europe,Yenilenebilir elektrik,2020,84.0
+Europe,Yenilenebilir elektrik,2021,102.0
+Europe,Yenilenebilir elektrik,2022,124.2
+Europe,Yenilenebilir elektrik,2023,135.4
+Europe,Yenilenebilir elektrik,2024,138.1
+Europe,Yenilenebilir elektrik,2025,149.9
+Europe,Güneş,2015,16.8
+Europe,Güneş,2016,14.6
+Europe,Güneş,2017,15.9
+Europe,Güneş,2018,30.2
+Europe,Güneş,2019,37.8
+Europe,Güneş,2020,38.7
+Europe,Güneş,2021,50.8
+Europe,Güneş,2022,67.9
+Europe,Güneş,2023,77.2
+Europe,Güneş,2024,68.1
+Europe,Güneş,2025,64.4
+Europe,Rüzgar,2015,51.5
+Europe,Rüzgar,2016,47.9
+Europe,Rüzgar,2017,46.8
+Europe,Rüzgar,2018,37.7
+Europe,Rüzgar,2019,29.1
+Europe,Rüzgar,2020,32.1
+Europe,Rüzgar,2021,38.8
+Europe,Rüzgar,2022,41.7
+Europe,Rüzgar,2023,40.4
+Europe,Rüzgar,2024,48.3
+Europe,Rüzgar,2025,61.2
+Europe,Nükleer,2015,6.4
+Europe,Nükleer,2016,6.2
+Europe,Nükleer,2017,5.2
+Europe,Nükleer,2018,6.2
+Europe,Nükleer,2019,9.7
+Europe,Nükleer,2020,15.6
+Europe,Nükleer,2021,23.8
+Europe,Nükleer,2022,26.0
+Europe,Nükleer,2023,19.8
+Europe,Nükleer,2024,16.2
+Europe,Nükleer,2025,17.3
+Europe,Batarya depolama,2015,0.2
+Europe,Batarya depolama,2016,0.4
+Europe,Batarya depolama,2017,0.6
+Europe,Batarya depolama,2018,0.9
+Europe,Batarya depolama,2019,0.9
+Europe,Batarya depolama,2020,1.2
+Europe,Batarya depolama,2021,3.1
+Europe,Batarya depolama,2022,6.8
+Europe,Batarya depolama,2023,13.3
+Europe,Batarya depolama,2024,16.0
+Europe,Batarya depolama,2025,21.1
+Europe,Elektrik şebekeleri,2015,54.1
+Europe,Elektrik şebekeleri,2016,53.0
+Europe,Elektrik şebekeleri,2017,53.3
+Europe,Elektrik şebekeleri,2018,54.9
+Europe,Elektrik şebekeleri,2019,55.0
+Europe,Elektrik şebekeleri,2020,56.8
+Europe,Elektrik şebekeleri,2021,61.0
+Europe,Elektrik şebekeleri,2022,61.2
+Europe,Elektrik şebekeleri,2023,74.8
+Europe,Elektrik şebekeleri,2024,83.6
+Europe,Elektrik şebekeleri,2025,89.1
+Europe,Enerji verimliliği,2015,60.5
+Europe,Enerji verimliliği,2016,65.2
+Europe,Enerji verimliliği,2017,70.6
+Europe,Enerji verimliliği,2018,74.4
+Europe,Enerji verimliliği,2019,76.2
+Europe,Enerji verimliliği,2020,77.2
+Europe,Enerji verimliliği,2021,83.9
+Europe,Enerji verimliliği,2022,90.0
+Europe,Enerji verimliliği,2023,95.3
+Europe,Enerji verimliliği,2024,94.9
+Europe,Enerji verimliliği,2025,94.7
+Africa,Toplam,2015,153.4
+Africa,Toplam,2016,128.8
+Africa,Toplam,2017,111.4
+Africa,Toplam,2018,101.2
+Africa,Toplam,2019,95.6
+Africa,Toplam,2020,76.3
+Africa,Toplam,2021,82.8
+Africa,Toplam,2022,92.3
+Africa,Toplam,2023,107.5
+Africa,Toplam,2024,116.7
+Africa,Toplam,2025,104.4
+Africa,Temiz enerji,2015,28.7
+Africa,Temiz enerji,2016,29.2
+Africa,Temiz enerji,2017,27.2
+Africa,Temiz enerji,2018,26.1
+Africa,Temiz enerji,2019,24.7
+Africa,Temiz enerji,2020,25.2
+Africa,Temiz enerji,2021,29.9
+Africa,Temiz enerji,2022,35.9
+Africa,Temiz enerji,2023,40.4
+Africa,Temiz enerji,2024,47.4
+Africa,Temiz enerji,2025,50.2
+Africa,Fosil yakıtlar,2015,111.9
+Africa,Fosil yakıtlar,2016,86.2
+Africa,Fosil yakıtlar,2017,72.3
+Africa,Fosil yakıtlar,2018,66.8
+Africa,Fosil yakıtlar,2019,64.6
+Africa,Fosil yakıtlar,2020,46.5
+Africa,Fosil yakıtlar,2021,47.9
+Africa,Fosil yakıtlar,2022,52.0
+Africa,Fosil yakıtlar,2023,62.7
+Africa,Fosil yakıtlar,2024,64.8
+Africa,Fosil yakıtlar,2025,53.2
+Africa,Yakıtlar,2015,112.1
+Africa,Yakıtlar,2016,86.6
+Africa,Yakıtlar,2017,72.7
+Africa,Yakıtlar,2018,67.0
+Africa,Yakıtlar,2019,64.7
+Africa,Yakıtlar,2020,46.6
+Africa,Yakıtlar,2021,47.9
+Africa,Yakıtlar,2022,52.1
+Africa,Yakıtlar,2023,62.8
+Africa,Yakıtlar,2024,64.9
+Africa,Yakıtlar,2025,53.3
+Africa,Elektrik üretimi,2015,24.3
+Africa,Elektrik üretimi,2016,24.0
+Africa,Elektrik üretimi,2017,21.0
+Africa,Elektrik üretimi,2018,17.2
+Africa,Elektrik üretimi,2019,15.5
+Africa,Elektrik üretimi,2020,15.2
+Africa,Elektrik üretimi,2021,17.7
+Africa,Elektrik üretimi,2022,20.9
+Africa,Elektrik üretimi,2023,23.6
+Africa,Elektrik üretimi,2024,24.8
+Africa,Elektrik üretimi,2025,23.9
+Africa,Yenilenebilir elektrik,2015,11.4
+Africa,Yenilenebilir elektrik,2016,10.5
+Africa,Yenilenebilir elektrik,2017,9.0
+Africa,Yenilenebilir elektrik,2018,8.9
+Africa,Yenilenebilir elektrik,2019,9.2
+Africa,Yenilenebilir elektrik,2020,10.5
+Africa,Yenilenebilir elektrik,2021,12.7
+Africa,Yenilenebilir elektrik,2022,16.1
+Africa,Yenilenebilir elektrik,2023,18.4
+Africa,Yenilenebilir elektrik,2024,19.5
+Africa,Yenilenebilir elektrik,2025,21.0
+Africa,Güneş,2015,2.8
+Africa,Güneş,2016,3.1
+Africa,Güneş,2017,3.3
+Africa,Güneş,2018,3.9
+Africa,Güneş,2019,3.5
+Africa,Güneş,2020,3.9
+Africa,Güneş,2021,5.4
+Africa,Güneş,2022,7.9
+Africa,Güneş,2023,9.1
+Africa,Güneş,2024,9.3
+Africa,Güneş,2025,10.3
+Africa,Rüzgar,2015,2.2
+Africa,Rüzgar,2016,1.6
+Africa,Rüzgar,2017,1.0
+Africa,Rüzgar,2018,0.8
+Africa,Rüzgar,2019,1.3
+Africa,Rüzgar,2020,1.6
+Africa,Rüzgar,2021,1.4
+Africa,Rüzgar,2022,1.9
+Africa,Rüzgar,2023,3.1
+Africa,Rüzgar,2024,4.3
+Africa,Rüzgar,2025,5.1
+Africa,Nükleer,2015,0.0
+Africa,Nükleer,2016,0.0
+Africa,Nükleer,2017,0.0
+Africa,Nükleer,2018,0.0
+Africa,Nükleer,2019,0.0
+Africa,Nükleer,2020,0.0
+Africa,Nükleer,2021,0.0
+Africa,Nükleer,2022,0.4
+Africa,Nükleer,2023,0.7
+Africa,Nükleer,2024,0.7
+Africa,Nükleer,2025,1.1
+Africa,Batarya depolama,2015,0.0
+Africa,Batarya depolama,2016,0.0
+Africa,Batarya depolama,2017,0.0
+Africa,Batarya depolama,2018,0.0
+Africa,Batarya depolama,2019,0.0
+Africa,Batarya depolama,2020,0.0
+Africa,Batarya depolama,2021,0.0
+Africa,Batarya depolama,2022,0.0
+Africa,Batarya depolama,2023,0.0
+Africa,Batarya depolama,2024,0.0
+Africa,Batarya depolama,2025,0.0
+Africa,Elektrik şebekeleri,2015,12.2
+Africa,Elektrik şebekeleri,2016,12.0
+Africa,Elektrik şebekeleri,2017,11.1
+Africa,Elektrik şebekeleri,2018,10.0
+Africa,Elektrik şebekeleri,2019,8.0
+Africa,Elektrik şebekeleri,2020,6.6
+Africa,Elektrik şebekeleri,2021,7.8
+Africa,Elektrik şebekeleri,2022,9.2
+Africa,Elektrik şebekeleri,2023,9.1
+Africa,Elektrik şebekeleri,2024,12.8
+Africa,Elektrik şebekeleri,2025,13.7
+Africa,Enerji verimliliği,2015,4.4
+Africa,Enerji verimliliği,2016,5.7
+Africa,Enerji verimliliği,2017,6.0
+Africa,Enerji verimliliği,2018,6.4
+Africa,Enerji verimliliği,2019,6.9
+Africa,Enerji verimliliği,2020,7.4
+Africa,Enerji verimliliği,2021,9.0
+Africa,Enerji verimliliği,2022,9.6
+Africa,Enerji verimliliği,2023,11.3
+Africa,Enerji verimliliği,2024,13.0
+Africa,Enerji verimliliği,2025,11.9
+Middle East,Toplam,2015,177.4
+Middle East,Toplam,2016,161.4
+Middle East,Toplam,2017,149.0
+Middle East,Toplam,2018,149.0
+Middle East,Toplam,2019,145.1
+Middle East,Toplam,2020,149.7
+Middle East,Toplam,2021,154.5
+Middle East,Toplam,2022,154.3
+Middle East,Toplam,2023,158.4
+Middle East,Toplam,2024,176.7
+Middle East,Toplam,2025,185.2
+Middle East,Temiz enerji,2015,30.9
+Middle East,Temiz enerji,2016,33.7
+Middle East,Temiz enerji,2017,30.3
+Middle East,Temiz enerji,2018,26.5
+Middle East,Temiz enerji,2019,22.1
+Middle East,Temiz enerji,2020,24.1
+Middle East,Temiz enerji,2021,22.2
+Middle East,Temiz enerji,2022,23.9
+Middle East,Temiz enerji,2023,28.3
+Middle East,Temiz enerji,2024,33.0
+Middle East,Temiz enerji,2025,40.7
+Middle East,Fosil yakıtlar,2015,135.0
+Middle East,Fosil yakıtlar,2016,116.3
+Middle East,Fosil yakıtlar,2017,107.7
+Middle East,Fosil yakıtlar,2018,112.8
+Middle East,Fosil yakıtlar,2019,114.2
+Middle East,Fosil yakıtlar,2020,118.6
+Middle East,Fosil yakıtlar,2021,124.6
+Middle East,Fosil yakıtlar,2022,121.3
+Middle East,Fosil yakıtlar,2023,119.2
+Middle East,Fosil yakıtlar,2024,131.3
+Middle East,Fosil yakıtlar,2025,133.6
+Middle East,Yakıtlar,2015,135.0
+Middle East,Yakıtlar,2016,116.3
+Middle East,Yakıtlar,2017,107.7
+Middle East,Yakıtlar,2018,112.8
+Middle East,Yakıtlar,2019,114.2
+Middle East,Yakıtlar,2020,118.6
+Middle East,Yakıtlar,2021,124.6
+Middle East,Yakıtlar,2022,121.4
+Middle East,Yakıtlar,2023,119.4
+Middle East,Yakıtlar,2024,132.0
+Middle East,Yakıtlar,2025,135.2
+Middle East,Elektrik üretimi,2015,16.1
+Middle East,Elektrik üretimi,2016,16.3
+Middle East,Elektrik üretimi,2017,16.8
+Middle East,Elektrik üretimi,2018,15.8
+Middle East,Elektrik üretimi,2019,14.2
+Middle East,Elektrik üretimi,2020,11.9
+Middle East,Elektrik üretimi,2021,13.1
+Middle East,Elektrik üretimi,2022,14.8
+Middle East,Elektrik üretimi,2023,16.3
+Middle East,Elektrik üretimi,2024,19.4
+Middle East,Elektrik üretimi,2025,21.1
+Middle East,Yenilenebilir elektrik,2015,1.9
+Middle East,Yenilenebilir elektrik,2016,2.2
+Middle East,Yenilenebilir elektrik,2017,3.1
+Middle East,Yenilenebilir elektrik,2018,3.5
+Middle East,Yenilenebilir elektrik,2019,2.7
+Middle East,Yenilenebilir elektrik,2020,2.5
+Middle East,Yenilenebilir elektrik,2021,3.6
+Middle East,Yenilenebilir elektrik,2022,4.6
+Middle East,Yenilenebilir elektrik,2023,4.8
+Middle East,Yenilenebilir elektrik,2024,5.9
+Middle East,Yenilenebilir elektrik,2025,8.7
+Middle East,Güneş,2015,1.2
+Middle East,Güneş,2016,1.5
+Middle East,Güneş,2017,2.1
+Middle East,Güneş,2018,2.4
+Middle East,Güneş,2019,1.4
+Middle East,Güneş,2020,0.8
+Middle East,Güneş,2021,1.9
+Middle East,Güneş,2022,3.1
+Middle East,Güneş,2023,3.7
+Middle East,Güneş,2024,4.7
+Middle East,Güneş,2025,6.1
+Middle East,Rüzgar,2015,0.2
+Middle East,Rüzgar,2016,0.3
+Middle East,Rüzgar,2017,0.7
+Middle East,Rüzgar,2018,0.7
+Middle East,Rüzgar,2019,0.5
+Middle East,Rüzgar,2020,0.5
+Middle East,Rüzgar,2021,0.3
+Middle East,Rüzgar,2022,0.1
+Middle East,Rüzgar,2023,0.1
+Middle East,Rüzgar,2024,0.6
+Middle East,Rüzgar,2025,1.8
+Middle East,Nükleer,2015,2.5
+Middle East,Nükleer,2016,2.5
+Middle East,Nükleer,2017,2.5
+Middle East,Nükleer,2018,2.5
+Middle East,Nükleer,2019,2.5
+Middle East,Nükleer,2020,2.1
+Middle East,Nükleer,2021,1.5
+Middle East,Nükleer,2022,1.0
+Middle East,Nükleer,2023,0.7
+Middle East,Nükleer,2024,1.1
+Middle East,Nükleer,2025,1.4
+Middle East,Batarya depolama,2015,0.0
+Middle East,Batarya depolama,2016,0.0
+Middle East,Batarya depolama,2017,0.0
+Middle East,Batarya depolama,2018,0.0
+Middle East,Batarya depolama,2019,0.1
+Middle East,Batarya depolama,2020,0.0
+Middle East,Batarya depolama,2021,0.0
+Middle East,Batarya depolama,2022,0.0
+Middle East,Batarya depolama,2023,0.0
+Middle East,Batarya depolama,2024,0.0
+Middle East,Batarya depolama,2025,0.0
+Middle East,Elektrik şebekeleri,2015,20.6
+Middle East,Elektrik şebekeleri,2016,21.9
+Middle East,Elektrik şebekeleri,2017,18.0
+Middle East,Elektrik şebekeleri,2018,13.5
+Middle East,Elektrik şebekeleri,2019,9.9
+Middle East,Elektrik şebekeleri,2020,13.2
+Middle East,Elektrik şebekeleri,2021,11.1
+Middle East,Elektrik şebekeleri,2022,11.9
+Middle East,Elektrik şebekeleri,2023,12.6
+Middle East,Elektrik şebekeleri,2024,13.3
+Middle East,Elektrik şebekeleri,2025,14.2
+Middle East,Enerji verimliliği,2015,4.3
+Middle East,Enerji verimliliği,2016,5.7
+Middle East,Enerji verimliliği,2017,5.5
+Middle East,Enerji verimliliği,2018,5.9
+Middle East,Enerji verimliliği,2019,5.8
+Middle East,Enerji verimliliği,2020,5.1
+Middle East,Enerji verimliliği,2021,4.6
+Middle East,Enerji verimliliği,2022,4.9
+Middle East,Enerji verimliliği,2023,5.0
+Middle East,Enerji verimliliği,2024,5.7
+Middle East,Enerji verimliliği,2025,6.8
+Eurasia,Toplam,2015,190.2
+Eurasia,Toplam,2016,181.1
+Eurasia,Toplam,2017,183.9
+Eurasia,Toplam,2018,166.9
+Eurasia,Toplam,2019,161.9
+Eurasia,Toplam,2020,142.3
+Eurasia,Toplam,2021,152.7
+Eurasia,Toplam,2022,135.8
+Eurasia,Toplam,2023,140.9
+Eurasia,Toplam,2024,138.8
+Eurasia,Toplam,2025,144.3
+Eurasia,Temiz enerji,2015,42.9
+Eurasia,Temiz enerji,2016,40.6
+Eurasia,Temiz enerji,2017,35.4
+Eurasia,Temiz enerji,2018,23.0
+Eurasia,Temiz enerji,2019,26.0
+Eurasia,Temiz enerji,2020,27.9
+Eurasia,Temiz enerji,2021,36.4
+Eurasia,Temiz enerji,2022,32.3
+Eurasia,Temiz enerji,2023,33.9
+Eurasia,Temiz enerji,2024,36.6
+Eurasia,Temiz enerji,2025,43.2
+Eurasia,Fosil yakıtlar,2015,138.5
+Eurasia,Fosil yakıtlar,2016,131.1
+Eurasia,Fosil yakıtlar,2017,139.7
+Eurasia,Fosil yakıtlar,2018,137.3
+Eurasia,Fosil yakıtlar,2019,130.9
+Eurasia,Fosil yakıtlar,2020,110.2
+Eurasia,Fosil yakıtlar,2021,110.0
+Eurasia,Fosil yakıtlar,2022,92.6
+Eurasia,Fosil yakıtlar,2023,90.5
+Eurasia,Fosil yakıtlar,2024,81.5
+Eurasia,Fosil yakıtlar,2025,82.0
+Eurasia,Yakıtlar,2015,138.5
+Eurasia,Yakıtlar,2016,131.2
+Eurasia,Yakıtlar,2017,139.8
+Eurasia,Yakıtlar,2018,137.3
+Eurasia,Yakıtlar,2019,130.9
+Eurasia,Yakıtlar,2020,110.2
+Eurasia,Yakıtlar,2021,110.0
+Eurasia,Yakıtlar,2022,92.6
+Eurasia,Yakıtlar,2023,90.5
+Eurasia,Yakıtlar,2024,81.6
+Eurasia,Yakıtlar,2025,82.1
+Eurasia,Elektrik üretimi,2015,13.8
+Eurasia,Elektrik üretimi,2016,14.2
+Eurasia,Elektrik üretimi,2017,13.7
+Eurasia,Elektrik üretimi,2018,14.0
+Eurasia,Elektrik üretimi,2019,16.2
+Eurasia,Elektrik üretimi,2020,17.1
+Eurasia,Elektrik üretimi,2021,20.1
+Eurasia,Elektrik üretimi,2022,23.6
+Eurasia,Elektrik üretimi,2023,28.9
+Eurasia,Elektrik üretimi,2024,33.9
+Eurasia,Elektrik üretimi,2025,33.4
+Eurasia,Yenilenebilir elektrik,2015,2.7
+Eurasia,Yenilenebilir elektrik,2016,3.0
+Eurasia,Yenilenebilir elektrik,2017,3.4
+Eurasia,Yenilenebilir elektrik,2018,4.6
+Eurasia,Yenilenebilir elektrik,2019,5.7
+Eurasia,Yenilenebilir elektrik,2020,5.0
+Eurasia,Yenilenebilir elektrik,2021,4.0
+Eurasia,Yenilenebilir elektrik,2022,3.7
+Eurasia,Yenilenebilir elektrik,2023,3.8
+Eurasia,Yenilenebilir elektrik,2024,4.0
+Eurasia,Yenilenebilir elektrik,2025,4.5
+Eurasia,Güneş,2015,0.2
+Eurasia,Güneş,2016,0.3
+Eurasia,Güneş,2017,0.9
+Eurasia,Güneş,2018,2.0
+Eurasia,Güneş,2019,2.2
+Eurasia,Güneş,2020,1.5
+Eurasia,Güneş,2021,1.3
+Eurasia,Güneş,2022,1.4
+Eurasia,Güneş,2023,1.5
+Eurasia,Güneş,2024,1.7
+Eurasia,Güneş,2025,1.9
+Eurasia,Rüzgar,2015,0.1
+Eurasia,Rüzgar,2016,0.2
+Eurasia,Rüzgar,2017,0.3
+Eurasia,Rüzgar,2018,0.7
+Eurasia,Rüzgar,2019,1.7
+Eurasia,Rüzgar,2020,2.1
+Eurasia,Rüzgar,2021,1.4
+Eurasia,Rüzgar,2022,1.2
+Eurasia,Rüzgar,2023,1.1
+Eurasia,Rüzgar,2024,1.0
+Eurasia,Rüzgar,2025,1.1
+Eurasia,Nükleer,2015,2.2
+Eurasia,Nükleer,2016,1.6
+Eurasia,Nükleer,2017,1.3
+Eurasia,Nükleer,2018,2.6
+Eurasia,Nükleer,2019,5.3
+Eurasia,Nükleer,2020,7.5
+Eurasia,Nükleer,2021,8.7
+Eurasia,Nükleer,2022,8.2
+Eurasia,Nükleer,2023,8.1
+Eurasia,Nükleer,2024,8.8
+Eurasia,Nükleer,2025,8.8
+Eurasia,Batarya depolama,2015,0.0
+Eurasia,Batarya depolama,2016,0.0
+Eurasia,Batarya depolama,2017,0.0
+Eurasia,Batarya depolama,2018,0.0
+Eurasia,Batarya depolama,2019,0.0
+Eurasia,Batarya depolama,2020,0.0
+Eurasia,Batarya depolama,2021,0.0
+Eurasia,Batarya depolama,2022,0.0
+Eurasia,Batarya depolama,2023,0.0
+Eurasia,Batarya depolama,2024,0.0
+Eurasia,Batarya depolama,2025,0.0
+Eurasia,Elektrik şebekeleri,2015,9.2
+Eurasia,Elektrik şebekeleri,2016,9.4
+Eurasia,Elektrik şebekeleri,2017,9.3
+Eurasia,Elektrik şebekeleri,2018,8.8
+Eurasia,Elektrik şebekeleri,2019,8.6
+Eurasia,Elektrik şebekeleri,2020,7.6
+Eurasia,Elektrik şebekeleri,2021,7.9
+Eurasia,Elektrik şebekeleri,2022,6.0
+Eurasia,Elektrik şebekeleri,2023,7.1
+Eurasia,Elektrik şebekeleri,2024,7.7
+Eurasia,Elektrik şebekeleri,2025,8.2
+Eurasia,Enerji verimliliği,2015,3.0
+Eurasia,Enerji verimliliği,2016,3.6
+Eurasia,Enerji verimliliği,2017,4.0
+Eurasia,Enerji verimliliği,2018,3.9
+Eurasia,Enerji verimliliği,2019,3.9
+Eurasia,Enerji verimliliği,2020,4.9
+Eurasia,Enerji verimliliği,2021,5.7
+Eurasia,Enerji verimliliği,2022,5.9
+Eurasia,Enerji verimliliği,2023,6.2
+Eurasia,Enerji verimliliği,2024,6.7
+Eurasia,Enerji verimliliği,2025,7.2
+Asia Pacific,Toplam,2015,955.1
+Asia Pacific,Toplam,2016,935.9
+Asia Pacific,Toplam,2017,939.7
+Asia Pacific,Toplam,2018,937.6
+Asia Pacific,Toplam,2019,933.7
+Asia Pacific,Toplam,2020,890.0
+Asia Pacific,Toplam,2021,927.2
+Asia Pacific,Toplam,2022,1095.2
+Asia Pacific,Toplam,2023,1235.9
+Asia Pacific,Toplam,2024,1318.6
+Asia Pacific,Toplam,2025,1361.6
+Asia Pacific,Temiz enerji,2015,515.3
+Asia Pacific,Temiz enerji,2016,568.9
+Asia Pacific,Temiz enerji,2017,589.8
+Asia Pacific,Temiz enerji,2018,585.9
+Asia Pacific,Temiz enerji,2019,579.9
+Asia Pacific,Temiz enerji,2020,571.8
+Asia Pacific,Temiz enerji,2021,593.1
+Asia Pacific,Temiz enerji,2022,729.8
+Asia Pacific,Temiz enerji,2023,851.9
+Asia Pacific,Temiz enerji,2024,915.9
+Asia Pacific,Temiz enerji,2025,946.6
+Asia Pacific,Fosil yakıtlar,2015,333.5
+Asia Pacific,Fosil yakıtlar,2016,268.8
+Asia Pacific,Fosil yakıtlar,2017,258.7
+Asia Pacific,Fosil yakıtlar,2018,266.2
+Asia Pacific,Fosil yakıtlar,2019,274.1
+Asia Pacific,Fosil yakıtlar,2020,247.0
+Asia Pacific,Fosil yakıtlar,2021,259.8
+Asia Pacific,Fosil yakıtlar,2022,284.3
+Asia Pacific,Fosil yakıtlar,2023,294.6
+Asia Pacific,Fosil yakıtlar,2024,302.8
+Asia Pacific,Fosil yakıtlar,2025,321.4
+Asia Pacific,Yakıtlar,2015,335.7
+Asia Pacific,Yakıtlar,2016,271.2
+Asia Pacific,Yakıtlar,2017,260.7
+Asia Pacific,Yakıtlar,2018,268.0
+Asia Pacific,Yakıtlar,2019,276.3
+Asia Pacific,Yakıtlar,2020,249.1
+Asia Pacific,Yakıtlar,2021,262.7
+Asia Pacific,Yakıtlar,2022,290.6
+Asia Pacific,Yakıtlar,2023,299.5
+Asia Pacific,Yakıtlar,2024,308.8
+Asia Pacific,Yakıtlar,2025,331.4
+Asia Pacific,Elektrik üretimi,2015,300.9
+Asia Pacific,Elektrik üretimi,2016,306.3
+Asia Pacific,Elektrik üretimi,2017,316.6
+Asia Pacific,Elektrik üretimi,2018,323.7
+Asia Pacific,Elektrik üretimi,2019,344.5
+Asia Pacific,Elektrik üretimi,2020,336.3
+Asia Pacific,Elektrik üretimi,2021,335.1
+Asia Pacific,Elektrik üretimi,2022,430.6
+Asia Pacific,Elektrik üretimi,2023,555.9
+Asia Pacific,Elektrik üretimi,2024,596.8
+Asia Pacific,Elektrik üretimi,2025,590.4
+Asia Pacific,Yenilenebilir elektrik,2015,173.5
+Asia Pacific,Yenilenebilir elektrik,2016,187.7
+Asia Pacific,Yenilenebilir elektrik,2017,207.7
+Asia Pacific,Yenilenebilir elektrik,2018,221.3
+Asia Pacific,Yenilenebilir elektrik,2019,247.5
+Asia Pacific,Yenilenebilir elektrik,2020,247.1
+Asia Pacific,Yenilenebilir elektrik,2021,240.2
+Asia Pacific,Yenilenebilir elektrik,2022,326.4
+Asia Pacific,Yenilenebilir elektrik,2023,438.7
+Asia Pacific,Yenilenebilir elektrik,2024,462.1
+Asia Pacific,Yenilenebilir elektrik,2025,458.2
+Asia Pacific,Güneş,2015,81.7
+Asia Pacific,Güneş,2016,107.3
+Asia Pacific,Güneş,2017,109.8
+Asia Pacific,Güneş,2018,101.9
+Asia Pacific,Güneş,2019,99.1
+Asia Pacific,Güneş,2020,94.6
+Asia Pacific,Güneş,2021,108.3
+Asia Pacific,Güneş,2022,184.0
+Asia Pacific,Güneş,2023,267.9
+Asia Pacific,Güneş,2024,277.6
+Asia Pacific,Güneş,2025,265.1
+Asia Pacific,Rüzgar,2015,56.0
+Asia Pacific,Rüzgar,2016,41.4
+Asia Pacific,Rüzgar,2017,52.1
+Asia Pacific,Rüzgar,2018,66.1
+Asia Pacific,Rüzgar,2019,91.8
+Asia Pacific,Rüzgar,2020,95.9
+Asia Pacific,Rüzgar,2021,77.6
+Asia Pacific,Rüzgar,2022,92.8
+Asia Pacific,Rüzgar,2023,124.2
+Asia Pacific,Rüzgar,2024,138.7
+Asia Pacific,Rüzgar,2025,145.8
+Asia Pacific,Nükleer,2015,20.9
+Asia Pacific,Nükleer,2016,20.2
+Asia Pacific,Nükleer,2017,17.4
+Asia Pacific,Nükleer,2018,16.7
+Asia Pacific,Nükleer,2019,17.1
+Asia Pacific,Nükleer,2020,17.8
+Asia Pacific,Nükleer,2021,20.3
+Asia Pacific,Nükleer,2022,22.4
+Asia Pacific,Nükleer,2023,26.9
+Asia Pacific,Nükleer,2024,32.4
+Asia Pacific,Nükleer,2025,34.2
+Asia Pacific,Batarya depolama,2015,0.1
+Asia Pacific,Batarya depolama,2016,0.4
+Asia Pacific,Batarya depolama,2017,0.7
+Asia Pacific,Batarya depolama,2018,1.8
+Asia Pacific,Batarya depolama,2019,1.3
+Asia Pacific,Batarya depolama,2020,2.2
+Asia Pacific,Batarya depolama,2021,2.5
+Asia Pacific,Batarya depolama,2022,6.8
+Asia Pacific,Batarya depolama,2023,12.6
+Asia Pacific,Batarya depolama,2024,23.7
+Asia Pacific,Batarya depolama,2025,23.5
+Asia Pacific,Elektrik şebekeleri,2015,152.9
+Asia Pacific,Elektrik şebekeleri,2016,161.3
+Asia Pacific,Elektrik şebekeleri,2017,154.4
+Asia Pacific,Elektrik şebekeleri,2018,149.8
+Asia Pacific,Elektrik şebekeleri,2019,132.8
+Asia Pacific,Elektrik şebekeleri,2020,123.6
+Asia Pacific,Elektrik şebekeleri,2021,123.2
+Asia Pacific,Elektrik şebekeleri,2022,132.2
+Asia Pacific,Elektrik şebekeleri,2023,132.0
+Asia Pacific,Elektrik şebekeleri,2024,146.0
+Asia Pacific,Elektrik şebekeleri,2025,155.7
+Asia Pacific,Enerji verimliliği,2015,103.5
+Asia Pacific,Enerji verimliliği,2016,116.1
+Asia Pacific,Enerji verimliliği,2017,119.9
+Asia Pacific,Enerji verimliliği,2018,118.9
+Asia Pacific,Enerji verimliliği,2019,120.5
+Asia Pacific,Enerji verimliliği,2020,115.7
+Asia Pacific,Enerji verimliliği,2021,116.4
+Asia Pacific,Enerji verimliliği,2022,113.7
+Asia Pacific,Enerji verimliliği,2023,122.1
+Asia Pacific,Enerji verimliliği,2024,131.1
+Asia Pacific,Enerji verimliliği,2025,131.9

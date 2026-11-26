@@ -573,3 +573,32 @@ def il_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     fig.update_layout(title=baslik, template=SABLON, xaxis_title="MWe", yaxis=dict(autorange="reversed", automargin=True),
                       margin=dict(l=10, r=70, t=60, b=10))
     return fig
+
+
+def yatay_deger_cubuk(df: pd.DataFrame, etiket: str, deger: str, baslik: str, birim: str) -> go.Figure:
+    """Etiket-değer çiftlerini büyükten küçüğe yatay çubukla gösterir."""
+    sirali = df.sort_values(deger, ascending=True)
+    fig = go.Figure(
+        go.Bar(
+            x=sirali[deger],
+            y=sirali[etiket],
+            orientation="h",
+            marker_color=RENKLER["Toplam"],
+            text=sirali[deger],
+            texttemplate="%{text:,.1f}",
+            textposition="outside",
+            cliponaxis=False,
+            hovertemplate="%{y}: %{x:,.1f} " + birim + "<extra></extra>",
+        )
+    )
+    fig.update_layout(title=baslik, template=SABLON, xaxis_title=birim, margin=dict(l=10, r=60, t=60, b=10))
+    return fig
+
+
+def yigin_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y_baslik: str) -> go.Figure:
+    """Seri bazında yığılmış sütun grafiği (ör. yıllara göre bölge katkıları)."""
+    fig = go.Figure()
+    for ad, alt in df.groupby(seri, sort=False):
+        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
+    fig.update_layout(barmode="stack")
+    return _duzenle(fig, baslik, y_baslik)

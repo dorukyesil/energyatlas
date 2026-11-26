@@ -120,6 +120,7 @@ TABLO_KAYNAKLARI = {
     "epdk_lisans.csv": "EPDK, lisanslı üretim tesisleri listesi (depolamalı santraller).",
     "epdk_onlisans.csv": "EPDK, ön lisanslı üretim tesisleri listesi.",
     "weo_dunya.csv": "IEA World Energy Outlook 2026, Annex A ücretsiz veri seti (dünya).",
+    "yatirim_bolge.csv": "IEA, World Energy Investment 2025 veri dosyası (2024 sabit fiyat, MER).",
 }
 
 

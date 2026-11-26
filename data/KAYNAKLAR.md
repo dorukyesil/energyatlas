@@ -69,3 +69,4 @@ Bu veriler `scripts/import_kaynak_verileri.py` ile üretilir. Yeniden üretmek i
 | `weo_dunya.csv` | IEA World Energy Outlook 2026, Annex A ücretsiz veri seti (dünya) | Kurulu güç (GW) ve elektrik üretimi (TWh), senaryolar: Gerçekleşen, Mevcut politikalar, Belirlenmiş politikalar, Net sıfır (2050) | Güneş 2024: 2.190 GW, 2025: 2.823 GW. Önceki görsel değerleri (2.164 GW) farklı bir sürümdendir. Türkiye ayrı bir kırılım olarak yok. |
 
 Referans: IEA, World Energy Outlook 2025 raporu (PDF). Senaryo tanımları ve politika notları için kullanılmıştır.
+| `yatirim_bolge.csv` | IEA, World Energy Investment 2025 veri dosyası | Dünya, ileri ekonomiler, gelişmekte olan ekonomiler, Çin, bölgeler; 2015-2025; milyar USD (2024 sabit fiyat, MER). Önceki görsel değerleriyle birebir uyumludur. Türkiye, "Europe" grubunda yer alır, ayrı kırılım yoktur. |
