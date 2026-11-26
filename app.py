@@ -34,3 +34,8 @@ st.page_link("pages/10_On_Lisans_Tarihleri.py", label="Ön lisans bitiş tarihle
 st.page_link("pages/11_Isletmedeki_Depolama.py", label="İşletmedeki depolama projeleri", icon="🏭")
 st.page_link("pages/12_EPDK_Tarifeleri.py", label="EPDK elektrik tarifeleri", icon="💡")
 st.page_link("pages/13_PTF.py", label="Piyasa takas fiyatı (PTF)", icon="💹")
+st.page_link("pages/14_YEKDEM.py", label="YEKDEM fiyatlandırması", icon="⚖️")
+st.page_link("pages/15_YEKDEM_Duyurular.py", label="YEKDEM duyuruları", icon="📢")
+st.page_link("pages/16_Dunya_Kurulu_Guc.py", label="Dünya kurulu güç", icon="🌍")
+st.page_link("pages/17_Dunya_Gunes_Payi.py", label="Dünyada güneş payı", icon="☀️")
+st.page_link("pages/18_Ulke_Karsilastirma.py", label="Ülkeler: güneş kurulu gücü", icon="🗺️")

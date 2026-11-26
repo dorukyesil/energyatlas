@@ -33,3 +33,17 @@ Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yı
 | `isletmedeki_depolama.csv` | İşletmedeki depolama lisanslı 10 tesis, MWh ve MWe | Toplam 419,5 MWh, 388,5 MWe. Kontrol grubu bilgisi görseldeki dipnottan alındı. |
 | `tarife.csv` | EPDK tek zamanlı ve çok zamanlı enerji bedelleri (kr/kWh) | 4 Nisan 2026 itibarıyla, vergiler hariç. Dağıtım bedelleri ve reaktif enerji bedelleri eklenmedi. Kaynak: EPDK, elektrik faturalarına esas tarife tabloları. |
 | `ptf.csv` | Piyasa takas fiyatı, USD/MWh (2016-2026 9A) | Görseldeki yıllık değerler. |
+
+## Eklenen veriler (14-18. bölümler)
+
+| Dosya | İçerik | Notlar |
+|---|---|---|
+| `yekdem_fiyat.csv` | Güneş ve elektrik depolama YEKDEM taban, 2025 ortalama, tavan ve PTF (USD/MWh) | Görselden okundu. |
+| `yekdem_formul.csv` | YEKDEM formül ağırlıkları (ÜFE, TÜFE, Dolar/TL, Euro/TL) | 10 yıl (2021-2030), her ay güncellenir. |
+| `yekdem_yerli_katki.csv` | Yerli katkı: güneş 15,39 USD/MWh (5 yıl), elektrik depolama 20,54 USD/MWh (10 yıl) | Azami tutarlar, %100 yerli aksam varsayımıyla. |
+| `yekdem_duyuru.csv` | EPİAŞ duyurusu: 12 kaynak için Ağustos, Eylül, Ekim 2026 fiyat ve yerli akşam desteği | Birim TL kr/kWh. Kaynak: EPİAŞ, 01.07.2021-31.12.2030 YEK belgeli tesis fiyatları. |
+| `dunya_kurulu_guc.csv` | Dünya toplam kurulu güç ve güneş (GW), 2010-2050 | Değerler IEA World Energy Outlook 2025 görselinden. 2010 güneş değeri (40 GW) görselde etiketli. Diğer yenilenebilir değerler yalnızca etiketli olduğu için eklenmedi. |
+| `dunya_gunes_payi.csv` | Güneşin toplam ve yenilenebilir kurulu güç içindeki payı (%) | Görselden okundu. |
+| `ulke_gunes_2024.csv` | Ülkelerin güneş kurulu gücü (GW) | Türkiye 2025 yıl sonu (TEİAŞ), diğerleri 2024. |
+
+Dünya güneş kapasitesi 2024 değeri (2.164 GW) ile ülke kartındaki toplam görsel tutarlıdır.

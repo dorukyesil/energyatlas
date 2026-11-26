@@ -128,3 +128,39 @@ def test_yeni_grafikler_olusur_2():
     assert len(charts.on_lisans_yillik(data.depolama_on_lisans(), "t").data) == 2
     assert len(charts.isletmedeki_cubuk(data.isletmedeki_depolama(), "t").data) == 1
     assert len(charts.ptf_cubuk(data.ptf(), "t").data) == 1
+
+
+def test_yekdem_formul_toplam_100():
+    assert data.yekdem_formul()["agirlik_pct"].sum() == 100
+
+
+def test_yekdem_duyuru_her_kaynak_uc_ay():
+    df = data.yekdem_duyuru()
+    assert df.groupby("kaynak")["donem"].nunique().eq(3).all()
+    assert len(df["kaynak"].unique()) == 12
+
+
+def test_yekdem_yerli_katki_asagi_yukari_mantik():
+    df = data.yekdem_fiyat()
+    for teknoloji, alt in df.groupby("teknoloji"):
+        taban = alt[alt["gosterge"] == "Taban"]["usd_mwh"].iloc[0]
+        tavan = alt[alt["gosterge"] == "Tavan"]["usd_mwh"].iloc[0]
+        assert taban < tavan
+
+
+def test_dunya_gunes_payi_hesapla_tutarli():
+    kurulu = data.dunya_kurulu_guc().set_index("donem")
+    pay = data.dunya_gunes_payi().set_index("donem")
+    for donem in [2024, 2035, 2040, 2050]:
+        hesap = kurulu.loc[donem, "gunes_gw"] / kurulu.loc[donem, "toplam_gw"] * 100
+        assert abs(hesap - pay.loc[donem, "gunes_toplam_pct"]) < 1.0
+
+
+def test_ulke_tablosu_turkiye_var():
+    assert "Türkiye" in data.ulke_gunes_2024()["ulke"].tolist()
+
+
+def test_yeni_grafikler_olusur_3():
+    assert len(charts.yekdem_cizgi(data.yekdem_duyuru(), "t").data) == 12
+    assert len(charts.dunya_pay_nokta(data.dunya_gunes_payi(), "t").data) == 2
+    assert len(charts.ulke_yatay_cubuk(data.ulke_gunes_2024(), "t").data) == 1

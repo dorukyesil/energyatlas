@@ -73,3 +73,31 @@ def tarife() -> pd.DataFrame:
 
 def ptf() -> pd.DataFrame:
     return load_dataset("ptf")
+
+
+def yekdem_fiyat() -> pd.DataFrame:
+    return load_dataset("yekdem_fiyat")
+
+
+def yekdem_formul() -> pd.DataFrame:
+    return load_dataset("yekdem_formul")
+
+
+def yekdem_yerli_katki() -> pd.DataFrame:
+    return load_dataset("yekdem_yerli_katki")
+
+
+def yekdem_duyuru() -> pd.DataFrame:
+    return load_dataset("yekdem_duyuru")
+
+
+def dunya_kurulu_guc() -> pd.DataFrame:
+    return load_dataset("dunya_kurulu_guc")
+
+
+def dunya_gunes_payi() -> pd.DataFrame:
+    return load_dataset("dunya_gunes_payi")
+
+
+def ulke_gunes_2024() -> pd.DataFrame:
+    return load_dataset("ulke_gunes_2024")

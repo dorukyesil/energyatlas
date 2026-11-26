@@ -324,3 +324,80 @@ def ptf_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
         )
     )
     return _duzenle(fig, baslik, "USD/MWh")
+
+
+def deger_cubuk(etiketler: list[str], degerler: list[float], renkler: list[str], baslik: str, y_baslik: str, sablon: str = "%{text:,.1f}") -> go.Figure:
+    """Etiket-değer çifti için renkli sütun grafiği."""
+    fig = go.Figure(
+        go.Bar(
+            x=etiketler,
+            y=degerler,
+            marker_color=renkler,
+            text=degerler,
+            texttemplate=sablon,
+            textposition="outside",
+            hovertemplate="%{x}: %{y:,.2f}<extra></extra>",
+        )
+    )
+    return _duzenle(fig, baslik, y_baslik)
+
+
+def yekdem_cizgi(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Her kaynak için aylık YEKDEM fiyatını (kr/kWh) çizgiyle gösterir."""
+    fig = go.Figure()
+    for kaynak, alt in df.groupby("kaynak", sort=False):
+        fig.add_trace(
+            go.Scatter(
+                name=kaynak,
+                x=alt["donem"],
+                y=alt["fiyat_kr_kwh"],
+                mode="lines+markers",
+                hovertemplate=kaynak + ": %{y:,.2f} kr/kWh<extra></extra>",
+            )
+        )
+    return _duzenle(fig, baslik, "TL kr/kWh")
+
+
+def dunya_kurulu_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Dünya toplam kurulu güç ve güneş kapasitesini yan yana gösterir."""
+    fig = go.Figure()
+    fig.add_trace(go.Bar(name="Toplam kapasite", x=df["donem"], y=df["toplam_gw"], marker_color="#4b5563",
+                         text=df["toplam_gw"], texttemplate="%{text:,.0f}", textposition="outside"))
+    fig.add_trace(go.Bar(name="Güneş", x=df["donem"], y=df["gunes_gw"], marker_color=RENKLER["Güneş"],
+                         text=df["gunes_gw"], texttemplate="%{text:,.0f}", textposition="outside"))
+    fig.update_layout(barmode="group")
+    return _duzenle(fig, baslik, "GW")
+
+
+def dunya_pay_nokta(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Güneşin toplam ve yenilenebilir kurulu güç içindeki payını (%) gösterir."""
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(name="Güneş / Toplam", x=df["donem"], y=df["gunes_toplam_pct"], mode="lines+markers+text",
+                             text=df["gunes_toplam_pct"], texttemplate="%{text}%", textposition="top center",
+                             marker=dict(size=10, color="#111827")))
+    fig.add_trace(go.Scatter(name="Güneş / Yenilenebilir", x=df["donem"], y=df["gunes_yenilenebilir_pct"], mode="lines+markers+text",
+                             text=df["gunes_yenilenebilir_pct"], texttemplate="%{text}%", textposition="top center",
+                             marker=dict(size=10, color="#8fb8de")))
+    fig.update_yaxes(range=[0, 80], ticksuffix="%")
+    return _duzenle(fig, baslik, "Pay (%)")
+
+
+def ulke_yatay_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Ülkelerin güneş kurulu gücünü yatay çubukla gösterir; Türkiye vurgulanır."""
+    renkler = ["#c8102e" if u == "Türkiye" else RENKLER["Güneş"] for u in df["ulke"]]
+    fig = go.Figure(
+        go.Bar(
+            x=df["gunes_gw"],
+            y=df["ulke"],
+            orientation="h",
+            marker_color=renkler,
+            text=df["gunes_gw"],
+            texttemplate="%{text:,.0f} GW",
+            textposition="outside",
+            customdata=df["yil_notu"],
+            hovertemplate="%{y}: %{x:,.0f} GW<br>%{customdata}<extra></extra>",
+        )
+    )
+    fig.update_layout(title=baslik, template="plotly_white", xaxis_title="GW",
+                      yaxis=dict(autorange="reversed"), margin=dict(l=10, r=60, t=60, b=10))
+    return fig
