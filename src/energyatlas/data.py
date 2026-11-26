@@ -369,3 +369,20 @@ def tam_yillar(df: pd.DataFrame) -> pd.DataFrame:
 def weo_dunya() -> pd.DataFrame:
     """IEA WEO 2026 dünya verisi: kapasite (GW) ve üretim (TWh), senaryo ve yıl bazında."""
     return load_dataset("weo_dunya")
+
+
+# ---- Mevzuat (Resmî Gazete arşivi, scripts/mevzuat_resmi_gazete.py ile üretilir) ----
+
+def mevzuat() -> pd.DataFrame:
+    """Enerjiyle ilgili Resmî Gazete metinleri: tarih, başlık, tür, değişiklik bayrağı, anahtar kelimeler, bağlantı."""
+    try:
+        d = load_dataset("mevzuat_resmi_gazete")
+    except FileNotFoundError:
+        return pd.DataFrame(columns=["tarih", "baslik", "tur", "degisiklik", "yururluk_kaldirma", "anahtar_kelimeler", "baglanti"])
+    d["tarih"] = pd.to_datetime(d["tarih"], errors="coerce")
+    d = d.dropna(subset=["tarih"]).copy()
+    d["yil"] = d["tarih"].dt.year
+    d["ay"] = d["tarih"].dt.to_period("M").astype(str)
+    d["degisiklik"] = d["degisiklik"].astype(bool)
+    d["yururluk_kaldirma"] = d["yururluk_kaldirma"].astype(bool)
+    return d
