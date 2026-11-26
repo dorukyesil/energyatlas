@@ -63,7 +63,7 @@ def _sablon_olustur() -> go.layout.Template:
     sablon = go.layout.Template()
     sablon.layout = go.Layout(
         font=dict(family=SANS, size=12, color="#4A4A48"),
-        title=dict(font=dict(family=SERIF, size=17, color=MUREKKEP), x=0.0, xanchor="left"),
+        title=dict(font=dict(family="Georgia, serif", size=17, color=MUREKKEP), x=0.0, xanchor="left"),
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
         colorway=SERI_RENKLERI,

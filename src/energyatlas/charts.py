@@ -19,7 +19,7 @@ KAYNAK_KOLONLARI = {
 
 def _duzenle(fig: go.Figure, baslik: str, y_baslik: str) -> go.Figure:
     # Az sayıda kategori varsa tüm etiketleri göster (ör. her yıl)
-    if fig.data and getattr(fig.data[0], "x", None) is not None and fig.data[0].orientation != "h":
+    if fig.data and fig.data[0].type == "bar" and getattr(fig.data[0], "orientation", "v") != "h":
         kategoriler = list(dict.fromkeys(str(v) for v in fig.data[0].x))
         if 0 < len(kategoriler) <= 14:
             fig.update_xaxes(type="category", tickmode="array", tickvals=kategoriler, ticktext=kategoriler, tickangle=0)
@@ -456,9 +456,10 @@ def bolge_yigin_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
 def cizgi_alan(df: pd.DataFrame, x: str, y: str, baslik: str, y_baslik: str, birim: str = "", hareketli_ortalama: int | None = None) -> go.Figure:
     """Sade çizgi grafik: ince lacivert çizgi, soluk alan, kesikli ortalama ve son değer etiketi."""
     fig = go.Figure()
+    yillar = df[x].astype(int) if df[x].astype(str).str.fullmatch(r"\d{4}").all() else df[x].astype(str)
     fig.add_trace(
         go.Scatter(
-            x=df[x].astype(str),
+            x=yillar,
             y=df[y],
             mode="lines+markers",
             line=dict(color=RENKLER["Toplam"], width=2.2),
@@ -473,7 +474,7 @@ def cizgi_alan(df: pd.DataFrame, x: str, y: str, baslik: str, y_baslik: str, bir
         ort = df[y].rolling(hareketli_ortalama, min_periods=hareketli_ortalama).mean()
         fig.add_trace(
             go.Scatter(
-                x=df[x].astype(str),
+                x=yillar,
                 y=ort,
                 mode="lines",
                 line=dict(color="#4A4A48", width=1.3, dash="dot"),
@@ -485,7 +486,7 @@ def cizgi_alan(df: pd.DataFrame, x: str, y: str, baslik: str, y_baslik: str, bir
     tam_sayi = bool((df[y].dropna() % 1 == 0).all())
     son_metin = f"{son[y]:,.0f}" if tam_sayi else f"{son[y]:,.1f}"
     fig.add_annotation(
-        x=str(son[x]), y=son[y], text=f"<b>{son_metin}</b>".replace(",", "§").replace(".", ",").replace("§", "."),
+        x=int(son[x]) if str(son[x]).isdigit() else str(son[x]), y=son[y], text=f"<b>{son_metin}</b>".replace(",", "§").replace(".", ",").replace("§", "."),
         showarrow=False, xanchor="left", xshift=8, font=dict(color=RENKLER["Toplam"], size=13),
     )
     return _duzenle(fig, baslik, y_baslik)
