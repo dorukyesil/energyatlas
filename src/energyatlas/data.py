@@ -412,3 +412,8 @@ def tr_il_geojson() -> dict:
 def hedef_2040() -> pd.DataFrame:
     """Milli Enerji 2040 açıklanan hedefleri (ETKB lansmanı; bilgi notu)."""
     return load_dataset("hedef_2040")
+
+
+def lisanssiz_kurulu_guc() -> pd.DataFrame:
+    """Lisanssız kurulu güç (GW): 2016-2026/09 sunum grafiği, son nokta TEİAŞ YTBS güncel değeri."""
+    return load_dataset("lisanssiz_kurulu_guc")
