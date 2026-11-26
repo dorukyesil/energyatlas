@@ -39,3 +39,4 @@ st.page_link("pages/15_YEKDEM_Duyurular.py", label="YEKDEM duyuruları", icon="�
 st.page_link("pages/16_Dunya_Kurulu_Guc.py", label="Dünya kurulu güç", icon="🌍")
 st.page_link("pages/17_Dunya_Gunes_Payi.py", label="Dünyada güneş payı", icon="☀️")
 st.page_link("pages/18_Ulke_Karsilastirma.py", label="Ülkeler: güneş kurulu gücü", icon="🗺️")
+st.page_link("pages/19_Kuresel_Yatirimlar.py", label="Küresel enerji yatırımları", icon="💰")

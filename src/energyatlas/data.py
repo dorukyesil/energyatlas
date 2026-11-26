@@ -101,3 +101,11 @@ def dunya_gunes_payi() -> pd.DataFrame:
 
 def ulke_gunes_2024() -> pd.DataFrame:
     return load_dataset("ulke_gunes_2024")
+
+
+def kuresel_yatirim() -> pd.DataFrame:
+    return load_dataset("kuresel_yatirim")
+
+
+def gunes_yatirim_bolge() -> pd.DataFrame:
+    return load_dataset("gunes_yatirim_bolge")

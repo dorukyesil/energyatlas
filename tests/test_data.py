@@ -164,3 +164,26 @@ def test_yeni_grafikler_olusur_3():
     assert len(charts.yekdem_cizgi(data.yekdem_duyuru(), "t").data) == 12
     assert len(charts.dunya_pay_nokta(data.dunya_gunes_payi(), "t").data) == 2
     assert len(charts.ulke_yatay_cubuk(data.ulke_gunes_2024(), "t").data) == 1
+
+
+def test_kuresel_yatirim_temiz_toplamdan_kucuk():
+    df = data.kuresel_yatirim()
+    assert (df["temiz_enerji_mlrd_usd"] <= df["toplam_mlrd_usd"]).all()
+    assert (df["gunes_mlrd_usd"] <= df["temiz_enerji_mlrd_usd"]).all()
+
+
+def test_gunes_bolge_toplami_asmiyor():
+    df = data.gunes_yatirim_bolge()
+    etiketli = df["asya_pasifik_mlrd_usd"] + df["kuzey_amerika_mlrd_usd"] + df["avrupa_mlrd_usd"]
+    assert (etiketli <= df["toplam_mlrd_usd"]).all()
+
+
+def test_gunes_toplami_iki_veri_setinde_ayni():
+    k = data.kuresel_yatirim().set_index("yil")["gunes_mlrd_usd"]
+    b = data.gunes_yatirim_bolge().set_index("yil")["toplam_mlrd_usd"]
+    assert (k == b).all()
+
+
+def test_kuresel_yatirim_grafikleri():
+    assert len(charts.kuresel_yatirim_cubuk(data.kuresel_yatirim(), "t").data) == 3
+    assert len(charts.bolge_yigin_cubuk(data.gunes_yatirim_bolge(), "t").data) == 4

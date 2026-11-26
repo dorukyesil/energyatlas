@@ -401,3 +401,50 @@ def ulke_yatay_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     fig.update_layout(title=baslik, template="plotly_white", xaxis_title="GW",
                       yaxis=dict(autorange="reversed"), margin=dict(l=10, r=60, t=60, b=10))
     return fig
+
+
+def kuresel_yatirim_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Toplam enerji, temiz enerji ve güneş yatırımlarını (milyar USD) gruplu gösterir."""
+    fig = go.Figure()
+    for kolon, etiket, renk in [
+        ("toplam_mlrd_usd", "Toplam enerji yatırımları", "#111827"),
+        ("temiz_enerji_mlrd_usd", "Temiz enerji yatırımları", "#8fb8de"),
+        ("gunes_mlrd_usd", "Güneş yatırımları", RENKLER["Güneş"]),
+    ]:
+        fig.add_trace(
+            go.Bar(
+                name=etiket,
+                x=df["yil"].astype(str),
+                y=df[kolon],
+                marker_color=renk,
+                text=df[kolon],
+                texttemplate="%{text:,.0f}",
+                textposition="outside",
+                hovertemplate=etiket + ": %{y:,.0f} milyar USD<extra></extra>",
+            )
+        )
+    fig.update_layout(barmode="group")
+    return _duzenle(fig, baslik, "Milyar USD")
+
+
+def bolge_yigin_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Bölgelere göre küresel güneş yatırımlarını yığılmış gösterir. Diğer bölgeler toplamdan hesaplanır."""
+    diger = df["toplam_mlrd_usd"] - df["asya_pasifik_mlrd_usd"] - df["kuzey_amerika_mlrd_usd"] - df["avrupa_mlrd_usd"]
+    fig = go.Figure()
+    for etiket, deger, renk in [
+        ("Asya ve Pasifik", df["asya_pasifik_mlrd_usd"], "#1f2937"),
+        ("Kuzey Amerika", df["kuzey_amerika_mlrd_usd"], "#5b7fa6"),
+        ("Avrupa", df["avrupa_mlrd_usd"], "#b8c9dd"),
+        ("Diğer bölgeler (hesaplanan)", diger, "#d1d5db"),
+    ]:
+        fig.add_trace(
+            go.Bar(
+                name=etiket,
+                x=df["yil"].astype(str),
+                y=deger,
+                marker_color=renk,
+                hovertemplate=etiket + ": %{y:,.0f} milyar USD<extra></extra>",
+            )
+        )
+    fig.update_layout(barmode="stack")
+    return _duzenle(fig, baslik, "Milyar USD")

@@ -47,3 +47,12 @@ Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yı
 | `ulke_gunes_2024.csv` | Ülkelerin güneş kurulu gücü (GW) | Türkiye 2025 yıl sonu (TEİAŞ), diğerleri 2024. |
 
 Dünya güneş kapasitesi 2024 değeri (2.164 GW) ile ülke kartındaki toplam görsel tutarlıdır.
+
+## Eklenen veriler (19. bölüm)
+
+| Dosya | İçerik | Notlar |
+|---|---|---|
+| `kuresel_yatirim.csv` | Küresel toplam enerji, temiz enerji ve güneş yatırımları (milyar USD), 2015-2025 | Görselden okundu. 2015-2025 YBBO: toplam %2,0, temiz %5,9, güneş %12,0 (görseldeki değerlerle tutarlı). |
+| `gunes_yatirim_bolge.csv` | Bölgelere göre küresel güneş yatırımları: Asya ve Pasifik, Kuzey Amerika, Avrupa | Yalnızca etiketli bölgeler yazıldı. Diğer bölgeler (Afrika, Merkez ve Güney Amerika, Orta Doğu, Avrasya) toplamdan hesaplanır, sayfada "hesaplanan" olarak işaretli. |
+
+Toplam güneş değeri (441 milyar USD 2025) iki görselde aynıdır, kodda test edilmiştir.
