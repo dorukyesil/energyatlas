@@ -10,7 +10,7 @@ uretim = data.uretim()
 tuketim = data.tuketim()
 ptf = data.ptf()
 kurulu_yillik = data.teias_kurulu_guc()[["donem", "toplam_gw", "yil"]]
-son_9a = {"toplam_gw": data.teias_ytbs()["kurulu_guc_gw"].sum()}
+son_9a = {"toplam_gw": data.teias_ytbs()["kurulu_guc_gw"].sum(), "yenilenebilir_gw": data.teias_ytbs().query("grup != 'Termik'")["kurulu_guc_gw"].sum()}
 
 
 @st.cache_data(show_spinner="Sunum hazırlanıyor…")
@@ -48,14 +48,19 @@ with sol:
         f"""<div class="ea-eyebrow">Türkiye elektrik sektörü verileri</div>
 <div class="ea-hero-etiket">Toplam kurulu güç · güncel (YTBS)</div>
 <div class="ea-hero-no">{ui.sayi(son_9a["toplam_gw"])}<small>GW</small></div>
+<div class="ea-hero-etiket" style="margin-top:0.6rem">Yenilenebilir kurulu güç · güncel (YTBS)</div>
+<div class="ea-hero-no" style="font-size:3.2rem">{ui.sayi(son_9a["yenilenebilir_gw"])}<small>GW · %{ui.sayi(son_9a["yenilenebilir_gw"] / son_9a["toplam_gw"] * 100, 0)}</small></div>
 <div class="ea-hero-not">Aşağıdaki konulardan birini seçerek ilgili sayfaya geçin.</div>""",
         unsafe_allow_html=True,
     )
 with sag:
     ytbs_toplam = data.teias_ytbs()["kurulu_guc_gw"].sum()
     ytbs_tarih = pd.to_datetime(data.teias_ytbs()["tarih"].iloc[0])
+    yen_yillik = data.teias_yenilenebilir()["yenilenebilir_gw"].tolist()
+    yen_guncel = float(data.teias_ytbs().query("grup != 'Termik'")["kurulu_guc_gw"].sum())
     st.plotly_chart(
-        charts.canli_kurulu_guc(kurulu_yillik, ytbs_toplam, ytbs_tarih, "Toplam kurulu güç (GW)"),
+        charts.canli_kurulu_guc(kurulu_yillik, ytbs_toplam, ytbs_tarih, "Kurulu güç: toplam ve yenilenebilir (GW)",
+                                yen_yillik=yen_yillik, yen_guncel=yen_guncel),
         use_container_width=True,
     )
 

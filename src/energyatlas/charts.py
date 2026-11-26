@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
 from src.energyatlas.theme import PAS as PAS
+from src.energyatlas.theme import TURKUAZ
 from src.energyatlas.theme import PAS as theme_renk_negatif
 from src.energyatlas.theme import TURKUAZ as theme_renk_pozitif
 
@@ -651,28 +652,45 @@ def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y
     return _duzenle(fig, baslik, y_baslik)
 
 
-def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str) -> go.Figure:
-    """Yıllık kurulu güç çizgisi ve sonda güncel (YTBS) nokta. Y ekseni veriye göre daraltılmıştır."""
+def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str,
+                     yen_yillik: list[float] | None = None, yen_guncel: float | None = None) -> go.Figure:
+    """Toplam ve yenilenebilir kurulu güç çizgileri; sonda güncel (YTBS) noktalar. Y ekseni veriye göre daraltılmıştır."""
     x = [str(v) for v in yillik["donem"]]
     y = list(yillik["toplam_gw"])
     etiket = guncel_tarih.strftime("%d.%m.%Y")
     fig = go.Figure()
-    fig.add_trace(go.Scatter(
-        x=x, y=y, mode="lines+markers", name="TEİAŞ yıllık",
-        line=dict(color=RENKLER["Toplam"], width=2.4), marker=dict(size=6, color=RENKLER["Toplam"]),
-        hovertemplate="%{x}: %{y:,.1f} GW<extra>TEİAŞ yıllık</extra>",
-    ))
-    fig.add_trace(go.Scatter(
-        x=[x[-1], "Güncel"], y=[y[-1], guncel_gw], mode="lines+markers+text", name="YTBS, güncel",
-        line=dict(color=PAS, width=2, dash="dot"),
-        marker=dict(size=[6, 12], color=[RENKLER["Toplam"], PAS], line=dict(color="white", width=2)),
-        text=["", f"<b>{guncel_gw:,.1f} GW</b>".replace(",", "§").replace(".", ",").replace("§", ".")],
-        textposition="top center", textfont=dict(color=PAS, size=13),
-        hovertemplate="%{x}: %{y:,.1f} GW<extra>YTBS (güncel gün)</extra>",
-    ))
+
+    def iz(xs, ys, renk, ad, guncel_nokta_metin, kesik=False):
+        fig.add_trace(go.Scatter(
+            x=xs[:-1], y=ys[:-1], mode="lines+markers", name=ad,
+            line=dict(color=renk, width=2.4), marker=dict(size=6, color=renk),
+            hovertemplate="%{x}: %{y:,.1f} GW<extra>" + ad + "</extra>",
+        ))
+        fig.add_trace(go.Scatter(
+            x=[xs[-2], xs[-1]], y=[ys[-2], ys[-1]], mode="lines+markers+text", name=ad + " (güncel)",
+            line=dict(color=PAS if not kesik else renk, width=2, dash="dot"),
+            marker=dict(size=[6, 12], color=[renk, PAS], line=dict(color="white", width=2)),
+            text=["", f"<b>{guncel_nokta_metin}</b>"], textposition="top center", textfont=dict(color=PAS, size=12),
+            hovertemplate="%{x}: %{y:,.1f} GW<extra>" + ad + " (YTBS)</extra>",
+        ))
+
+    tr = lambda v: f"{v:,.1f} GW".replace(",", "§").replace(".", ",").replace("§", ".")
+    yen_seri = list(yen_yillik) if yen_yillik else None
+    tum_y = y + [guncel_gw]
+    x_tam = x + ["Güncel"]
+    if yen_seri is not None and yen_guncel is not None:
+        iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
+        iz(x_tam, yen_seri + [yen_guncel], TURKUAZ, "Yenilenebilir", tr(yen_guncel))
+        ymin = min(min(y), min(yen_seri)) * 0.9
+        ymax = max(guncel_gw, yen_guncel, max(y)) * 1.12
+    else:
+        iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
+        ymin = min(y) * 0.92
+        ymax = max(max(y), guncel_gw) * 1.08
     fig.update_xaxes(type="category", tickangle=0)
-    fig.update_yaxes(range=[min(y) * 0.92, max(max(y), guncel_gw) * 1.08], ticksuffix="")
-    fig.update_layout(height=300, showlegend=False, margin=dict(l=10, r=20, t=50, b=10))
+    fig.update_yaxes(range=[ymin, ymax], ticksuffix="")
+    fig.update_layout(height=320, showlegend=yen_seri is not None, margin=dict(l=10, r=20, t=50, b=10),
+                      legend=dict(orientation="h", y=-0.15))
     fig.add_annotation(x=1, y=1.12, xref="paper", yref="paper", showarrow=False, xanchor="right",
                        text=f"Güncel: YTBS, {etiket}", font=dict(size=11, color="#7A7468"))
     return _duzenle(fig, baslik, "GW")
