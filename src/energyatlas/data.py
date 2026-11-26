@@ -376,7 +376,10 @@ def weo_dunya() -> pd.DataFrame:
 def mevzuat() -> pd.DataFrame:
     """Enerjiyle ilgili Resmî Gazete metinleri: tarih, başlık, tür, değişiklik bayrağı, anahtar kelimeler, bağlantı."""
     try:
-        d = load_dataset("mevzuat_resmi_gazete")
+        try:
+            d = load_dataset("mevzuat_belgeler")
+        except FileNotFoundError:
+            d = load_dataset("mevzuat_resmi_gazete")
     except FileNotFoundError:
         return pd.DataFrame(columns=["tarih", "baslik", "tur", "degisiklik", "yururluk_kaldirma", "anahtar_kelimeler", "baglanti"])
     d["tarih"] = pd.to_datetime(d["tarih"], errors="coerce")

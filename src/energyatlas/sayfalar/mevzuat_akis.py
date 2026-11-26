@@ -32,8 +32,11 @@ def render() -> None:
     m2.metric("Değişiklik içeren", f"{int(alt['degisiklik'].sum())}")
     m3.metric("Yürürlükten kaldırma", f"{int(alt['yururluk_kaldirma'].sum())}")
 
-    gosterim = alt.sort_values("tarih", ascending=False)[["tarih", "tur", "baslik", "degisiklik", "anahtar_kelimeler", "baglanti"]].rename(columns={
-        "tarih": "Tarih", "tur": "Tür", "baslik": "Başlık", "degisiklik": "Değişiklik", "anahtar_kelimeler": "Anahtar kelimeler", "baglanti": "Bağlantı"})
+    sutunlar = ["tarih", "tur", "baslik", "kurum", "onem", "degisiklik", "anahtar_kelimeler", "baglanti"]
+    sutunlar = [c for c in sutunlar if c in alt.columns]
+    gosterim = alt.sort_values("tarih", ascending=False)[sutunlar].rename(columns={
+        "tarih": "Tarih", "tur": "Tür", "baslik": "Başlık", "kurum": "Kurum", "onem": "Önem",
+        "degisiklik": "Değişiklik", "anahtar_kelimeler": "Anahtar kelimeler", "baglanti": "Bağlantı"})
     st.dataframe(
         gosterim,
         use_container_width=True,
