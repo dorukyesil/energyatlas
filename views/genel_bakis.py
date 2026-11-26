@@ -99,7 +99,7 @@ kartlar = [
     ]),
     ("🌍", "Dünya ve karşılaştırma", "Küresel güneş kapasitesi, ülkeler ve yatırımlar.", [
         ("views/dunya_gunes.py", "Dünya güneş kapasitesi", "☀️"),
-        ("views/ulke_karsilastirma.py", "Ülke karşılaştırması", "🗺️"),
+        ("views/ulke_karsilastirma.py", "Ülke ve bölge karşılaştırması", "🗺️"),
         ("views/kuresel_yatirimlar.py", "Küresel enerji yatırımları", "💰"),
     ]),
     ("🌍", "Dünya enerji görünümü", "IEA WEO 2026: enerji arzı, elektrik, emisyonlar, talep ve bölgeler.", [

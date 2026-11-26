@@ -44,7 +44,7 @@ Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yı
 | `yekdem_duyuru.csv` | EPİAŞ duyurusu: 12 kaynak için Ağustos, Eylül, Ekim 2026 fiyat ve yerli akşam desteği | Birim TL kr/kWh. Kaynak: EPİAŞ, 01.07.2021-31.12.2030 YEK belgeli tesis fiyatları. |
 | `dunya_kurulu_guc.csv` | Dünya toplam kurulu güç ve güneş (GW), 2010-2050 | Değerler IEA World Energy Outlook 2025 görselinden. 2010 güneş değeri (40 GW) görselde etiketli. Diğer yenilenebilir değerler yalnızca etiketli olduğu için eklenmedi. |
 | `dunya_gunes_payi.csv` | Güneşin toplam ve yenilenebilir kurulu güç içindeki payı (%) | Görselden okundu. |
-| `ulke_gunes_2024.csv` | Ülkelerin güneş kurulu gücü (GW) | Türkiye 2025 yıl sonu (TEİAŞ), diğerleri 2024. |
+| `ulke_gunes_2024.csv` (eski, artık kullanılmıyor) | Ülkelerin güneş kurulu gücü (GW) | Türkiye 2025 yıl sonu (TEİAŞ), diğerleri 2024. |
 
 Dünya güneş kapasitesi 2024 değeri (2.164 GW) ile ülke kartındaki toplam görsel tutarlıdır.
 
@@ -81,3 +81,5 @@ Kategoriler: enerji arzı ve son tüketim, elektrik üretimi ve kapasite, CO2 em
 sanayi malzeme üretimi, hidrojen, CCUS ve doğrudan hava yakalama.
 Not: Bölgeler birbirini kapsayabilir (ör. Kuzey Amerika ve ABD). Dünya toplamına uluslararası bunkerler dahildir.
 Türkiye, WEO bölgesel kırılımında ayrı yer almaz (Avrupa veya Orta Doğu gruplarında değildir).
+
+Ülke ve bölge karşılaştırma sayfası artık `weo_2026.csv` (güneş PV üretimi) verisini kullanır. Türkiye değeri TEİAŞ kurulu güç ve güneş payından hesaplanır.

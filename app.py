@@ -79,7 +79,7 @@ sayfalar = {
     ],
     "Dünya ve karşılaştırma": [
         sayfa("views/dunya_gunes.py", "Dünya güneş kapasitesi", "☀️"),
-        sayfa("views/ulke_karsilastirma.py", "Ülke karşılaştırması", "🗺️"),
+        sayfa("views/ulke_karsilastirma.py", "Ülke ve bölge karşılaştırması", "🗺️"),
         sayfa("views/kuresel_yatirimlar.py", "Küresel enerji yatırımları", "💰"),
     ],
 }
