@@ -46,7 +46,21 @@ def tr_baslik(metin: str) -> str:
     return " ".join(k[:1].replace("i", "İ").upper() + k[1:] if k[:1] != "i" else "İ" + k[1:] for k in kucuk.split(" "))
 
 
-def epdk_tablosu(yol: Path) -> pd.DataFrame:
+def epdk_duzeltmelerini_uygula(df: pd.DataFrame, tur: str) -> pd.DataFrame:
+    """data/epdk_duzeltmeler.csv içindeki, kaynak dosyadaki hatalı değerleri belgeli düzeltmeleri uygular."""
+    yol = DATA_DIR / "epdk_duzeltmeler.csv"
+    if not yol.exists():
+        return df
+    duz = pd.read_csv(yol, dtype=str)
+    for _, r in duz[duz["kaynak"] == tur].iterrows():
+        maske = df["lisans_no"] == r["lisans_no"]
+        if maske.any():
+            df.loc[maske, r["alan"]] = float(r["yeni"])
+            print(f"Düzeltme uygulandı: {r['lisans_no']} {r['alan']} {r['eski']} -> {r['yeni']}")
+    return df
+
+
+def epdk_tablosu(yol: Path, tur: str = "") -> pd.DataFrame:
     df = pd.read_excel(yol)
     df = df[list(SUTUNLAR.keys())].rename(columns=SUTUNLAR)
     for kolon in ["kurulu_mwe", "isletmedeki_mwe", "depolama_mwh", "depolama_mwe", "isletmedeki_depolama_mwh", "isletmedeki_depolama_mwe"]:
@@ -54,7 +68,7 @@ def epdk_tablosu(yol: Path) -> pd.DataFrame:
     df["bitis"] = pd.to_datetime(df["bitis"], dayfirst=True, errors="coerce")
     df["il"] = df["il"].map(tr_baslik)
     df["ilce"] = df["ilce"].map(tr_baslik)
-    return df
+    return epdk_duzeltmelerini_uygula(df, tur)
 
 
 def weo_dunya(yol: Path) -> pd.DataFrame:
@@ -144,10 +158,10 @@ def main(klasor: Path) -> None:
     onlisans = list(klasor.glob("*O_nlisanslar*.xls"))
     weo = list(klasor.glob("*WEO2026_AnnexA_Free_Dataset_World.csv"))
     if lisans:
-        epdk_tablosu(lisans[0]).to_csv(DATA_DIR / "epdk_lisans.csv", index=False, encoding="utf-8-sig")
+        epdk_tablosu(lisans[0], "lisans").to_csv(DATA_DIR / "epdk_lisans.csv", index=False, encoding="utf-8-sig")
         print("epdk_lisans.csv yazıldı")
     if onlisans:
-        epdk_tablosu(onlisans[0]).to_csv(DATA_DIR / "epdk_onlisans.csv", index=False, encoding="utf-8-sig")
+        epdk_tablosu(onlisans[0], "onlisans").to_csv(DATA_DIR / "epdk_onlisans.csv", index=False, encoding="utf-8-sig")
         print("epdk_onlisans.csv yazıldı")
     yatirim = list(klasor.glob("*WorldEnergyInvestment*.xlsx"))
     if yatirim:
