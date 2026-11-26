@@ -261,7 +261,7 @@ def test_yatirim_bolge_toplam_ayrik_bolgelerin_toplami():
     df = data.yatirim_bolge()
     dunya = df[(df.bolge == "World") & (df.kategori == "Toplam") & (df.yil == 2025)]["deger"].iloc[0]
     ayrik = df[(df.bolge.isin(["İleri ekonomiler", "Gelişmekte olan ekonomiler (Çin dahil)"])) & (df.kategori == "Toplam") & (df.yil == 2025)]["deger"].sum()
-    # Dünya toplamına uluslararası bunkerler de dahil olduğu için küçük bir fark kalır.
+    # Dünya toplamı, bölge toplamından biraz büyüktür (kayıtlı kalan küçük fark).
     assert 0 < dunya - ayrik < 150
 
 

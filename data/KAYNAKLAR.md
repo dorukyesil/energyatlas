@@ -79,7 +79,7 @@ Japonya, Orta Doğu, Kuzey Amerika, Rusya, Güneydoğu Asya, ABD). Senaryolar: G
 Belirlenmiş politikalar, Net sıfır (2050); senaryo yılları 2035, 2040, 2050.
 Kategoriler: enerji arzı ve son tüketim, elektrik üretimi ve kapasite, CO2 emisyonları, GSYH ve nüfus, enerji yoğunluğu,
 sanayi malzeme üretimi, hidrojen, CCUS ve doğrudan hava yakalama.
-Not: Bölgeler birbirini kapsayabilir (ör. Kuzey Amerika ve ABD). Dünya toplamına uluslararası bunkerler dahildir.
+Not: Bölgeler birbirini kapsayabilir (ör. Kuzey Amerika ve ABD).
 Türkiye, WEO bölgesel kırılımında ayrı yer almaz (Avrupa veya Orta Doğu gruplarında değildir).
 
 Ülke ve bölge karşılaştırma sayfası artık `weo_2026.csv` (güneş PV üretimi) verisini kullanır. Türkiye değeri TEİAŞ kurulu güç ve güneş payından hesaplanır.

@@ -60,7 +60,7 @@ st.plotly_chart(
     use_container_width=True,
 )
 ui.kaynak(
-    "Not: Türkiye, IEA sınıflandırmasında 'Avrupa' bölgesinde yer alır; ayrı bir Türkiye değeri bu veri dosyasında yoktur. Dünya toplamına uluslararası bunkerler de dahildir."
+    "Not: Türkiye, IEA sınıflandırmasında 'Avrupa' bölgesinde yer alır; ayrı bir Türkiye değeri bu veri dosyasında yoktur."
 )
 
 ui.veri_tablosu(ham, "Veri tablosu (tüm bölge ve kategoriler)", "yatirim_bolge.csv")
