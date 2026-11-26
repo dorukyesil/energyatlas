@@ -43,8 +43,8 @@ alt = seri(kategori).assign(donem=lambda d: d["yil"].astype(str))
 st.plotly_chart(charts.toplam_cubuk(alt, "deger", f"Dünya yatırımları: {kategori} (milyar USD)", "milyar USD"), use_container_width=True)
 ui.kaynak("Kaynak: IEA, World Energy Investment 2025 veri dosyası (World sayfası). 2024 sabit fiyat, MER.")
 
-ui.bolum("02", "Bölgeler", "Ayrık bölgeler: ileri ekonomiler, gelişmekte olan ekonomiler (Çin hariç) ve Çin. Bunlar dünya toplamını oluşturur.")
-bolgeler = ["İleri ekonomiler", "Gelişmekte olan ekonomiler (çin hariç)", "China"]
+ui.bolum("02", "Bölgeler", "İleri ekonomiler ve gelişmekte olan ekonomiler (Çin dahil) birbirini tamamlar; toplamları dünya değerine yakındır. Çin, gelişmekte olan ekonomilerin içindedir.")
+bolgeler = ["İleri ekonomiler", "Gelişmekte olan ekonomiler (Çin dahil)", "China"]
 yil = st.segmented_control("Yıl", [2015, 2020, 2025], default=2025, key="kuresel_yil") or 2025
 kat2 = st.selectbox("Kategori (bölge karşılaştırması)", kategoriler, index=3, key="kuresel_kategori2")
 bolge_df = ham[(ham["bolge"].isin(bolgeler)) & (ham["kategori"] == kat2) & (ham["yil"] == yil)]
@@ -53,14 +53,14 @@ st.plotly_chart(
     use_container_width=True,
 )
 
-ui.bolum("03", "Bölgesel zaman serisi", "Ayrık bölgelerin yıllara göre katkısı (kategori: toplam).")
-zaman = ham[(ham["bolge"].isin(bolgeler)) & (ham["kategori"] == "Toplam")]
+ui.bolum("03", "Bölgesel zaman serisi", "İleri ekonomiler ve gelişmekte olan ekonomiler, yıllara göre (toplam yatırım).")
+zaman = ham[(ham["bolge"].isin(bolgeler[:2])) & (ham["kategori"] == "Toplam")]
 st.plotly_chart(
     charts.yigin_cubuk(zaman, "yil", "bolge", "deger", "Toplam yatırım, bölgelere göre (milyar USD)", "milyar USD"),
     use_container_width=True,
 )
 ui.kaynak(
-    "Not: Türkiye, IEA sınıflandırmasında 'Avrupa' bölgesinde yer alır. Ayrı bir Türkiye değeri bu veri dosyasında yoktur."
+    "Not: Türkiye, IEA sınıflandırmasında 'Avrupa' bölgesinde yer alır; ayrı bir Türkiye değeri bu veri dosyasında yoktur. Dünya toplamına uluslararası bunkerler de dahildir."
 )
 
 ui.veri_tablosu(ham, "Veri tablosu (tüm bölge ve kategoriler)", "yatirim_bolge.csv")

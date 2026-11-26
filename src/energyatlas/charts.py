@@ -602,3 +602,23 @@ def yigin_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y_
         fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
     fig.update_layout(barmode="stack")
     return _duzenle(fig, baslik, y_baslik)
+
+
+def cizgi_coklu(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y_baslik: str) -> go.Figure:
+    """Birden çok serinin çizgi grafiği (ör. senaryo ya da kaynak karşılaştırması)."""
+    fig = go.Figure()
+    for ad, alt in df.groupby(seri, sort=False):
+        fig.add_trace(go.Scatter(name=str(ad), x=alt[x], y=alt[deger], mode="lines+markers",
+                                 line=dict(width=2.2), marker=dict(size=5),
+                                 hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
+    return _duzenle(fig, baslik, y_baslik)
+
+
+def gruplu_yatay(df: pd.DataFrame, etiket: str, seri: str, deger: str, baslik: str, birim: str) -> go.Figure:
+    """Etiketler (ör. bölgeler) için seri başına yan yana yatay çubuk."""
+    fig = go.Figure()
+    for ad, alt in df.groupby(seri, sort=False):
+        fig.add_trace(go.Bar(name=str(ad), y=alt[etiket], x=alt[deger], orientation="h",
+                             hovertemplate=f"{ad} - %{{y}}: %{{x:,.1f}} {birim}<extra></extra>"))
+    fig.update_layout(barmode="group", yaxis=dict(autorange="reversed", automargin=True))
+    return _duzenle(fig, baslik, birim)

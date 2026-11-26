@@ -69,6 +69,14 @@ sayfalar = {
         sayfa("views/iletim_agi.py", "Elektrik iletim ağı", "🔌"),
         sayfa("views/piyasa_hedefleri.py", "Piyasa hedefleri", "🎯"),
     ],
+    "Dünya enerji görünümü": [
+        sayfa("views/weo_enerji_arz.py", "Birincil enerji arzı", "🌍"),
+        sayfa("views/weo_elektrik.py", "Elektrik üretimi ve kapasite", "⚡"),
+        sayfa("views/weo_emisyon.py", "CO2 emisyonları", "🌫️"),
+        sayfa("views/weo_talep_ekonomi.py", "Enerji talebi ve ekonomi", "🏭"),
+        sayfa("views/weo_teknoloji.py", "Hidrojen ve karbon yakalama", "🧪"),
+        sayfa("views/weo_bolgesel.py", "Bölgesel karşılaştırma", "🗺️"),
+    ],
     "Dünya ve karşılaştırma": [
         sayfa("views/dunya_gunes.py", "Dünya güneş kapasitesi", "☀️"),
         sayfa("views/ulke_karsilastirma.py", "Ülke karşılaştırması", "🗺️"),

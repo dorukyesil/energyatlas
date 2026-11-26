@@ -102,6 +102,14 @@ kartlar = [
         ("views/ulke_karsilastirma.py", "Ülke karşılaştırması", "🗺️"),
         ("views/kuresel_yatirimlar.py", "Küresel enerji yatırımları", "💰"),
     ]),
+    ("🌍", "Dünya enerji görünümü", "IEA WEO 2026: enerji arzı, elektrik, emisyonlar, talep ve bölgeler.", [
+        ("views/weo_enerji_arz.py", "Birincil enerji arzı", "🌍"),
+        ("views/weo_elektrik.py", "Elektrik üretimi ve kapasite", "⚡"),
+        ("views/weo_emisyon.py", "CO2 emisyonları", "🌫️"),
+        ("views/weo_talep_ekonomi.py", "Enerji talebi ve ekonomi", "🏭"),
+        ("views/weo_teknoloji.py", "Hidrojen ve karbon yakalama", "🧪"),
+        ("views/weo_bolgesel.py", "Bölgesel karşılaştırma", "🗺️"),
+    ]),
     ("📘", "Hakkında", "Veri kaynakları, kısaltmalar ve kullanım notları.", [
         ("views/hakkinda.py", "Hakkında ve veri notları", "📘"),
     ]),

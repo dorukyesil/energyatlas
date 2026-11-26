@@ -69,4 +69,15 @@ Bu veriler `scripts/import_kaynak_verileri.py` ile üretilir. Yeniden üretmek i
 | `weo_dunya.csv` | IEA World Energy Outlook 2026, Annex A ücretsiz veri seti (dünya) | Kurulu güç (GW) ve elektrik üretimi (TWh), senaryolar: Gerçekleşen, Mevcut politikalar, Belirlenmiş politikalar, Net sıfır (2050) | Güneş 2024: 2.190 GW, 2025: 2.823 GW. Önceki görsel değerleri (2.164 GW) farklı bir sürümdendir. Türkiye ayrı bir kırılım olarak yok. |
 
 Referans: IEA, World Energy Outlook 2025 raporu (PDF). Senaryo tanımları ve politika notları için kullanılmıştır.
-| `yatirim_bolge.csv` | IEA, World Energy Investment 2025 veri dosyası | Dünya, ileri ekonomiler, gelişmekte olan ekonomiler, Çin, bölgeler; 2015-2025; milyar USD (2024 sabit fiyat, MER). Önceki görsel değerleriyle birebir uyumludur. Türkiye, "Europe" grubunda yer alır, ayrı kırılım yoktur. |
+| `yatirim_bolge.csv` | IEA, World Energy Investment 2025 veri dosyası | Dünya, ileri ekonomiler, gelişmekte olan ekonomiler (Çin dahil), Çin, bölgeler; 2015-2025; milyar USD (2024 sabit fiyat, MER). Önceki görsel değerleriyle birebir uyumludur. Türkiye, "Europe" grubunda yer alır, ayrı kırılım yoktur. |
+
+## IEA WEO 2026 (dünya ve bölgesel veriler)
+
+`weo_2026.csv` dosyası, Annex A ücretsiz veri setinin dünya ve bölge kırılımlarını tek tabloda toplar.
+Kapsam: Dünya ve 15 bölge (Afrika, Asya Pasifik, Brezilya, Orta ve Güney Amerika, Çin, Avrasya, Avrupa, Avrupa Birliği, Hindistan,
+Japonya, Orta Doğu, Kuzey Amerika, Rusya, Güneydoğu Asya, ABD). Senaryolar: Gerçekleşen (2010, 2024, 2025), Mevcut politikalar,
+Belirlenmiş politikalar, Net sıfır (2050); senaryo yılları 2035, 2040, 2050.
+Kategoriler: enerji arzı ve son tüketim, elektrik üretimi ve kapasite, CO2 emisyonları, GSYH ve nüfus, enerji yoğunluğu,
+sanayi malzeme üretimi, hidrojen, CCUS ve doğrudan hava yakalama.
+Not: Bölgeler birbirini kapsayabilir (ör. Kuzey Amerika ve ABD). Dünya toplamına uluslararası bunkerler dahildir.
+Türkiye, WEO bölgesel kırılımında ayrı yer almaz (Avrupa veya Orta Doğu gruplarında değildir).

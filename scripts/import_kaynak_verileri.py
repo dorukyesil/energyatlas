@@ -87,7 +87,7 @@ YATIRIM_SAYFALARI = [
     "World", "Advanced economies", "EMDE", "China", "North America", "Central and South America",
     "Europe", "Africa", "Middle East", "Eurasia", "Asia Pacific",
 ]
-BOLGE_ADLARI = {"EMDE": "Gelişmekte olan ekonomiler (çin hariç)", "Advanced economies": "İleri ekonomiler"}
+BOLGE_ADLARI = {"EMDE": "Gelişmekte olan ekonomiler (Çin dahil)", "Advanced economies": "İleri ekonomiler"}
 
 
 def yatirim_tablosu(yol: Path) -> pd.DataFrame:
@@ -108,6 +108,37 @@ def yatirim_tablosu(yol: Path) -> pd.DataFrame:
     return pd.DataFrame(satirlar)
 
 
+BOLGE_URUNLERI = {
+    ("Energy", "Total energy supply"): ["Total", "Renewables", "Coal", "Natural gas", "Oil", "Nuclear", "Solar", "Wind", "Hydro"],
+    ("Energy", "Electricity generation"): ["Total", "Renewables", "Coal", "Natural gas", "Nuclear", "Solar PV", "Wind"],
+    ("Energy", "Total final consumption"): ["Total"],
+    ("CO2 total", "Total energy supply"): ["Total"],
+}
+
+
+def weo_tum(dunya: Path, bolge: Path) -> pd.DataFrame:
+    """IEA WEO 2026 dünya ve bölge verilerini tek uzun tabloda birleştirir.
+
+    Sütunlar: kapsam, senaryo, kategori, akis, urun, birim, yil, deger.
+    """
+    from src.energyatlas.data import SENARYO_ADLARI
+
+    d = pd.read_csv(dunya)
+    d["kapsam"] = "Dünya"
+    b = pd.read_csv(bolge)
+    b = b[b.apply(lambda r: r["PRODUCT"] in BOLGE_URUNLERI.get((r["CATEGORY"], r["FLOW"]), []), axis=1)].copy()
+    b["kapsam"] = b["REGION"]
+    b = b[b["REGION"] != "World"]
+    birlesik = pd.concat([d, b], ignore_index=True)
+    birlesik = birlesik.rename(columns={"SCENARIO": "senaryo", "CATEGORY": "kategori", "FLOW": "akis",
+                                       "PRODUCT": "urun", "UNIT": "birim", "YEAR": "yil", "VALUE": "deger"})
+    birlesik["senaryo"] = birlesik["senaryo"].map(SENARYO_ADLARI).fillna(birlesik["senaryo"])
+    birlesik = birlesik[["kapsam", "senaryo", "kategori", "akis", "urun", "birim", "yil", "deger"]]
+    birlesik = birlesik[birlesik["deger"].notna()]
+    birlesik["yil"] = birlesik["yil"].astype(int)
+    return birlesik.sort_values(["kapsam", "senaryo", "kategori", "akis", "urun", "yil"]).reset_index(drop=True)
+
+
 def main(klasor: Path) -> None:
     lisans = list(klasor.glob("*Lisanslar*.xls"))
     onlisans = list(klasor.glob("*O_nlisanslar*.xls"))
@@ -122,9 +153,10 @@ def main(klasor: Path) -> None:
     if yatirim:
         yatirim_tablosu(yatirim[0]).to_csv(DATA_DIR / "yatirim_bolge.csv", index=False, encoding="utf-8-sig")
         print("yatirim_bolge.csv yazıldı")
-    if weo:
-        weo_dunya(weo[0]).to_csv(DATA_DIR / "weo_dunya.csv", index=False, encoding="utf-8-sig")
-        print("weo_dunya.csv yazıldı")
+    bolge = list(klasor.glob("*WEO2026_AnnexA_Free_Dataset_Regions.csv"))
+    if weo and bolge:
+        weo_tum(weo[0], bolge[0]).to_csv(DATA_DIR / "weo_2026.csv", index=False, encoding="utf-8-sig")
+        print("weo_2026.csv yazıldı")
 
 
 if __name__ == "__main__":

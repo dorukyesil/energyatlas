@@ -246,3 +246,25 @@ def test_her_tablonun_kaynagi_var():
         p.read_text(encoding="utf-8") for p in (kok / "views").glob("*.py")))
     eksik = sorted(set(d for d in dosyalar if d not in TABLO_KAYNAKLARI))
     assert not eksik, f"Kaynağı tanımsız tablolar: {eksik}"
+
+
+def test_weo_birlesik_veri_tutarli():
+    df = data.weo_tum()
+    assert {"Dünya"} <= set(df["kapsam"].unique())
+    assert df["senaryo"].isin(["Gerçekleşen"] + data.WEO_SENARYOLAR).all()
+    toplam_2025 = df[(df.kapsam == "Dünya") & (df.kategori == "Capacity: installed") & (df.urun == "Total") & (df.yil == 2025) & (df.senaryo == "Gerçekleşen")]["deger"].iloc[0]
+    parca = df[(df.kapsam == "Dünya") & (df.kategori == "Capacity: installed") & (df.urun.isin(["Solar PV", "Wind", "Hydro", "Nuclear"])) & (df.yil == 2025) & (df.senaryo == "Gerçekleşen")]["deger"].sum()
+    assert parca < toplam_2025
+
+
+def test_yatirim_bolge_toplam_ayrik_bolgelerin_toplami():
+    df = data.yatirim_bolge()
+    dunya = df[(df.bolge == "World") & (df.kategori == "Toplam") & (df.yil == 2025)]["deger"].iloc[0]
+    ayrik = df[(df.bolge.isin(["İleri ekonomiler", "Gelişmekte olan ekonomiler (Çin dahil)"])) & (df.kategori == "Toplam") & (df.yil == 2025)]["deger"].sum()
+    # Dünya toplamına uluslararası bunkerler de dahil olduğu için küçük bir fark kalır.
+    assert 0 < dunya - ayrik < 150
+
+
+def test_weo_sayfa_grafikleri():
+    assert len(charts.cizgi_coklu(data.weo_coklu("Energy", "Total energy supply", ["Coal", "Oil"], "Mevcut politikalar"), "yil", "urun", "deger", "t", "EJ").data) == 2
+    assert len(charts.yigin_cubuk(data.weo_coklu("Energy", "Electricity generation", ["Wind", "Solar PV"], "Net sıfır (2050)"), "yil", "urun", "deger", "t", "TWh").data) == 2
