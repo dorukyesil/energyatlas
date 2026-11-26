@@ -1,28 +1,69 @@
 import sys
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from config import DATA_DIR  # noqa: E402
-from src.energyatlas.data import filter_by_year, load_csv  # noqa: E402
+from src.energyatlas import charts, data  # noqa: E402
+from src.energyatlas.data import load_dataset  # noqa: E402
 
 
-def test_load_csv_reads_sample():
-    df = load_csv(DATA_DIR / "uretim_ornek.csv")
-    assert {"tarih", "kaynak", "uretim_mwh"} <= set(df.columns)
-    assert len(df) > 0
-
-
-def test_load_csv_missing_file_raises(tmp_path):
+def test_missing_dataset_raises(tmp_path):
     with pytest.raises(FileNotFoundError):
-        load_csv(tmp_path / "yok.csv")
+        load_dataset("yok", data_dir=tmp_path)
 
 
-def test_filter_by_year_keeps_only_that_year():
-    df = load_csv(DATA_DIR / "uretim_ornek.csv")
-    sonuc = filter_by_year(df, 2024)
-    assert (sonuc["tarih"].dt.year == 2024).all()
-    assert len(sonuc) == len(df)
+@pytest.mark.parametrize("loader", [data.kurulu_guc, data.uretim, data.tuketim])
+def test_time_series_has_12_periods(loader):
+    df = loader()
+    assert len(df) == 12
+    assert df["donem"].iloc[0] == "2016"
+
+
+def test_kurulu_guc_shares_roughly_sum_to_100():
+    df = data.kurulu_guc()
+    toplam = df[["termik_pct", "gunes_pct", "ruzgar_pct", "diger_ye_pct"]].sum(axis=1, min_count=3)
+    # Görsellerdeki yuvarlanmış değerler nedeniyle küçük sapmalara izin verilir.
+    assert ((toplam >= 97) & (toplam <= 103)).all()
+
+
+def test_uretim_shares_roughly_sum_to_100():
+    df = data.uretim()
+    toplam = df[["termik_pct", "gunes_pct", "ruzgar_pct", "diger_ye_pct"]].sum(axis=1, min_count=3)
+    assert ((toplam >= 97) & (toplam <= 103)).all()
+
+
+def test_hedef_toplam_matches_components():
+    df = data.hedefler().set_index("kaynak")
+    for kolon in df.columns:
+        if pd.isna(df.loc["Toplam", kolon]):
+            continue
+        yenilenebilir = df.loc["Toplam Yenilenebilir", kolon]
+        termik = df.loc["Toplam Termik", kolon]
+        toplam = df.loc["Toplam", kolon]
+        if pd.notna(yenilenebilir) and pd.notna(termik):
+            assert abs(yenilenebilir + termik - toplam) < 1.0, kolon
+
+
+def test_kisi_basina_turkiye_below_oecd():
+    df = data.kisi_basina().set_index("kaynak")
+    assert df.loc["Türkiye", "kwh_kisi"] < df.loc["OECD", "kwh_kisi"]
+
+
+@pytest.mark.parametrize(
+    "build",
+    [
+        lambda: charts.toplam_cubuk(data.kurulu_guc(), "toplam_gw", "t", "GW"),
+        lambda: charts.pay_yiginli_cubuk(data.uretim(), "t"),
+        lambda: charts.tuketim_cubuk(data.tuketim(), "t"),
+        lambda: charts.kisi_basina_cubuk(data.kisi_basina(), "t"),
+        lambda: charts.hedef_karsilastirma(data.hedefler(), "t"),
+        lambda: charts.pay_halkasi(["Güneş", "Termik"], [10, 20], "t"),
+    ],
+)
+def test_charts_build(build):
+    fig = build()
+    assert len(fig.data) > 0

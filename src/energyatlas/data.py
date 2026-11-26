@@ -1,22 +1,39 @@
 """Veri okuma katmanı.
 
 Veri kaynağı değiştiğinde (CSV -> API, veritabanı vb.) yalnızca bu dosya değişir.
-Arayüz kodu veriyi buradan alır.
+Arayüz ve grafik kodu veriyi buradan alır.
 """
 
 from pathlib import Path
 
 import pandas as pd
 
+from config import DATA_DIR
 
-def load_csv(path: Path) -> pd.DataFrame:
-    """Verilen CSV dosyasını DataFrame olarak okur."""
-    path = Path(path)
+
+def load_dataset(name: str, data_dir: Path = DATA_DIR) -> pd.DataFrame:
+    """data/<name>.csv dosyasını DataFrame olarak okur."""
+    path = Path(data_dir) / f"{name}.csv"
     if not path.exists():
         raise FileNotFoundError(f"Veri dosyası bulunamadı: {path}")
-    return pd.read_csv(path, parse_dates=["tarih"])
+    return pd.read_csv(path)
 
 
-def filter_by_year(df: pd.DataFrame, yil: int) -> pd.DataFrame:
-    """Tarih sütununa göre belirli bir yılın kayıtlarını döndürür."""
-    return df[df["tarih"].dt.year == yil].reset_index(drop=True)
+def kurulu_guc() -> pd.DataFrame:
+    return load_dataset("kurulu_guc")
+
+
+def uretim() -> pd.DataFrame:
+    return load_dataset("uretim")
+
+
+def tuketim() -> pd.DataFrame:
+    return load_dataset("tuketim")
+
+
+def kisi_basina() -> pd.DataFrame:
+    return load_dataset("kisi_basina")
+
+
+def hedefler() -> pd.DataFrame:
+    return load_dataset("hedefler")

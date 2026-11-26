@@ -6,9 +6,9 @@ Enerji sektörüne ilişkin verileri görselleştiren Streamlit tabanlı web por
 
 ```
 app.py            Giriş sayfası
-pages/            Diğer sayfalar (Streamlit çok sayfalı yapısı)
+pages/            Sayfalar: kurulu güç, üretim, tüketim, kişi başına, piyasa hedefleri
 src/energyatlas/  Veri okuma ve iş mantığı (Streamlit'e bağımlı değil)
-data/             Veri dosyaları
+data/             Veri dosyaları (CSV) ve kaynak notları
 config.py         Ayarlar (ortam değişkenlerinden okunur)
 tests/            Testler
 ```
@@ -40,4 +40,4 @@ pytest
 | `ENERJI_DATA_DIR`  | `<proje>/data`        | Veri dosyalarının klasörü |
 | `ENERJI_APP_TITLE` | `Enerji Atlası`       | Uygulama başlığı         |
 
-> `data/uretim_ornek.csv` örnek veridir; gerçek veriler hazır olduğunda değiştirilecektir.
+> Veriler `data/` klasöründedir. Kaynak ve doğrulama notları için `data/KAYNAKLAR.md` dosyasına bakın.
