@@ -240,3 +240,87 @@ def sematik_profil(saat: list[int], talep: list[float], termik: list[float], ruz
     fig.add_trace(go.Scatter(name="Elektrik talebi", x=saat, y=talep, mode="lines", line=dict(color="#c8102e", width=3, dash="dot")))
     fig.update_xaxes(title="Saat", dtick=3)
     return _duzenle(fig, baslik, "Göreli güç (şematik)")
+
+
+def on_lisans_yillik(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Ön lisans bitiş yılına göre kapasiteyi (MWe) teknolojiye göre gruplar."""
+    fig = go.Figure()
+    for teknoloji, renk in [("GES", RENKLER["Güneş"]), ("RES", RENKLER["Rüzgar"])]:
+        alt = df[df["teknoloji"] == teknoloji]
+        fig.add_trace(
+            go.Bar(
+                name="Depolamalı " + teknoloji,
+                x=alt["bitis_yili"].astype(str),
+                y=alt["kapasite_mwe"],
+                marker_color=renk,
+                hovertemplate=teknoloji + ": %{y:,.0f} MWe<br>%{customdata} proje<extra></extra>",
+                customdata=alt["proje_adedi"],
+            )
+        )
+    fig.update_layout(barmode="group")
+    return _duzenle(fig, baslik, "Kapasite (MWe)")
+
+
+def isletmedeki_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """İşletmedeki depolama kapasitesini (MWh) şirketlere göre yatay çubukla gösterir."""
+    renkler = [RENKLER["Güneş"] if t == "Güneş" else RENKLER["Rüzgar"] for t in df["tesis_turu"]]
+    fig = go.Figure(
+        go.Bar(
+            x=df["kapasite_mwh"],
+            y=df["lisans_sahibi"],
+            orientation="h",
+            marker_color=renkler,
+            text=df["kapasite_mwh"],
+            texttemplate="%{text:,.1f} MWh",
+            textposition="outside",
+            customdata=df["guc_mwe"],
+            hovertemplate="%{y}<br>Kapasite: %{x:,.1f} MWh<br>Güç: %{customdata:,.1f} MWe<extra></extra>",
+        )
+    )
+    fig.update_layout(
+        title=baslik,
+        template="plotly_white",
+        xaxis_title="MWh",
+        yaxis=dict(autorange="reversed"),
+        margin=dict(l=10, r=60, t=60, b=10),
+    )
+    return fig
+
+
+def tarife_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """Seçilen gruplar için gündüz, puant, gece tarifelerini gruplu çubukla gösterir."""
+    fig = go.Figure()
+    for kolon, etiket, renk in [
+        ("gunduz", "Gündüz", "#f5b400"),
+        ("puant", "Puant", "#c8102e"),
+        ("gece", "Gece", "#1f4e79"),
+    ]:
+        fig.add_trace(
+            go.Bar(
+                name=etiket,
+                x=df["grup"],
+                y=df[kolon],
+                marker_color=renk,
+                hovertemplate=etiket + ": %{y:,.2f} kr/kWh<extra></extra>",
+            )
+        )
+    fig.update_layout(barmode="group")
+    fig = _duzenle(fig, baslik, "kr/kWh")
+    fig.update_xaxes(tickangle=-30)
+    return fig
+
+
+def ptf_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """PTF (USD/MWh) yıllık değerleri. 2022 zirvesi vurgulanır."""
+    renkler = ["#c8102e" if d == "2022" else RENKLER["Toplam"] for d in df["donem"]]
+    fig = go.Figure(
+        go.Bar(
+            x=df["donem"],
+            y=df["ptf_usd_mwh"],
+            marker_color=renkler,
+            text=df["ptf_usd_mwh"],
+            textposition="outside",
+            hovertemplate="%{x}: %{y} USD/MWh<extra></extra>",
+        )
+    )
+    return _duzenle(fig, baslik, "USD/MWh")

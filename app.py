@@ -30,3 +30,7 @@ st.page_link("pages/6_Devam_Eden_Yatirimlar.py", label="Devam eden yatırımlar"
 st.page_link("pages/7_Iletim_Agi.py", label="Elektrik iletim ağı", icon="🔌")
 st.page_link("pages/8_Depolama_Sebeke.py", label="Depolama ve şebeke", icon="🔋")
 st.page_link("pages/9_Depolama_On_Lisans.py", label="Depolama ön lisansları", icon="🗺️")
+st.page_link("pages/10_On_Lisans_Tarihleri.py", label="Ön lisans bitiş tarihleri", icon="📅")
+st.page_link("pages/11_Isletmedeki_Depolama.py", label="İşletmedeki depolama projeleri", icon="🏭")
+st.page_link("pages/12_EPDK_Tarifeleri.py", label="EPDK elektrik tarifeleri", icon="💡")
+st.page_link("pages/13_PTF.py", label="Piyasa takas fiyatı (PTF)", icon="💹")

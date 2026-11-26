@@ -57,3 +57,19 @@ def iletim() -> pd.DataFrame:
 
 def baglantilar() -> pd.DataFrame:
     return load_dataset("baglantilar")
+
+
+def depolama_on_lisans() -> pd.DataFrame:
+    return load_dataset("depolama_on_lisans")
+
+
+def isletmedeki_depolama() -> pd.DataFrame:
+    return load_dataset("isletmedeki_depolama")
+
+
+def tarife() -> pd.DataFrame:
+    return load_dataset("tarife")
+
+
+def ptf() -> pd.DataFrame:
+    return load_dataset("ptf")

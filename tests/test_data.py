@@ -92,3 +92,39 @@ def test_yeni_grafikler_olusur():
     assert len(charts.sirket_yigin_cubuk(data.depolama_sirketler(), "t").data) == 2
     assert len(charts.yillik_pay_cubuk(data.depolama_kapasite(), "devreye_giris", "t").data) == 2
     assert len(charts.sematik_profil(list(range(3)), [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], "t").data) == 5
+
+
+def test_on_lisans_toplamlari_gorsele_uygun():
+    df = data.depolama_on_lisans()
+    ges = df[df["teknoloji"] == "GES"]
+    res = df[df["teknoloji"] == "RES"]
+    assert ges["proje_adedi"].sum() == 297
+    assert res["proje_adedi"].sum() == 233
+    assert abs(ges["kapasite_mwe"].sum() - 10555) <= 5  # görseldeki yuvarlama farkı
+    assert abs(res["kapasite_mwe"].sum() - 16399) <= 5
+
+
+def test_isletmedeki_toplamlar():
+    df = data.isletmedeki_depolama()
+    assert len(df) == 10
+    assert abs(df["kapasite_mwh"].sum() - 419.5) < 0.05
+    assert abs(df["guc_mwe"].sum() - 388.5) < 0.05
+    assert abs(df[df["tesis_turu"] == "Güneş"]["kapasite_mwh"].sum() - 278.9) < 0.05
+    assert abs(df[df["tesis_turu"] == "Rüzgar"]["kapasite_mwh"].sum() - 140.6) < 0.05
+
+
+def test_tarife_tek_zamanli_pozitif():
+    df = data.tarife()
+    assert (df["tek_zamanli"] > 0).all()
+
+
+def test_ptf_2026_dusus_yuzde_35():
+    df = data.ptf().set_index("donem")
+    degisim = df.loc["2026 9A", "ptf_usd_mwh"] / df.loc["2025 9A", "ptf_usd_mwh"] - 1
+    assert round(degisim * 100, 1) == -34.8 or round(degisim * 100, 0) == -35
+
+
+def test_yeni_grafikler_olusur_2():
+    assert len(charts.on_lisans_yillik(data.depolama_on_lisans(), "t").data) == 2
+    assert len(charts.isletmedeki_cubuk(data.isletmedeki_depolama(), "t").data) == 1
+    assert len(charts.ptf_cubuk(data.ptf(), "t").data) == 1

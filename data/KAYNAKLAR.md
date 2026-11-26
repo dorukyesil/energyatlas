@@ -24,3 +24,12 @@ Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yı
 | `baglantilar.csv` | Sınır bağlantıları (8 ülke) | Görseldeki ülke listesi. |
 
 Ön lisans haritaları (9. bölüm) yalnızca görsel yoğunluk içerir. Sayısal il listesi için EPDK kaynağı gerekir.
+
+## Eklenen veriler (10-13. bölümler)
+
+| Dosya | İçerik | Notlar |
+|---|---|---|
+| `depolama_on_lisans.csv` | Depolamalı GES ve RES ön lisans bitiş yılı, proje adedi, kapasite (MWe) | Toplam GES 10.555 MWe, RES 16.399 MWe (görseldeki toplamlar). Yıllık satırların toplamı birkaç MWe farklı çıkabilir (yuvarlama). |
+| `isletmedeki_depolama.csv` | İşletmedeki depolama lisanslı 10 tesis, MWh ve MWe | Toplam 419,5 MWh, 388,5 MWe. Kontrol grubu bilgisi görseldeki dipnottan alındı. |
+| `tarife.csv` | EPDK tek zamanlı ve çok zamanlı enerji bedelleri (kr/kWh) | 4 Nisan 2026 itibarıyla, vergiler hariç. Dağıtım bedelleri ve reaktif enerji bedelleri eklenmedi. Kaynak: EPDK, elektrik faturalarına esas tarife tabloları. |
+| `ptf.csv` | Piyasa takas fiyatı, USD/MWh (2016-2026 9A) | Görseldeki yıllık değerler. |
