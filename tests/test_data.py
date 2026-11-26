@@ -223,8 +223,8 @@ def test_sunum_ozet_slayt_sayisi_ve_format():
     from src.energyatlas import export
 
     prs = Presentation(io.BytesIO(export.ozet_sunum_bytes()))
-    assert len(prs.slides) == len(export.ozet_slaytlari())
-    assert len(prs.slides) >= 6
+    assert len(prs.slides) == len(export.PLAN)
+    assert len(prs.slides) >= 25
 
 
 def test_guncelleme_kaydi(tmp_path, monkeypatch):

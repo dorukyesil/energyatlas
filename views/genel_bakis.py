@@ -37,7 +37,7 @@ with ust3:
     st.download_button(
         "Sunumu indir (.pptx)",
         data=_sunum_bytes(guncelleme.son_guncelleme_metni()),
-        file_name="enerji_atlasi_ozet.pptx",
+        file_name="enerji_atlasi_sunum.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         use_container_width=True,
     )
