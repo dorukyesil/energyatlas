@@ -123,6 +123,7 @@ CSS = f"""
     background: {KAGIT_KART}; border: 1px solid {CIZGI}; border-radius: 10px; min-height: 360px;
   }}
   .ea-kart-baslik {{ font-family: {SERIF}; font-size: 1.35rem; color: {MUREKKEP}; margin: 0.1rem 0 0.2rem 0; }}
+  .ea-kart-madde {{ color: #4A4A48; font-size: 0.9rem; line-height: 1.55; }}
   .ea-kart-aciklama {{ color: {SOLUK}; font-size: 0.88rem; margin-bottom: 0.5rem; line-height: 1.45; }}
   [data-testid="stPageLink"] a {{ padding: 0.15rem 0; }}
 

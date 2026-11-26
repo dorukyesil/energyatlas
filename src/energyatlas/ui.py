@@ -128,6 +128,8 @@ TABLO_KAYNAKLARI = {
 def veri_tablosu(df: pd.DataFrame, baslik: str = "Veri tablosu", dosya: str = "veri.csv", kaynak: str = "") -> None:
     """Tabloyu açılır bölümde gösterir. Üstünde kaynak notu ve CSV indirme düğmesi bulunur."""
     kaynak = kaynak or TABLO_KAYNAKLARI.get(dosya, "")
+    parmak_izi = int(pd.util.hash_pandas_object(df, index=False).sum() % 10**9)
+    anahtar = "dl_" + "".join(ch if ch.isalnum() else "_" for ch in f"{dosya}_{baslik}") + f"_{parmak_izi}"
     with st.expander(baslik):
         if kaynak:
             st.caption(f"Kaynak: {kaynak}")
@@ -137,4 +139,31 @@ def veri_tablosu(df: pd.DataFrame, baslik: str = "Veri tablosu", dosya: str = "v
             data=df.to_csv(index=False).encode("utf-8-sig"),
             file_name=dosya,
             mime="text/csv",
+            key=anahtar,
         )
+
+
+def geri_linki() -> None:
+    """Alt sayfalardan ana sayfaya dönüş bağlantısı."""
+    st.page_link("views/genel_bakis.py", label="← Ana sayfa", icon="🏠")
+
+
+def kategori_karti_basit(ikon: str, baslik: str, aciklama: str, maddeler: list[str], yol: str, etiket: str) -> None:
+    """Ana sayfadaki konu kartı: kısa açıklama, alt başlıklar ve tek bir bağlantı."""
+    with st.container(border=True, height=300):
+        st.markdown(
+            f'<span class="ea-kart-isaret"></span><div style="font-size:1.5rem">{ikon}</div>'
+            f'<div class="ea-kart-baslik">{html.escape(baslik)}</div>'
+            f'<div class="ea-kart-aciklama">{html.escape(aciklama)}</div>'
+            + "".join(f'<div class="ea-kart-madde">· {html.escape(m)}</div>' for m in maddeler),
+            unsafe_allow_html=True,
+        )
+        st.page_link(yol, label=f"{etiket} →")
+
+
+def hero(baslik: str, aciklama: str) -> None:
+    """Ana sayfanın üstündeki başlık bloğu."""
+    st.markdown(
+        f'<div class="ea-hero"><h1>{html.escape(baslik)}</h1><p>{html.escape(aciklama)}</p></div>',
+        unsafe_allow_html=True,
+    )

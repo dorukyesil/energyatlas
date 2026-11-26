@@ -4,6 +4,7 @@ Veri kaynağı değiştiğinde (CSV -> API, veritabanı vb.) yalnızca bu dosya 
 Arayüz ve grafik kodu veriyi buradan alır.
 """
 
+from functools import lru_cache
 from pathlib import Path
 
 import pandas as pd
@@ -11,12 +12,17 @@ import pandas as pd
 from config import DATA_DIR
 
 
-def load_dataset(name: str, data_dir: Path = DATA_DIR) -> pd.DataFrame:
-    """data/<name>.csv dosyasını DataFrame olarak okur."""
+@lru_cache(maxsize=64)
+def _oku(name: str, data_dir: str) -> pd.DataFrame:
     path = Path(data_dir) / f"{name}.csv"
     if not path.exists():
         raise FileNotFoundError(f"Veri dosyası bulunamadı: {path}")
     return pd.read_csv(path)
+
+
+def load_dataset(name: str, data_dir: Path = DATA_DIR) -> pd.DataFrame:
+    """data/<name>.csv dosyasını DataFrame olarak okur."""
+    return _oku(name, str(data_dir)).copy()
 
 
 def kurulu_guc() -> pd.DataFrame:
@@ -223,3 +229,8 @@ def weo_coklu(kategori: str, akis: str, urunler: list[str], senaryo: str, kapsam
             s = s.assign(urun=weo_etiket(u))
             parcalar.append(s)
     return pd.concat(parcalar, ignore_index=True) if parcalar else pd.DataFrame(columns=["yil", "urun", "deger"])
+
+
+def yenile() -> None:
+    """Veri önbelleğini temizler; sonraki okumalar dosyaları yeniden okur."""
+    _oku.cache_clear()

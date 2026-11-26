@@ -242,8 +242,8 @@ def test_her_tablonun_kaynagi_var():
     from src.energyatlas.ui import TABLO_KAYNAKLARI
 
     kok = _P(__file__).resolve().parent.parent
-    dosyalar = re.findall(r'veri_tablosu\([^\n]*?"([^"]+\.csv)"', "\n".join(
-        p.read_text(encoding="utf-8") for p in (kok / "views").glob("*.py")))
+    kaynak_dosyalar = list((kok / "views").glob("*.py")) + list((kok / "src" / "energyatlas" / "sayfalar").glob("*.py"))
+    dosyalar = re.findall(r'veri_tablosu\([^\n]*?"([^"]+\.csv)"', "\n".join(p.read_text(encoding="utf-8") for p in kaynak_dosyalar))
     eksik = sorted(set(d for d in dosyalar if d not in TABLO_KAYNAKLARI))
     assert not eksik, f"Kaynağı tanımsız tablolar: {eksik}"
 
