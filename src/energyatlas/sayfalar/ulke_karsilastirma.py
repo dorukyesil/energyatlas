@@ -1,8 +1,32 @@
 """Ülke ve bölge karşılaştırması: güneş PV elektrik üretimi (IEA WEO 2026)."""
 
+import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, ui
+
+
+# Bu bölgeler, ayrı çubuk olarak gösterilen bölgeler içinde zaten yer alır. Üst üste binmemesi için çıkarılır.
+KAPSAYAN_BOLGELER = {"European Union": "Avrupa", "United States": "Kuzey Amerika", "Russia": "Avrasya", "Brazil": "Orta ve Güney Amerika"}
+ASYA_ALT_BOLGELER = ["China", "India", "Japan", "Southeast Asia"]
+
+
+def _ayrik_bolgeler(df):
+    """Asya Pasifik'ten alt bölgeleri (Çin, Hindistan, Japonya, GD Asya) düşer; kalanı 'diğer' olarak ayırır.
+    Avrupa Birliği, ABD ve Rusya ilgili bölgelerin içinde olduğu için ayrı gösterilmez."""
+    parcalar = []
+    for _, grup in df.groupby("senaryo"):
+        grup = grup[~grup["kapsam"].isin(KAPSAYAN_BOLGELER)].copy()
+        ap = grup.loc[grup["kapsam"] == "Asia Pacific", "deger"]
+        if not ap.empty:
+            alt = grup.loc[grup["kapsam"].isin(ASYA_ALT_BOLGELER), "deger"].sum()
+            satir = grup[grup["kapsam"] == "Asia Pacific"].copy()
+            satir["kapsam"] = "Asia Pacific (diğer)"
+            satir["deger"] = ap.iloc[0] - alt
+            grup = grup[grup["kapsam"] != "Asia Pacific"]
+            grup = pd.concat([grup, satir])
+        parcalar.append(grup)
+    return pd.concat(parcalar) if parcalar else df
 
 
 def render() -> None:
@@ -14,7 +38,8 @@ def render() -> None:
         (df.kategori == "Energy") & (df.akis == "Electricity generation") & (df.urun == "Solar PV")
         & (df.yil == yil) & (df.senaryo.isin(["Gerçekleşen", senaryo])) & (df.kapsam != "Dünya")
     ].copy()
-    secim["bolge"] = secim["kapsam"].map(data.weo_etiket)
+    secim = _ayrik_bolgeler(secim)
+    secim["bolge"] = secim["kapsam"].map(lambda k: "Asya Pasifik (diğer)" if k == "Asia Pacific (diğer)" else data.weo_etiket(k))
     dunya = df[
         (df.kapsam == "Dünya") & (df.kategori == "Energy") & (df.akis == "Electricity generation") & (df.urun == "Solar PV")
         & (df.yil == yil) & (df.senaryo.isin(["Gerçekleşen", senaryo]))
@@ -31,7 +56,7 @@ def render() -> None:
         c2.metric("En büyük (bölge)", lider["bolge"], f"{ui.sayi(lider['deger'], 0)} TWh", delta_color="off")
     c3.metric("Türkiye kurulu güneş (2026 9A)", f"{ui.sayi(tr_guc_2026, 1)} GW", "TEİAŞ kurulu güç payından türetilmiştir", delta_color="off")
 
-    ui.bolum("01", "Güneş PV üretimi karşılaştırması", "Ülke ve bölgeler, TWh. Bölgeler birbirini kapsayabilir (ör. Avrupa Birliği, Avrupa'nın parçasıdır).")
+    ui.bolum("01", "Güneş PV üretimi karşılaştırması", "TWh. Çubuklar birbirini kapsamaz: Asya Pasifik'ten Çin, Hindistan, Japonya ve Güneydoğu Asya çıkarılmış, Avrupa Birliği, ABD, Rusya ve Brezilya ayrı gösterilmemiştir.")
     if secim.empty:
         st.info("Bu yıl ve senaryo için veri yok.")
     else:
