@@ -4,15 +4,15 @@ import streamlit as st
 
 from src.energyatlas import ui
 
-ui.hero("Hakkında", "Bu portal ne içerir, veriler nereden geliyor ve nelere dikkat edilmeli.")
+ui.sayfa_basligi("Genel", "Hakkında", "Bu portal ne içerir, veriler nereden geliyor ve nelere dikkat edilmeli.")
 
-st.subheader("Amaç")
+ui.bolum("01", "Amaç")
 st.markdown(
     "Enerji Atlası, Türkiye ve dünya elektrik sektörüne ait temel göstergeleri tek bir yerde, "
     "anlaşılır grafiklerle sunar. Yatırımcılar, araştırmacılar ve sektörle ilgilenen herkes için hazırlanmıştır."
 )
 
-st.subheader("Veri kaynakları")
+ui.bolum("02", "Veri kaynakları")
 st.markdown(
     """
 - **TEİAŞ:** Kurulu güç, üretim, tüketim, iletim ağı
@@ -24,7 +24,7 @@ st.markdown(
 """
 )
 
-st.subheader("Kullanım notları")
+ui.bolum("03", "Kullanım notları")
 st.info(
     "Bazı değerler resmi raporların grafiklerinden okunarak girilmiştir. Yayın öncesi ve karar "
     "vermeden önce ilgili resmi kaynaktan doğrulanmalıdır. Ayrıntılı kaynak notları proje deposundaki "

@@ -8,11 +8,11 @@ gösteren Streamlit tabanlı web portalı.
 | Kategori | Sayfalar |
 |---|---|
 | Genel | Genel Bakış, Hakkında |
-| Kapasite ve üretim | Kurulu güç, üretim, brüt tüketim, kişi başına tüketim |
-| Yenilenebilir ve depolama | Devam eden yatırımlar, depolama ve şebeke, depolama ön lisansları, ön lisans tarihleri, işletmedeki depolama |
-| Fiyatlar ve tarifeler | PTF, EPDK tarifeleri, YEKDEM, YEKDEM duyuruları |
+| Elektrik sistemi | Kurulu güç, üretim, brüt tüketim, kişi başına tüketim |
+| Depolama ve yatırımlar | Devam eden yatırımlar, depolama ve şebeke, depolama ön lisansları, işletmedeki depolama |
+| Fiyatlar ve tarifeler | PTF, EPDK tarifeleri, YEKDEM (fiyat aralığı ve aylık duyurular) |
 | Altyapı ve hedefler | Elektrik iletim ağı, piyasa hedefleri |
-| Dünya ve karşılaştırma | Dünya kurulu güç, dünyada güneş payı, ülke karşılaştırması, küresel yatırımlar |
+| Dünya ve karşılaştırma | Dünya güneş kapasitesi, ülke karşılaştırması, küresel yatırımlar |
 
 ## Proje yapısı
 
@@ -20,11 +20,12 @@ gösteren Streamlit tabanlı web portalı.
 app.py              Giriş noktası: tema, gezinme menüsü ve kategoriler
 views/              Her sayfa bir dosya
 src/energyatlas/
-  theme.py          Renk paleti, Plotly şablonu, CSS
-  ui.py             Ortak bileşenler (başlık, kart, veri tablosu + CSV indirme)
+  theme.py          Renk paleti, Plotly şablonu, CSS (sıcak kağıt zemin, serif başlıklar)
+  ui.py             Ortak bileşenler (sayfa başlığı, bölüm, KPI şeridi, segment, veri tablosu + CSV indirme)
   charts.py         Grafik üreticileri (Streamlit'ten bağımsız)
   data.py           Veri okuma katmanı
 data/               CSV veri dosyaları ve KAYNAKLAR.md (kaynak notları)
+.streamlit/         Streamlit tema ayarı (config.toml)
 config.py           Ayarlar (ortam değişkenleri)
 tests/              Testler
 ```

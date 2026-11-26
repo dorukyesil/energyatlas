@@ -1,5 +1,7 @@
 """Enerji Atlası: giriş noktası. Gezinme menüsünü ve sayfa kategorilerini tanımlar."""
 
+from pathlib import Path
+
 import streamlit as st
 
 from config import APP_TITLE
@@ -13,39 +15,42 @@ st.set_page_config(
 )
 theme.uygula()
 
+
+def sayfa(yol: str, baslik: str, ikon: str, varsayilan: bool = False) -> st.Page:
+    """Sayfa adresi dosya adından türetilir (ör. /kurulu_guc)."""
+    return st.Page(yol, title=baslik, icon=ikon, url_path=Path(yol).stem, default=varsayilan)
+
+
 sayfalar = {
     "Genel": [
-        st.Page("views/genel_bakis.py", title="Genel Bakış", icon="🏠", default=True),
-        st.Page("views/hakkinda.py", title="Hakkında", icon="📘"),
+        sayfa("views/genel_bakis.py", "Genel Bakış", "🏠", varsayilan=True),
+        sayfa("views/hakkinda.py", "Hakkında", "📘"),
     ],
-    "Kapasite ve üretim": [
-        st.Page("views/kurulu_guc.py", title="Kaynaklara göre kurulu güç", icon="⚡"),
-        st.Page("views/uretim.py", title="Kaynaklara göre üretim", icon="🏭"),
-        st.Page("views/tuketim.py", title="Brüt elektrik tüketimi", icon="📈"),
-        st.Page("views/kisi_basina.py", title="Kişi başına tüketim", icon="👥"),
+    "Elektrik sistemi": [
+        sayfa("views/kurulu_guc.py", "Kaynaklara göre kurulu güç", "⚡"),
+        sayfa("views/uretim.py", "Kaynaklara göre üretim", "🏭"),
+        sayfa("views/tuketim.py", "Brüt elektrik tüketimi", "📈"),
+        sayfa("views/kisi_basina.py", "Kişi başına tüketim", "👥"),
     ],
-    "Yenilenebilir ve depolama": [
-        st.Page("views/devam_eden_yatirimlar.py", title="Devam eden yatırımlar", icon="🏗️"),
-        st.Page("views/depolama_sebeke.py", title="Depolama ve şebeke", icon="🔋"),
-        st.Page("views/depolama_on_lisans.py", title="Depolama ön lisansları", icon="🗺️"),
-        st.Page("views/on_lisans_tarihleri.py", title="Ön lisans bitiş tarihleri", icon="📅"),
-        st.Page("views/isletmedeki_depolama.py", title="İşletmedeki depolama projeleri", icon="🏭"),
+    "Depolama ve yatırımlar": [
+        sayfa("views/devam_eden_yatirimlar.py", "Devam eden yatırımlar", "🏗️"),
+        sayfa("views/depolama_sebeke.py", "Depolama ve şebeke", "🔋"),
+        sayfa("views/depolama_on_lisans.py", "Depolama ön lisansları", "📅"),
+        sayfa("views/isletmedeki_depolama.py", "İşletmedeki depolama", "🏭"),
     ],
     "Fiyatlar ve tarifeler": [
-        st.Page("views/ptf.py", title="Piyasa takas fiyatı (PTF)", icon="💹"),
-        st.Page("views/epdk_tarifeleri.py", title="EPDK elektrik tarifeleri", icon="💡"),
-        st.Page("views/yekdem.py", title="YEKDEM fiyatlandırması", icon="⚖️"),
-        st.Page("views/yekdem_duyurular.py", title="YEKDEM duyuruları", icon="📢"),
+        sayfa("views/ptf.py", "Piyasa takas fiyatı (PTF)", "💹"),
+        sayfa("views/epdk_tarifeleri.py", "EPDK elektrik tarifeleri", "💡"),
+        sayfa("views/yekdem.py", "YEKDEM", "⚖️"),
     ],
     "Altyapı ve hedefler": [
-        st.Page("views/iletim_agi.py", title="Elektrik iletim ağı", icon="🔌"),
-        st.Page("views/piyasa_hedefleri.py", title="Piyasa hedefleri", icon="🎯"),
+        sayfa("views/iletim_agi.py", "Elektrik iletim ağı", "🔌"),
+        sayfa("views/piyasa_hedefleri.py", "Piyasa hedefleri", "🎯"),
     ],
     "Dünya ve karşılaştırma": [
-        st.Page("views/dunya_kurulu_guc.py", title="Dünya kurulu güç", icon="🌍"),
-        st.Page("views/dunya_gunes_payi.py", title="Dünyada güneş payı", icon="☀️"),
-        st.Page("views/ulke_karsilastirma.py", title="Ülkeler: güneş kurulu gücü", icon="🗺️"),
-        st.Page("views/kuresel_yatirimlar.py", title="Küresel enerji yatırımları", icon="💰"),
+        sayfa("views/dunya_gunes.py", "Dünya güneş kapasitesi", "☀️"),
+        sayfa("views/ulke_karsilastirma.py", "Ülke karşılaştırması", "🗺️"),
+        sayfa("views/kuresel_yatirimlar.py", "Küresel enerji yatırımları", "💰"),
     ],
 }
 

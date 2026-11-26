@@ -187,3 +187,31 @@ def test_gunes_toplami_iki_veri_setinde_ayni():
 def test_kuresel_yatirim_grafikleri():
     assert len(charts.kuresel_yatirim_cubuk(data.kuresel_yatirim(), "t").data) == 3
     assert len(charts.bolge_yigin_cubuk(data.gunes_yatirim_bolge(), "t").data) == 4
+
+
+def test_yillik_degisim_sadece_tam_yillar():
+    df = data.yillik_degisim(data.kurulu_guc(), "toplam_gw")
+    assert df["donem"].astype(str).str.fullmatch(r"\d{4}").all()
+    assert "2016" not in df["donem"].astype(str).tolist()  # ilk yıl değişim yok
+    assert abs(df.iloc[0]["degisim_pct"] - (84.9 / 78.7 - 1) * 100) < 0.01
+
+
+def test_tam_yillar_9a_haric():
+    df = data.tam_yillar(data.uretim())
+    assert len(df) == 10
+
+
+def test_sayi_turkce_bicim():
+    from src.energyatlas.ui import sayi
+    assert sayi(1234.5) == "1.234,5"
+    assert sayi(0.5, 2) == "0,50"
+    assert sayi(127.2) == "127,2"
+
+
+def test_yeni_gorsel_grafikler():
+    k = data.kurulu_guc()
+    assert len(charts.cizgi_alan(data.tam_yillar(k), "donem", "toplam_gw", "t", "GW", "GW", 3).data) == 2
+    assert len(charts.yillik_degisim_cubuk(data.yillik_degisim(k, "toplam_gw"), "donem", "degisim_pct", "t").data) == 1
+    matris = k.set_index("donem")[["termik_pct", "ruzgar_pct"]].T
+    assert len(charts.isi_haritasi(matris, "t", "turkuaz").data) == 1
+    assert len(charts.depolama_kabarcik(data.isletmedeki_depolama(), "t").data) == 2

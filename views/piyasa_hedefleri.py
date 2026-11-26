@@ -2,14 +2,12 @@
 
 import streamlit as st
 
-from src.energyatlas import ui
+from src.energyatlas import charts, data, ui
 
-from src.energyatlas import charts, data
-
-st.title("Elektrik Piyasası Hedefleri")
-st.caption(
-    "Kurulu güç hedefleri (GW). Kaynaklar: 2028 Stratejik Plan, 2035 Ulusal Enerji Planı "
-    "ve 2035 Yenilenebilir Enerji Yol Haritası. Yol haritası ulusal planın güncellenmiş halidir."
+ui.sayfa_basligi(
+    "Altyapı ve hedefler",
+    "Elektrik piyasası hedefleri",
+    "Kurulu güç hedefleri, GW. 2028 Stratejik Plan, 2035 Ulusal Enerji Planı ve 2035 Yenilenebilir Enerji Yol Haritası.",
 )
 
 df = data.hedefler()
@@ -22,23 +20,21 @@ yenilenebilir_2035 = satir.loc["Toplam Yenilenebilir", "hedef_2035_yenilenebilir
 gunes_ruzgar_2035 = satir.loc["Güneş", "hedef_2035_yenilenebilir_yol_haritasi_gw"] + satir.loc["Rüzgar", "hedef_2035_yenilenebilir_yol_haritasi_gw"]
 
 c1, c2, c3 = st.columns(3)
-c1.metric("Toplam kurulu güç (2028 hedefi)", f"{toplam_2028:.1f} GW", f"{toplam_2028 - toplam_2025:+.1f} GW (2025'e göre)")
-c2.metric("Toplam kurulu güç (2035 yol haritası)", f"{toplam_2035:.1f} GW", f"{toplam_2035 - toplam_2025:+.1f} GW (2025'e göre)")
-c3.metric("Güneş + rüzgar kapasitesi (2035)", f"{gunes_ruzgar_2035:.1f} GW", f"yenilenebilir toplam {yenilenebilir_2035:.1f} GW")
+c1.metric("Toplam kurulu güç (2028 hedefi)", f"{ui.sayi(toplam_2028)} GW", f"{toplam_2028 - toplam_2025:+.1f} GW (2025'e göre)".replace(".", ","))
+c2.metric("Toplam kurulu güç (2035 yol haritası)", f"{ui.sayi(toplam_2035)} GW", f"{toplam_2035 - toplam_2025:+.1f} GW (2025'e göre)".replace(".", ","))
+c3.metric("Güneş + rüzgar kapasitesi (2035)", f"{ui.sayi(gunes_ruzgar_2035)} GW", f"yenilenebilir toplam {ui.sayi(yenilenebilir_2035)} GW", delta_color="off")
 
-st.plotly_chart(
-    charts.hedef_karsilastirma(df, "Senaryolara göre güneş, rüzgar ve termik kurulu güç (GW)"),
-    use_container_width=True,
-)
+ui.bolum("01", "Senaryo karşılaştırması", "Güneş, rüzgar ve termik kurulu güç hedeflerinin senaryolara göre değişimi.")
+st.plotly_chart(charts.hedef_karsilastirma(df, "Senaryolara göre güneş, rüzgar ve termik kurulu güç (GW)"), use_container_width=True)
+ui.kaynak("Yol haritasındaki toplam ve yenilenebilir değerlerin dipnotu (*) kaynakta açıklanmamıştır.")
 
-st.subheader("Kaynak payı: 2025, 2028 ve 2035")
+ui.bolum("02", "Kaynak payı", "2025, 2028 ve 2035 için toplam kurulu gücün kaynaklara dağılımı. Diğer yenilenebilir, toplamdan hesaplanmıştır.")
 donemler = {
     "2025 gerçekleşen": "gerceklesen_2025_gw",
     "2028 Stratejik Plan": "hedef_2028_stratejik_plan_gw",
     "2035 YE Yol Haritası": "hedef_2035_yenilenebilir_yol_haritasi_gw",
 }
-kolonlar = st.columns(len(donemler))
-for kolon, (baslik, kaynak_kolonu) in zip(kolonlar, donemler.items()):
+for kolon, (baslik, kaynak_kolonu) in zip(st.columns(len(donemler)), donemler.items()):
     toplam = satir.loc["Toplam", kaynak_kolonu]
     gunes = satir.loc["Güneş", kaynak_kolonu]
     ruzgar = satir.loc["Rüzgar", kaynak_kolonu]
@@ -46,20 +42,16 @@ for kolon, (baslik, kaynak_kolonu) in zip(kolonlar, donemler.items()):
     diger = toplam - gunes - ruzgar - termik
     with kolon:
         st.plotly_chart(
-            charts.pay_halkasi(
-                ["Güneş", "Rüzgar", "Diğer Yenilenebilir", "Termik"],
-                [gunes, ruzgar, diger, termik],
-                f"{baslik}: {toplam:.0f} GW",
-            ),
+            charts.pay_halkasi(["Güneş", "Rüzgar", "Diğer Yenilenebilir", "Termik"], [gunes, ruzgar, diger, termik], f"{baslik}: {toplam:.0f} GW"),
             use_container_width=True,
         )
 
-st.subheader("Elektrik tüketimi hedefi")
+ui.bolum("03", "Elektrik tüketimi hedefi")
 tuketim_2025 = satir.loc["Elektrik Tüketimi (TWh)", "gerceklesen_2025_gw"]
 tuketim_2035 = satir.loc["Elektrik Tüketimi (TWh)", "hedef_2035_ulusal_enerji_plani_gw"]
 st.markdown(
-    f"2025'te **{tuketim_2025:.1f} TWh** olan tüketimin, Ulusal Enerji Planı'na göre 2035'te "
-    f"**{tuketim_2035:.1f} TWh** olması hedefleniyor (yaklaşık %{(tuketim_2035 / tuketim_2025 - 1) * 100:.0f} artış)."
+    f"2025'te **{ui.sayi(tuketim_2025)} TWh** olan tüketimin, Ulusal Enerji Planı'na göre 2035'te "
+    f"**{ui.sayi(tuketim_2035)} TWh** olması hedefleniyor (yaklaşık %{ui.sayi((tuketim_2035 / tuketim_2025 - 1) * 100, 0)} artış)."
 )
 
-ui.veri_tablosu(df, "Veriyi tablo olarak göster")
+ui.veri_tablosu(df, "Veri tablosu", "hedefler.csv")

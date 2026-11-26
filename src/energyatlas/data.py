@@ -109,3 +109,15 @@ def kuresel_yatirim() -> pd.DataFrame:
 
 def gunes_yatirim_bolge() -> pd.DataFrame:
     return load_dataset("gunes_yatirim_bolge")
+
+
+def yillik_degisim(df: pd.DataFrame, deger: str) -> pd.DataFrame:
+    """Yalnızca tam yıl satırlarını alıp bir önceki yıla göre yüzde değişimi ekler (degisim_pct)."""
+    yillik = df[df["donem"].astype(str).str.fullmatch(r"\d{4}")].copy()
+    yillik["degisim_pct"] = yillik[deger].pct_change() * 100
+    return yillik.dropna(subset=["degisim_pct"]).reset_index(drop=True)
+
+
+def tam_yillar(df: pd.DataFrame) -> pd.DataFrame:
+    """Dönem sütunu tam yıl olan satırları (9A ve H1 hariç) döndürür."""
+    return df[df["donem"].astype(str).str.fullmatch(r"\d{4}")].reset_index(drop=True)

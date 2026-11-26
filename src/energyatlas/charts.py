@@ -3,7 +3,9 @@
 import pandas as pd
 import plotly.graph_objects as go
 
-from src.energyatlas.theme import KAYNAK_RENK, SABLON
+from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
+from src.energyatlas.theme import PAS as theme_renk_negatif
+from src.energyatlas.theme import TURKUAZ as theme_renk_pozitif
 
 RENKLER = KAYNAK_RENK
 
@@ -16,12 +18,15 @@ KAYNAK_KOLONLARI = {
 
 
 def _duzenle(fig: go.Figure, baslik: str, y_baslik: str) -> go.Figure:
+    # Az sayıda kategori varsa tüm etiketleri göster (ör. her yıl)
+    if fig.data and getattr(fig.data[0], "x", None) is not None and fig.data[0].orientation != "h":
+        kategoriler = list(dict.fromkeys(str(v) for v in fig.data[0].x))
+        if 0 < len(kategoriler) <= 14:
+            fig.update_xaxes(type="category", tickmode="array", tickvals=kategoriler, ticktext=kategoriler, tickangle=0)
     fig.update_layout(
         title=baslik,
         yaxis_title=y_baslik,
         template=SABLON,
-        margin=dict(l=10, r=10, t=60, b=10),
-        legend=dict(orientation="h", y=-0.2),
         hovermode="x unified",
     )
     return fig
@@ -91,6 +96,7 @@ def kisi_basina_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
             text=df["kwh_kisi"],
             texttemplate="%{text:,.0f} kWh",
             textposition="outside",
+            cliponaxis=False,
         )
     )
     fig.update_layout(
@@ -121,7 +127,7 @@ def hedef_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
                 name=kaynak,
                 x=list(senaryolar.keys()),
                 y=[satir.loc[kaynak, kolon] for kolon in senaryolar.values()],
-                marker_color=RENKLER.get(kaynak.replace("Toplam ", ""), "#64748B"),
+                marker_color=RENKLER.get(kaynak.replace("Toplam ", ""), "#8A8578"),
                 hovertemplate=f"{kaynak}: %{{y:,.1f}} GW<extra></extra>",
             )
         )
@@ -136,7 +142,8 @@ def pay_halkasi(etiketler: list[str], degerler: list[float], baslik: str) -> go.
             labels=etiketler,
             values=degerler,
             hole=0.55,
-            marker=dict(colors=[RENKLER.get(e, "#94A3B8") for e in etiketler]),
+            sort=False,
+            marker=dict(colors=[RENKLER.get(e, "#A9B8B5") for e in etiketler]),
             hovertemplate="%{label}: %{value:,.1f} GW (%{percent})<extra></extra>",
         )
     )
@@ -202,7 +209,7 @@ def yillik_pay_cubuk(df: pd.DataFrame, donem: str, baslik: str) -> go.Figure:
 def iki_donem_karsilastirma(df: pd.DataFrame, kategori: str, donem: str, deger: str, baslik: str, birim: str) -> go.Figure:
     """Gösterge bazında iki yıl (örn. 2025 ve 2035) değerlerini yan yana gösterir."""
     fig = go.Figure()
-    for yil, renk in [("2025", "#94A3B8"), ("2035", RENKLER["Toplam"])]:
+    for yil, renk in [("2025", "#A9B8B5"), ("2035", RENKLER["Toplam"])]:
         alt = df[df[donem].astype(str) == yil]
         fig.add_trace(
             go.Bar(
@@ -227,10 +234,10 @@ def sematik_profil(saat: list[int], talep: list[float], termik: list[float], ruz
         ("Termik (baz yük)", termik, RENKLER["Termik"]),
         ("Rüzgar", ruzgar, RENKLER["Rüzgar"]),
         ("Güneş", gunes, RENKLER["Güneş"]),
-        ("Depolama (boşaltma)", depolama, "#4f46e5"),
+        ("Depolama (boşaltma)", depolama, "#1B3A57"),
     ]:
         fig.add_trace(go.Scatter(name=isim, x=saat, y=seri, mode="lines", line=dict(color=renk, width=2), stackgroup=None))
-    fig.add_trace(go.Scatter(name="Elektrik talebi", x=saat, y=talep, mode="lines", line=dict(color="#E76F51", width=3, dash="dot")))
+    fig.add_trace(go.Scatter(name="Elektrik talebi", x=saat, y=talep, mode="lines", line=dict(color="#B4432A", width=3, dash="dot")))
     fig.update_xaxes(title="Saat", dtick=3)
     return _duzenle(fig, baslik, "Göreli güç (şematik)")
 
@@ -266,6 +273,7 @@ def isletmedeki_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
             text=df["kapasite_mwh"],
             texttemplate="%{text:,.1f} MWh",
             textposition="outside",
+            cliponaxis=False,
             customdata=df["guc_mwe"],
             hovertemplate="%{y}<br>Kapasite: %{x:,.1f} MWh<br>Güç: %{customdata:,.1f} MWe<extra></extra>",
         )
@@ -284,9 +292,9 @@ def tarife_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
     """Seçilen gruplar için gündüz, puant, gece tarifelerini gruplu çubukla gösterir."""
     fig = go.Figure()
     for kolon, etiket, renk in [
-        ("gunduz", "Gündüz", "#F4B942"),
-        ("puant", "Puant", "#E76F51"),
-        ("gece", "Gece", "#0B2545"),
+        ("gunduz", "Gündüz", "#D9A21B"),
+        ("puant", "Puant", "#B4432A"),
+        ("gece", "Gece", "#1B3A57"),
     ]:
         fig.add_trace(
             go.Bar(
@@ -305,7 +313,7 @@ def tarife_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
 
 def ptf_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     """PTF (USD/MWh) yıllık değerleri. 2022 zirvesi vurgulanır."""
-    renkler = ["#E76F51" if d == "2022" else RENKLER["Toplam"] for d in df["donem"]]
+    renkler = ["#B4432A" if d == "2022" else RENKLER["Toplam"] for d in df["donem"]]
     fig = go.Figure(
         go.Bar(
             x=df["donem"],
@@ -354,11 +362,12 @@ def yekdem_cizgi(df: pd.DataFrame, baslik: str) -> go.Figure:
 def dunya_kurulu_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     """Dünya toplam kurulu güç ve güneş kapasitesini yan yana gösterir."""
     fig = go.Figure()
-    fig.add_trace(go.Bar(name="Toplam kapasite", x=df["donem"], y=df["toplam_gw"], marker_color="#64748B",
+    fig.add_trace(go.Bar(name="Toplam kapasite", x=df["donem"], y=df["toplam_gw"], marker_color="#8A8578",
                          text=df["toplam_gw"], texttemplate="%{text:,.0f}", textposition="outside"))
     fig.add_trace(go.Bar(name="Güneş", x=df["donem"], y=df["gunes_gw"], marker_color=RENKLER["Güneş"],
                          text=df["gunes_gw"], texttemplate="%{text:,.0f}", textposition="outside"))
     fig.update_layout(barmode="group")
+    fig.update_yaxes(tickformat=",.0f")
     return _duzenle(fig, baslik, "GW")
 
 
@@ -367,17 +376,17 @@ def dunya_pay_nokta(df: pd.DataFrame, baslik: str) -> go.Figure:
     fig = go.Figure()
     fig.add_trace(go.Scatter(name="Güneş / Toplam", x=df["donem"], y=df["gunes_toplam_pct"], mode="lines+markers+text",
                              text=df["gunes_toplam_pct"], texttemplate="%{text}%", textposition="top center",
-                             marker=dict(size=10, color="#111827")))
+                             marker=dict(size=10, color="#1B3A57")))
     fig.add_trace(go.Scatter(name="Güneş / Yenilenebilir", x=df["donem"], y=df["gunes_yenilenebilir_pct"], mode="lines+markers+text",
                              text=df["gunes_yenilenebilir_pct"], texttemplate="%{text}%", textposition="top center",
-                             marker=dict(size=10, color="#3A7CA5")))
+                             marker=dict(size=10, color="#6C8CA6")))
     fig.update_yaxes(range=[0, 80], ticksuffix="%")
     return _duzenle(fig, baslik, "Pay (%)")
 
 
 def ulke_yatay_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     """Ülkelerin güneş kurulu gücünü yatay çubukla gösterir; Türkiye vurgulanır."""
-    renkler = ["#E76F51" if u == "Türkiye" else RENKLER["Güneş"] for u in df["ulke"]]
+    renkler = ["#B4432A" if u == "Türkiye" else RENKLER["Güneş"] for u in df["ulke"]]
     fig = go.Figure(
         go.Bar(
             x=df["gunes_gw"],
@@ -387,6 +396,7 @@ def ulke_yatay_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
             text=df["gunes_gw"],
             texttemplate="%{text:,.0f} GW",
             textposition="outside",
+            cliponaxis=False,
             customdata=df["yil_notu"],
             hovertemplate="%{y}: %{x:,.0f} GW<br>%{customdata}<extra></extra>",
         )
@@ -400,8 +410,8 @@ def kuresel_yatirim_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     """Toplam enerji, temiz enerji ve güneş yatırımlarını (milyar USD) gruplu gösterir."""
     fig = go.Figure()
     for kolon, etiket, renk in [
-        ("toplam_mlrd_usd", "Toplam enerji yatırımları", "#111827"),
-        ("temiz_enerji_mlrd_usd", "Temiz enerji yatırımları", "#3A7CA5"),
+        ("toplam_mlrd_usd", "Toplam enerji yatırımları", "#1B3A57"),
+        ("temiz_enerji_mlrd_usd", "Temiz enerji yatırımları", "#6C8CA6"),
         ("gunes_mlrd_usd", "Güneş yatırımları", RENKLER["Güneş"]),
     ]:
         fig.add_trace(
@@ -425,10 +435,10 @@ def bolge_yigin_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
     diger = df["toplam_mlrd_usd"] - df["asya_pasifik_mlrd_usd"] - df["kuzey_amerika_mlrd_usd"] - df["avrupa_mlrd_usd"]
     fig = go.Figure()
     for etiket, deger, renk in [
-        ("Asya ve Pasifik", df["asya_pasifik_mlrd_usd"], "#334155"),
-        ("Kuzey Amerika", df["kuzey_amerika_mlrd_usd"], "#5b7fa6"),
-        ("Avrupa", df["avrupa_mlrd_usd"], "#b8c9dd"),
-        ("Diğer bölgeler (hesaplanan)", diger, "#d1d5db"),
+        ("Asya ve Pasifik", df["asya_pasifik_mlrd_usd"], "#4A4A48"),
+        ("Kuzey Amerika", df["kuzey_amerika_mlrd_usd"], "#6C8CA6"),
+        ("Avrupa", df["avrupa_mlrd_usd"], "#A9B8B5"),
+        ("Diğer bölgeler (hesaplanan)", diger, "#C9C3B4"),
     ]:
         fig.add_trace(
             go.Bar(
@@ -441,3 +451,104 @@ def bolge_yigin_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
         )
     fig.update_layout(barmode="stack")
     return _duzenle(fig, baslik, "Milyar USD")
+
+
+def cizgi_alan(df: pd.DataFrame, x: str, y: str, baslik: str, y_baslik: str, birim: str = "", hareketli_ortalama: int | None = None) -> go.Figure:
+    """Sade çizgi grafik: ince lacivert çizgi, soluk alan, kesikli ortalama ve son değer etiketi."""
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=df[x].astype(str),
+            y=df[y],
+            mode="lines+markers",
+            line=dict(color=RENKLER["Toplam"], width=2.2),
+            marker=dict(size=5, color=RENKLER["Toplam"]),
+            fill="tozeroy",
+            fillcolor="rgba(27,58,87,0.08)",
+            hovertemplate="%{x}: %{y:,.1f} " + birim + "<extra></extra>",
+            name="Değer",
+        )
+    )
+    if hareketli_ortalama:
+        ort = df[y].rolling(hareketli_ortalama, min_periods=hareketli_ortalama).mean()
+        fig.add_trace(
+            go.Scatter(
+                x=df[x].astype(str),
+                y=ort,
+                mode="lines",
+                line=dict(color="#4A4A48", width=1.3, dash="dot"),
+                name=f"{hareketli_ortalama} dönem ortalaması",
+                hovertemplate="%{y:,.1f}<extra>ortalama</extra>",
+            )
+        )
+    son = df.iloc[-1]
+    tam_sayi = bool((df[y].dropna() % 1 == 0).all())
+    son_metin = f"{son[y]:,.0f}" if tam_sayi else f"{son[y]:,.1f}"
+    fig.add_annotation(
+        x=str(son[x]), y=son[y], text=f"<b>{son_metin}</b>".replace(",", "§").replace(".", ",").replace("§", "."),
+        showarrow=False, xanchor="left", xshift=8, font=dict(color=RENKLER["Toplam"], size=13),
+    )
+    return _duzenle(fig, baslik, y_baslik)
+
+
+def yillik_degisim_cubuk(df: pd.DataFrame, x: str, degisim: str, baslik: str) -> go.Figure:
+    """Yıllık değişimi (%) artış ve düşüşü farklı renklerde gösteren iki yönlü sütun grafiği."""
+    renkler = [theme_renk_pozitif if v >= 0 else theme_renk_negatif for v in df[degisim]]
+    fig = go.Figure(
+        go.Bar(
+            x=df[x].astype(str),
+            y=df[degisim],
+            marker_color=renkler,
+            text=[f"{v:+.1f}%".replace(".", ",") for v in df[degisim]],
+            textposition="outside",
+            textfont=dict(size=11),
+            cliponaxis=False,
+            hovertemplate="%{x}: %{y:+,.1f}%<extra></extra>",
+        )
+    )
+    fig.add_hline(y=0, line_color="#8A8578", line_width=1)
+    return _duzenle(fig, baslik, "Yıllık değişim (%)")
+
+
+def isi_haritasi(matris: pd.DataFrame, baslik: str, skala: str = "turkuaz", sablon: str = "%{z:,.1f}", z_baslik: str = "") -> go.Figure:
+    """Satır x sütun ısı haritası. skala: 'turkuaz', 'pas' veya 'sapma' (negatif-pozitif)."""
+    skalalar = {"turkuaz": SIRALI_TURKUAZ, "pas": SIRALI_PAS, "sapma": SAPMA_SKALA}
+    fig = go.Figure(
+        go.Heatmap(
+            z=matris.values,
+            x=[str(c) for c in matris.columns],
+            y=[str(i) for i in matris.index],
+            colorscale=skalalar[skala],
+            xgap=2,
+            ygap=2,
+            text=matris.values,
+            texttemplate=sablon,
+            textfont=dict(size=11),
+            colorbar=dict(title=z_baslik, thickness=10, len=0.8, outlinewidth=0),
+            hovertemplate="%{y}<br>%{x}: %{z:,.1f}<extra></extra>",
+            zmid=0 if skala == "sapma" else None,
+        )
+    )
+    fig.update_layout(title=baslik, template=SABLON, yaxis=dict(autorange="reversed", automargin=True), margin=dict(l=10, r=10, t=56, b=10))
+    return fig
+
+
+def depolama_kabarcik(df: pd.DataFrame, baslik: str) -> go.Figure:
+    """İşletmedeki depolama tesislerini güç ve süre ekseninde baloncuk olarak gösterir. Baloncuk boyutu kapasitedir."""
+    fig = go.Figure()
+    for tur, renk in [("Güneş", RENKLER["Güneş"]), ("Rüzgar", RENKLER["Rüzgar"])]:
+        alt = df[df["tesis_turu"] == tur]
+        sure = alt["kapasite_mwh"] / alt["guc_mwe"]
+        fig.add_trace(
+            go.Scatter(
+                name=tur,
+                x=alt["guc_mwe"],
+                y=sure,
+                mode="markers",
+                marker=dict(size=alt["kapasite_mwh"], sizemode="area", sizeref=2.0 * df["kapasite_mwh"].max() / (48.0**2), sizemin=6, color=renk, opacity=0.85, line=dict(color="white", width=1)),
+                customdata=alt[["lisans_sahibi", "kapasite_mwh"]],
+                hovertemplate="%{customdata[0]}<br>Güç: %{x:,.1f} MWe<br>Süre: %{y:,.2f} saat<br>Kapasite: %{customdata[1]:,.1f} MWh<extra></extra>",
+            )
+        )
+    fig.update_layout(xaxis_title="Depolama gücü (MWe)", yaxis_title="Süre (saat)", xaxis=dict(type="log", tickvals=[4, 7, 10, 20, 30, 50, 100], ticktext=["4", "7", "10", "20", "30", "50", "100"]), title=baslik, template=SABLON)
+    return fig
