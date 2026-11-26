@@ -407,3 +407,8 @@ def tr_il_geojson() -> dict:
 
     with (Path(DATA_DIR) / "tr_iller.geojson").open(encoding="utf-8") as f:
         return json.load(f)
+
+
+def hedef_2040() -> pd.DataFrame:
+    """Milli Enerji 2040 açıklanan hedefleri (ETKB lansmanı; bilgi notu)."""
+    return load_dataset("hedef_2040")

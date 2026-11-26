@@ -200,3 +200,24 @@ def hero(baslik: str, aciklama: str) -> None:
         f'<div class="ea-hero"><h1>{html.escape(baslik)}</h1><p>{html.escape(aciklama)}</p></div>',
         unsafe_allow_html=True,
     )
+
+
+TIMELINE_CSS = """
+<style>
+.ea-tl { display:grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin: 0.5rem 0 1rem 0; }
+.ea-tl > div { background:#FBF9F4; border:1px solid #D9D2C3; border-radius:12px; padding:14px 16px; position:relative; }
+.ea-tl > div::before { content:""; position:absolute; top:-6px; left:16px; width:10px; height:10px; border-radius:50%; background:#1F6670; }
+.ea-tl .y { font-family: Newsreader, Georgia, serif; font-size:1.7rem; color:#1B3A57; line-height:1; }
+.ea-tl .b { font-size:0.85rem; color:#4A4A48; margin-top:6px; line-height:1.4; }
+.ea-tl .k { font-size:0.72rem; color:#7A7468; letter-spacing:.06em; text-transform:uppercase; margin-top:8px; }
+</style>
+"""
+
+
+def zaman_cizgisi(olaylar: list[tuple[str, str, str]]) -> None:
+    """Yatay zaman çizelgesi. Her olay: (yıl/tarih, başlık, açıklama)."""
+    kartlar = "".join(
+        f'<div><div class="y">{html.escape(y)}</div><div class="b"><b>{html.escape(b)}</b><br>{html.escape(c)}</div></div>'
+        for y, b, c in olaylar
+    )
+    st.markdown(TIMELINE_CSS + f'<div class="ea-tl">{kartlar}</div>', unsafe_allow_html=True)
