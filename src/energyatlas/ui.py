@@ -98,9 +98,34 @@ def segment(secenekler: list[str], anahtar: str, varsayilan: str | None = None) 
     return secim or varsayilan
 
 
-def veri_tablosu(df: pd.DataFrame, baslik: str = "Veri tablosu", dosya: str = "veri.csv") -> None:
-    """Tabloyu açılır bölümde gösterir ve CSV olarak indirme düğmesi sunar."""
+# Her tablonun kaynağı (CSV dosya adına göre). Kaynak belirtilmezse buradan alınır.
+TABLO_KAYNAKLARI = {
+    "kurulu_guc.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
+    "uretim.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
+    "tuketim.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
+    "kisi_basina.csv": "OECD ve dünya ortalamaları. Sunum grafiklerinden okunmuştur.",
+    "depolama_sirketler.csv": "Sunum grafiklerinden okunmuştur (depolamalı proje verileri).",
+    "depolama_on_lisans.csv": "EPDK, depolama ön lisans bitiş tarihleri.",
+    "isletmedeki_depolama.csv": "EPDK, işletmedeki depolama lisanslı projeler.",
+    "iletim.csv": "TEİAŞ ve Enerji ve Tabii Kaynaklar Bakanlığı. Sunum grafiklerinden okunmuştur.",
+    "hedefler.csv": "Enerji ve Tabii Kaynaklar Bakanlığı: 2028 Stratejik Plan, 2035 Ulusal Enerji Planı ve Yol Haritası.",
+    "ptf.csv": "EPİAŞ. Sunum grafiklerinden okunmuştur.",
+    "epdk_tarifeleri.csv": "EPDK, elektrik faturalarına esas tarife tabloları (4 Nisan 2026).",
+    "yekdem_fiyat.csv": "EPİAŞ ve sunum grafiklerinden okunmuştur.",
+    "yekdem_duyuru.csv": "EPİAŞ, Kayıt ve Uzlaştırma duyuruları.",
+    "ulke_gunes.csv": "IEA Renewables 2025 (Türkiye: TEİAŞ, 2025 yıl sonu).",
+    "dunya_gunes.csv": "IEA World Energy Outlook 2025.",
+    "kuresel_yatirim.csv": "Küresel enerji yatırım verileri. Sunum grafiklerinden okunmuştur.",
+    "bolgesel_gunes_yatirim.csv": "Küresel güneş yatırım verileri. Sunum grafiklerinden okunmuştur.",
+}
+
+
+def veri_tablosu(df: pd.DataFrame, baslik: str = "Veri tablosu", dosya: str = "veri.csv", kaynak: str = "") -> None:
+    """Tabloyu açılır bölümde gösterir. Üstünde kaynak notu ve CSV indirme düğmesi bulunur."""
+    kaynak = kaynak or TABLO_KAYNAKLARI.get(dosya, "")
     with st.expander(baslik):
+        if kaynak:
+            st.caption(f"Kaynak: {kaynak}")
         st.dataframe(df, use_container_width=True, hide_index=True)
         st.download_button(
             "CSV olarak indir",

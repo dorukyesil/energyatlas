@@ -234,3 +234,15 @@ def test_guncelleme_kaydi(tmp_path, monkeypatch):
     kayit = guncelleme.guncelle()
     assert kayit["son_guncelleme"]
     assert guncelleme.oku()["son_guncelleme"] == kayit["son_guncelleme"]
+
+
+def test_her_tablonun_kaynagi_var():
+    import re
+    from pathlib import Path as _P
+    from src.energyatlas.ui import TABLO_KAYNAKLARI
+
+    kok = _P(__file__).resolve().parent.parent
+    dosyalar = re.findall(r'veri_tablosu\([^\n]*?"([^"]+\.csv)"', "\n".join(
+        p.read_text(encoding="utf-8") for p in (kok / "views").glob("*.py")))
+    eksik = sorted(set(d for d in dosyalar if d not in TABLO_KAYNAKLARI))
+    assert not eksik, f"Kaynağı tanımsız tablolar: {eksik}"
