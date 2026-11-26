@@ -41,6 +41,34 @@ with ust3:
         use_container_width=True,
     )
 
+ui.bolum("01", "Konular", "Her kart bir konu sayfasını açar. Sayfalar kendi içinde sekmelere ayrılmıştır.")
+
+kartlar = [
+    ("⚡", "Elektrik sistemi", "Kurulu güç, üretim, tüketim ve kişi başına tüketim.",
+     ["Kaynaklara göre kurulu güç", "Kaynaklara göre üretim", "Brüt tüketim", "Kişi başına tüketim"],
+     "views/elektrik.py", "Elektrik sistemine git"),
+    ("🔋", "Depolama ve yatırımlar", "Depolamalı santraller, ön lisanslar ve yatırımlar.",
+     ["Şebeke ilişkisi", "Devam eden yatırımlar", "Ön lisanslar", "İşletmedeki depolama", "EPDK santral listesi"],
+     "views/depolama.py", "Depolama sayfasına git"),
+    ("💲", "Fiyatlar ve tarifeler", "Piyasa takas fiyatı, EPDK tarifeleri ve YEKDEM.",
+     ["PTF (piyasa takas fiyatı)", "EPDK elektrik tarifeleri", "YEKDEM fiyatlandırması ve duyuruları"],
+     "views/fiyatlar.py", "Fiyatlara git"),
+    ("🎯", "Altyapı ve hedefler", "Elektrik iletim ağı ve piyasa hedefleri.",
+     ["İletim ağı (AC ve HVDC)", "Kurulu güç hedefleri"],
+     "views/altyapi.py", "Altyapıya git"),
+    ("🌍", "Dünya enerji görünümü", "IEA WEO 2026 verileri: enerji arzı, elektrik, emisyonlar, talep ve teknolojiler.",
+     ["Güneş kapasitesi", "Birincil enerji arzı", "Elektrik üretimi ve kapasite", "CO2 emisyonları", "Talep ve ekonomi", "Hidrojen ve CCUS"],
+     "views/dunya_enerji.py", "Dünya görünümüne git"),
+    ("🗺️", "Dünya karşılaştırma", "Bölgesel karşılaştırma, ülke güneş üretimi ve küresel yatırımlar.",
+     ["Bölgesel karşılaştırma", "Ülke ve bölge güneş üretimi", "Küresel enerji yatırımları"],
+     "views/dunya_karsilastirma.py", "Karşılaştırmaya git"),
+]
+for i in range(0, len(kartlar), 3):
+    for kolon, (ikon, baslik, aciklama, maddeler, yol, etiket) in zip(st.columns(3, gap="medium"), kartlar[i:i + 3]):
+        with kolon:
+            ui.kategori_karti_basit(ikon, baslik, aciklama, maddeler, yol, etiket)
+    st.write("")
+
 sol, sag = st.columns([5, 6], gap="large")
 with sol:
     st.markdown(
@@ -76,33 +104,5 @@ ui.kpi_serit(
     ]
 )
 ui.kaynak("Mini grafikler 2016-2025 tam yıl değerlerini gösterir. 9A: ocak-eylül dönemi.")
-
-ui.bolum("01", "Konular", "Her kart bir konu sayfasını açar. Sayfalar kendi içinde sekmelere ayrılmıştır.")
-
-kartlar = [
-    ("⚡", "Elektrik sistemi", "Kurulu güç, üretim, tüketim ve kişi başına tüketim.",
-     ["Kaynaklara göre kurulu güç", "Kaynaklara göre üretim", "Brüt tüketim", "Kişi başına tüketim"],
-     "views/elektrik.py", "Elektrik sistemine git"),
-    ("🔋", "Depolama ve yatırımlar", "Depolamalı santraller, ön lisanslar ve yatırımlar.",
-     ["Şebeke ilişkisi", "Devam eden yatırımlar", "Ön lisanslar", "İşletmedeki depolama", "EPDK santral listesi"],
-     "views/depolama.py", "Depolama sayfasına git"),
-    ("💲", "Fiyatlar ve tarifeler", "Piyasa takas fiyatı, EPDK tarifeleri ve YEKDEM.",
-     ["PTF (piyasa takas fiyatı)", "EPDK elektrik tarifeleri", "YEKDEM fiyatlandırması ve duyuruları"],
-     "views/fiyatlar.py", "Fiyatlara git"),
-    ("🎯", "Altyapı ve hedefler", "Elektrik iletim ağı ve piyasa hedefleri.",
-     ["İletim ağı (AC ve HVDC)", "Kurulu güç hedefleri"],
-     "views/altyapi.py", "Altyapıya git"),
-    ("🌍", "Dünya enerji görünümü", "IEA WEO 2026 verileri: enerji arzı, elektrik, emisyonlar, talep ve teknolojiler.",
-     ["Güneş kapasitesi", "Birincil enerji arzı", "Elektrik üretimi ve kapasite", "CO2 emisyonları", "Talep ve ekonomi", "Hidrojen ve CCUS"],
-     "views/dunya_enerji.py", "Dünya görünümüne git"),
-    ("🗺️", "Dünya karşılaştırma", "Bölgesel karşılaştırma, ülke güneş üretimi ve küresel yatırımlar.",
-     ["Bölgesel karşılaştırma", "Ülke ve bölge güneş üretimi", "Küresel enerji yatırımları"],
-     "views/dunya_karsilastirma.py", "Karşılaştırmaya git"),
-]
-for i in range(0, len(kartlar), 3):
-    for kolon, (ikon, baslik, aciklama, maddeler, yol, etiket) in zip(st.columns(3, gap="medium"), kartlar[i:i + 3]):
-        with kolon:
-            ui.kategori_karti_basit(ikon, baslik, aciklama, maddeler, yol, etiket)
-    st.write("")
 
 st.page_link("views/hakkinda.py", label="Hakkında ve veri kaynakları →", icon="📘")
