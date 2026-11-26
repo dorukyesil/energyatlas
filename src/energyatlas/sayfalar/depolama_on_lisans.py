@@ -1,4 +1,4 @@
-"""Depolamalı GES ve RES ön lisansları: EPDK ön lisans listesinden bitiş yılı dağılımı."""
+"""Depolamalı GES ve RES ön lisansları: EPDK ön lisans listesinden bitiş yılı ve il dağılımı."""
 
 import streamlit as st
 
@@ -13,7 +13,6 @@ def render() -> None:
     df = (
         ham.groupby(["teknoloji", "bitis_yili"], as_index=False)
         .agg(proje_adedi=("tesis_adi", "count"), kapasite_mwe=("kurulu_mwe", "sum"))
-        .rename(columns={"bitis_yili": "bitis_yili"})
     )
 
     toplam = df.groupby("teknoloji")[["proje_adedi", "kapasite_mwe"]].sum()
@@ -30,23 +29,24 @@ def render() -> None:
     ui.bolum("02", "Süre uzatımı ve iptal")
     st.markdown(
         """
-    - EPDK, ön lisans süresi içinde proje ilerlemesini göstermeyen şirketlerin **süre uzatma taleplerini reddediyor**
-      ve bu ön lisansları sonlandırıyor veya iptal ediyor.
-    - **Mücbir sebep** veya izin süreçlerindeki aksamalar nedeniyle EPDK **süre uzatımı** yapabiliyor.
-    """
+- EPDK, ön lisans süresi içinde proje ilerlemesini göstermeyen şirketlerin **süre uzatma taleplerini reddediyor**
+  ve bu ön lisansları sonlandırıyor veya iptal ediyor.
+- **Mücbir sebep** veya izin süreçlerindeki aksamalar nedeniyle EPDK **süre uzatımı** yapabiliyor.
+"""
     )
 
-    ui.bolum("03", "Bölgesel yoğunluk", "Ön lisans başvurularının il bazında yoğunluğu.")
-    il_toplam = (
-        ham.assign(teknoloji=ham["teknoloji"])
-        .groupby(["il", "teknoloji"], as_index=False)["kurulu_mwe"].sum()
+    ui.bolum("03", "Türkiye haritası: GES ve RES", "Her ilin ön lisanslı kurulu gücü (MWe). Koyu renk daha yoğun kapasite demektir.")
+    harita_df = (
+        ham.assign(ad_key=ham["il"].map(data.il_anahtari))
+        .groupby(["ad_key", "tesis_turu"], as_index=False)["kurulu_mwe"].sum()
     )
-    ozet = il_toplam.pivot_table(index="il", columns="teknoloji", values="kurulu_mwe", fill_value=0)
-    ozet["Toplam"] = ozet.sum(axis=1)
-    ozet = ozet.sort_values("Toplam", ascending=False).head(15)
-    st.plotly_chart(
-        charts.isi_haritasi(ozet[["GES", "RES"]].T, "İllere göre ön lisanslı kapasite (MWe), en büyük 15 il", "turkuaz", "%{z:,.0f}", "MWe"),
-        use_container_width=True,
-    )
+    h1, h2 = st.columns(2)
+    with h1:
+        ges = harita_df[harita_df["tesis_turu"] == "Güneş"][["ad_key", "kurulu_mwe"]]
+        st.plotly_chart(charts.tr_harita(ges, "kurulu_mwe", "GES ön lisansları (MWe)", "#D9A21B"), use_container_width=True)
+    with h2:
+        res = harita_df[harita_df["tesis_turu"] == "Rüzgar"][["ad_key", "kurulu_mwe"]]
+        st.plotly_chart(charts.tr_harita(res, "kurulu_mwe", "RES ön lisansları (MWe)", "#13A89E"), use_container_width=True)
+    ui.kaynak("Kaynak: EPDK ön lisans listesi. Harita sınırları: açık kaynak il sınırları (cihadturhan/tr-geojson).")
 
     ui.veri_tablosu(ham[["lisans_sahibi", "tesis_adi", "il", "ilce", "tesis_turu", "kurulu_mwe", "bitis"]], "Ön lisans listesi", "epdk_onlisans.csv")

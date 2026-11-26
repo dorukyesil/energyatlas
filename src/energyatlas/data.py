@@ -389,3 +389,21 @@ def mevzuat() -> pd.DataFrame:
     d["degisiklik"] = d["degisiklik"].astype(bool)
     d["yururluk_kaldirma"] = d["yururluk_kaldirma"].astype(bool)
     return d
+
+
+TR_KARAKTER = str.maketrans("çğıöşüÇĞİÖŞÜâîû", "cgiosuCGIOSUaiu")
+IL_TAKMA_AD = {"afyonkarahisar": "afyon"}
+
+
+def il_anahtari(ad: str) -> str:
+    """Türkçe il adını harita anahtarına çevirir (ör. 'Kırklareli' -> 'kirklareli', 'Afyonkarahisar' -> 'afyon')."""
+    k = str(ad).translate(TR_KARAKTER).lower().strip().replace(" ", "").replace(".", "")
+    return IL_TAKMA_AD.get(k, k)
+
+
+def tr_il_geojson() -> dict:
+    """81 il sınırı (ad_key özelliği ile). Kaynak: cihadturhan/tr-geojson."""
+    import json
+
+    with (Path(DATA_DIR) / "tr_iller.geojson").open(encoding="utf-8") as f:
+        return json.load(f)

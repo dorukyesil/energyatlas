@@ -694,3 +694,49 @@ def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Ti
     fig.add_annotation(x=1, y=1.12, xref="paper", yref="paper", showarrow=False, xanchor="right",
                        text=f"Güncel: YTBS, {etiket}", font=dict(size=11, color="#7A7468"))
     return _duzenle(fig, baslik, "GW")
+
+
+def tr_harita(df: pd.DataFrame, deger: str, baslik: str, renk: str, birim: str = "MWe") -> go.Figure:
+    """Türkiye il haritası. df: 'ad_key' (il anahtarı) ve `deger` sütunları. Değere göre tek renk tonu."""
+    from src.energyatlas import data
+
+    geo = data.tr_il_geojson()
+    deger_map = dict(zip(df["ad_key"], df[deger]))
+    z = [float(deger_map.get(f["properties"]["ad_key"], 0.0)) for f in geo["features"]]
+    konumlar = [f["properties"]["ad_key"] for f in geo["features"]]
+    fig = go.Figure(go.Choropleth(
+        geojson=geo,
+        featureidkey="properties.ad_key",
+        locations=konumlar,
+        z=z,
+        colorscale=[[0.0, "#F1ECE2"], [0.35, _acik(renk)], [1.0, renk]],
+        marker_line_color="#FBF9F4",
+        marker_line_width=0.6,
+        colorbar=dict(title=birim, thickness=10, len=0.6, outlinewidth=0),
+        customdata=[f["properties"]["name"] for f in geo["features"]],
+        hovertemplate="%{customdata}: %{z:,.0f} " + birim + "<extra></extra>",
+    ))
+    fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
+    fig.update_layout(title=baslik, template=SABLON, margin=dict(l=0, r=0, t=50, b=0), height=430,
+                      paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    return fig
+
+
+def _acik(hex_renk: str) -> str:
+    h = hex_renk.lstrip("#")
+    r, g, b = (int(h[i:i + 2], 16) for i in (0, 2, 4))
+    k = 0.55
+    return f"#{int(r + (255 - r) * k):02X}{int(g + (255 - g) * k):02X}{int(b + (255 - b) * k):02X}"
+
+
+def isletmedeki_cubuk_genel(df: pd.DataFrame, etiket: str, seri: str, deger: str, baslik: str) -> go.Figure:
+    """Şirket bazında yığılmış yatay çubuk: seri (ör. GES/RES) renkleriyle."""
+    renk = {"GES": "#D9A21B", "RES": "#13A89E"}
+    fig = go.Figure()
+    for ad, alt in df.groupby(seri, sort=False):
+        alt = alt.sort_values(deger, ascending=True)
+        fig.add_trace(go.Bar(name=str(ad), y=alt[etiket], x=alt[deger], orientation="h",
+                             marker_color=renk.get(str(ad)), hovertemplate=f"{ad}: %{{x:,.1f}} MWe<extra></extra>"))
+    fig.update_layout(barmode="stack", title=baslik, template=SABLON, xaxis_title="MWe",
+                      yaxis=dict(automargin=True), margin=dict(l=10, r=20, t=60, b=10))
+    return fig
