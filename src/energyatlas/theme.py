@@ -147,7 +147,11 @@ CSS = f"""
   .ea-serit .a {{ font-size: 0.78rem; color: {SOLUK}; }}
   .ea-serit .a.p {{ color: {TURKUAZ}; }}
   .ea-serit .a.n {{ color: {PAS}; }}
-  .ea-serit svg {{ display: block; margin-top: 0.4rem; }}
+  .ea-serit svg {{ display: block; margin-top: 0.4rem; overflow: visible; }}
+  .ea-serit .ea-ipucu {{ font-size: 11px; fill: {MUREKKEP}; opacity: 0; pointer-events: none; paint-order: stroke; stroke: {KAGIT_KART}; stroke-width: 3px; }}
+  .ea-serit .ea-nokta {{ cursor: default; }}
+  .ea-serit .ea-nokta:hover .ea-ipucu {{ opacity: 1; }}
+  .ea-serit .ea-nokta:hover .ea-nokta-isaret {{ r: 3.6; }}
 
   /* Kenar çubuğu */
   [data-testid="stSidebar"] {{ background: {KAGIT_2}; border-right: 1px solid {CIZGI}; }}

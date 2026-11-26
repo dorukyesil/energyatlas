@@ -40,35 +40,44 @@ def kaynak(metin: str) -> None:
     st.markdown(f'<div class="ea-kaynak">{html.escape(metin)}</div>', unsafe_allow_html=True)
 
 
-def sparkline(degerler: Sequence[float], renk: str = theme.TURKUAZ, genislik: int = 150, yukseklik: int = 34) -> str:
-    """Küçük eğilim çizgisini SVG olarak üretir."""
-    seri = [float(d) for d in degerler if d is not None and not pd.isna(d)]
+def sparkline(degerler: Sequence[float], yillar: Sequence[str] | None = None, renk: str = theme.TURKUAZ,
+              birim: str = "", ondalik: int = 1, genislik: int = 150, yukseklik: int = 34) -> str:
+    """Küçük eğilim çizgisi (SVG). Her noktanın üzerine gelindiğinde yıl ve değer görünür."""
+    seri = [(i, float(d)) for i, d in enumerate(degerler) if d is not None and not pd.isna(d)]
     if len(seri) < 2:
         return ""
-    alt, ust = min(seri), max(seri)
+    vals = [d for _, d in seri]
+    alt, ust = min(vals), max(vals)
     aralik = (ust - alt) or 1.0
-    adim = genislik / (len(seri) - 1)
-    noktalar = [(i * adim, yukseklik - 3 - (d - alt) / aralik * (yukseklik - 6)) for i, d in enumerate(seri)]
-    yol = " ".join(f"{x:.1f},{y:.1f}" for x, y in noktalar)
-    son_x, son_y = noktalar[-1]
-    return (
-        f'<svg width="{genislik}" height="{yukseklik}" viewBox="0 0 {genislik} {yukseklik}" xmlns="http://www.w3.org/2000/svg">'
-        f'<polyline points="{yol}" fill="none" stroke="{renk}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>'
-        f'<circle cx="{son_x:.1f}" cy="{son_y:.1f}" r="2.4" fill="{renk}"/></svg>'
-    )
+    adim = genislik / (len(degerler) - 1)
+    noktalar = [(idx * adim, yukseklik - 3 - (d - alt) / aralik * (yukseklik - 6), d, idx) for idx, d in seri]
+    yol = " ".join(f"{x:.1f},{y:.1f}" for x, y, _, _ in noktalar)
+    son_x, son_y, _, _ = noktalar[-1]
+    parcalar = [f'<svg class="ea-spark" width="{genislik}" height="{yukseklik}" viewBox="0 0 {genislik} {yukseklik}" xmlns="http://www.w3.org/2000/svg">',
+                f'<polyline points="{yol}" fill="none" stroke="{renk}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>',
+                f'<circle cx="{son_x:.1f}" cy="{son_y:.1f}" r="2.4" fill="{renk}"/>']
+    for x, y, d, idx in noktalar:
+        yil = yillar[idx] if yillar and idx < len(yillar) else ""
+        etiket = f"{yil}: {sayi(d, ondalik)}{(' ' + birim) if birim else ''}"
+        parcalar.append(f'<g class="ea-nokta"><circle cx="{x:.1f}" cy="{y:.1f}" r="7" fill="transparent"/>'
+                        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.2" fill="{renk}" class="ea-nokta-isaret"/>'
+                        f'<text x="{min(max(x, 40), genislik - 40):.1f}" y="{max(y - 7, 9):.1f}" text-anchor="middle" class="ea-ipucu">{html.escape(etiket)}</text></g>')
+    parcalar.append("</svg>")
+    return "".join(parcalar)
 
 
 def kpi_serit(ogeler: list[dict]) -> None:
     """Mini eğilim çizgili gösterge şeridi.
 
-    Her öğe: etiket, deger, birim (isteğe bağlı), alt (isteğe bağlı), ton ("p", "n" veya ""), seri (isteğe bağlı).
+    Her öğe: etiket, deger, birim (isteğe bağlı), alt (isteğe bağlı), ton ("p", "n" veya ""),
+    seri ve yillar (mini grafik), ondalik (mini grafik ondalık sayısı).
     """
     parcalar = []
     for o in ogeler:
         birim = f"<small>{html.escape(o['birim'])}</small>" if o.get("birim") else ""
         alt = f'<div class="a {o.get("ton", "")}">{html.escape(o["alt"])}</div>' if o.get("alt") else ""
         renk = theme.PAS if o.get("ton") == "n" else theme.TURKUAZ
-        cizgi = sparkline(o["seri"], renk) if o.get("seri") else ""
+        cizgi = sparkline(o["seri"], o.get("yillar"), renk, o.get("birim", ""), o.get("ondalik", 1)) if o.get("seri") else ""
         parcalar.append(
             f'<div><div class="e">{html.escape(o["etiket"])}</div>'
             f'<div class="d">{html.escape(str(o["deger"]))}{birim}</div>{alt}{cizgi}</div>'

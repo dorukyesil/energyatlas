@@ -1,5 +1,6 @@
 """Ana sayfa: özet göstergeler, veri güncelleme, sunum indirme ve konu kartları."""
 
+import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, export, guncelleme, ui
@@ -8,8 +9,8 @@ kurulu = data.kurulu_guc()
 uretim = data.uretim()
 tuketim = data.tuketim()
 ptf = data.ptf()
-kurulu_yillik = data.tam_yillar(kurulu)
-son_9a = kurulu.set_index("donem").loc["2026 9A"]
+kurulu_yillik = data.teias_kurulu_guc()[["donem", "toplam_gw", "yil"]]
+son_9a = {"toplam_gw": data.teias_ytbs()["kurulu_guc_gw"].sum()}
 
 
 @st.cache_data(show_spinner="Sunum hazırlanıyor…")
@@ -45,14 +46,16 @@ sol, sag = st.columns([5, 6], gap="large")
 with sol:
     st.markdown(
         f"""<div class="ea-eyebrow">Türkiye elektrik sektörü verileri</div>
-<div class="ea-hero-etiket">Toplam kurulu güç · 2026 9A</div>
-<div class="ea-hero-no">{ui.sayi(son_9a['toplam_gw'])}<small>GW</small></div>
+<div class="ea-hero-etiket">Toplam kurulu güç · güncel (YTBS)</div>
+<div class="ea-hero-no">{ui.sayi(son_9a["toplam_gw"])}<small>GW</small></div>
 <div class="ea-hero-not">Aşağıdaki konulardan birini seçerek ilgili sayfaya geçin.</div>""",
         unsafe_allow_html=True,
     )
 with sag:
+    ytbs_toplam = data.teias_ytbs()["kurulu_guc_gw"].sum()
+    ytbs_tarih = pd.to_datetime(data.teias_ytbs()["tarih"].iloc[0])
     st.plotly_chart(
-        charts.cizgi_alan(kurulu_yillik, "donem", "toplam_gw", "Toplam kurulu güç (GW)", "GW", "GW"),
+        charts.canli_kurulu_guc(kurulu_yillik, ytbs_toplam, ytbs_tarih, "Toplam kurulu güç (GW)"),
         use_container_width=True,
     )
 
@@ -66,16 +69,20 @@ ptf_son = ptf.set_index("donem")
 ui.kpi_serit(
     [
         {"etiket": "Kurulu güç, yıllık", "deger": ui.sayi(kurulu_yillik["toplam_gw"].iloc[-1]), "birim": "GW",
-         "alt": f"2016: {ui.sayi(kurulu_yillik['toplam_gw'].iloc[0])} GW", "ton": "p", "seri": kurulu_yillik["toplam_gw"].tolist()},
+         "alt": f"2016: {ui.sayi(kurulu_yillik['toplam_gw'].iloc[0])} GW", "ton": "p", "seri": kurulu_yillik["toplam_gw"].tolist(),
+         "yillar": kurulu_yillik["donem"].tolist(), "birim_ipucu": "GW"},
         {"etiket": "Yenilenebilir üretim payı (2026 9A)", "deger": ui.sayi(ye_payi, 0), "birim": "%",
-         "alt": f"2016: %{ui.sayi(ye_payi_seri[0], 0)}", "ton": "p", "seri": ye_payi_seri},
+         "alt": f"2016: %{ui.sayi(ye_payi_seri[0], 0)}", "ton": "p", "seri": ye_payi_seri,
+         "yillar": uretim_yillik["donem"].tolist(), "ondalik": 0},
         {"etiket": "Brüt tüketim, yıllık", "deger": ui.sayi(tuketim_yillik["tuketim_twh"].iloc[-1], 0), "birim": "TWh",
-         "alt": f"2016: {ui.sayi(tuketim_yillik['tuketim_twh'].iloc[0], 0)} TWh", "ton": "p", "seri": tuketim_yillik["tuketim_twh"].tolist()},
+         "alt": f"2016: {ui.sayi(tuketim_yillik['tuketim_twh'].iloc[0], 0)} TWh", "ton": "p", "seri": tuketim_yillik["tuketim_twh"].tolist(),
+         "yillar": tuketim_yillik["donem"].tolist(), "ondalik": 0},
         {"etiket": "PTF, yıllık ortalama", "deger": ui.sayi(ptf_yillik["ptf_usd_mwh"].iloc[-1], 0), "birim": "USD/MWh",
-         "alt": f"2026 9A: {ui.sayi(ptf_son.loc['2026 9A', 'ptf_usd_mwh'], 0)} USD/MWh", "ton": "n", "seri": ptf_yillik["ptf_usd_mwh"].tolist()},
+         "alt": f"2026 9A: {ui.sayi(ptf_son.loc['2026 9A', 'ptf_usd_mwh'], 0)} USD/MWh", "ton": "n", "seri": ptf_yillik["ptf_usd_mwh"].tolist(),
+         "yillar": ptf_yillik["donem"].tolist(), "ondalik": 0},
     ]
 )
-ui.kaynak("Mini grafikler 2016-2025 tam yıl değerlerini gösterir. 9A: ocak-eylül dönemi.")
+ui.kaynak("Mini grafikler 2016-2025 tam yıl değerlerini gösterir; noktanın üzerine gelerek yıl ve değeri görebilirsiniz. 9A: ocak-eylül.")
 
 ui.bolum("01", "Konular", "Her kart bir konu sayfasını açar. Sayfalar kendi içinde sekmelere ayrılmıştır.")
 

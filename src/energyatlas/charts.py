@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
+from src.energyatlas.theme import PAS as PAS
 from src.energyatlas.theme import PAS as theme_renk_negatif
 from src.energyatlas.theme import TURKUAZ as theme_renk_pozitif
 
@@ -648,3 +649,30 @@ def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y
         fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
     fig.update_layout(barmode="group")
     return _duzenle(fig, baslik, y_baslik)
+
+
+def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str) -> go.Figure:
+    """Yıllık kurulu güç çizgisi ve sonda güncel (YTBS) nokta. Y ekseni veriye göre daraltılmıştır."""
+    x = [str(v) for v in yillik["donem"]]
+    y = list(yillik["toplam_gw"])
+    etiket = guncel_tarih.strftime("%d.%m.%Y")
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=x, y=y, mode="lines+markers", name="TEİAŞ yıllık",
+        line=dict(color=RENKLER["Toplam"], width=2.4), marker=dict(size=6, color=RENKLER["Toplam"]),
+        hovertemplate="%{x}: %{y:,.1f} GW<extra>TEİAŞ yıllık</extra>",
+    ))
+    fig.add_trace(go.Scatter(
+        x=[x[-1], "Güncel"], y=[y[-1], guncel_gw], mode="lines+markers+text", name="YTBS, güncel",
+        line=dict(color=PAS, width=2, dash="dot"),
+        marker=dict(size=[6, 12], color=[RENKLER["Toplam"], PAS], line=dict(color="white", width=2)),
+        text=["", f"<b>{guncel_gw:,.1f} GW</b>".replace(",", "§").replace(".", ",").replace("§", ".")],
+        textposition="top center", textfont=dict(color=PAS, size=13),
+        hovertemplate="%{x}: %{y:,.1f} GW<extra>YTBS (güncel gün)</extra>",
+    ))
+    fig.update_xaxes(type="category", tickangle=0)
+    fig.update_yaxes(range=[min(y) * 0.92, max(max(y), guncel_gw) * 1.08], ticksuffix="")
+    fig.update_layout(height=300, showlegend=False, margin=dict(l=10, r=20, t=50, b=10))
+    fig.add_annotation(x=1, y=1.12, xref="paper", yref="paper", showarrow=False, xanchor="right",
+                       text=f"Güncel: YTBS, {etiket}", font=dict(size=11, color="#7A7468"))
+    return _duzenle(fig, baslik, "GW")
