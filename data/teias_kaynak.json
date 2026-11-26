@@ -1,0 +1,66 @@
+{
+  "kurulu_guc": {
+    "kaynak_url": "https://webim.teias.gov.tr/file/a54df758-ab25-4c41-87c1-5359c986d77d?download",
+    "dosya": "9-Türkiye Kurulu Gücünün Birincil Enerji Kaynaklarına  Göre Yıllar İtibariyle Gelişimi (2006-2025).xls",
+    "yayin_tarihi": "2026-10-09T07:19:45.623000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:40.820713+03:00",
+    "notlar": null
+  },
+  "uretim": {
+    "kaynak_url": "https://webim.teias.gov.tr/file/c7c504e8-7656-42b0-8034-4ae46992127d?download",
+    "dosya": "63-Tür. Brüt El. En. Ür. Birincil Enerji Kaynaklarına Göre Yıllar İtibariyle Gelişimi (2000-2025).xls",
+    "yayin_tarihi": "2026-10-09T07:26:19.923000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:41.372077+03:00",
+    "notlar": "En güncel resmi tabloda jeotermal ile rüzgâr ve taş kömürü ile asfaltit tek sütunda birleştirilmiş olabilir; source='rüzgâr', 'jeotermal' veya 'taş kömürü' sorgusu birleşik seriyi döndürür."
+  },
+  "talep": {
+    "kaynak_url": "https://webim.teias.gov.tr/file/04975c61-4cba-4fb2-87fa-dc5c2133a8dd?download",
+    "dosya": "26-Yıllar İtibariyle Türkiye Kurulu Güç, Puant, Üretim Kapasitesi Gelişimi (1980-2025).xls",
+    "yayin_tarihi": "2026-10-09T07:23:17.274000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:41.791139+03:00",
+    "notlar": "Brüt talep = üretim + ithalat - ihracat (ithalat-ihracat tablosu). Tepe talep değerleri tepe talep tablosundandır."
+  },
+  "dis_ticaret": {
+    "kaynak_url": "https://webim.teias.gov.tr/file/3ecae1f1-1713-417d-97f7-83755a327b9f?download",
+    "dosya": "48-Türkiye Brüt Elektrik Enerjisi Üretim-İthalat-İhracat ve Talebinin Yıllar İtibariyle Gelişimi (2012-2025).xls.xlsx",
+    "yayin_tarihi": "2026-10-09T07:26:19.064000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:41.995369+03:00",
+    "notlar": null
+  },
+  "iletim": {
+    "kaynak_url": "https://www.teias.gov.tr/turkiye-elektrik-uretim-iletim-istatistikleri",
+    "dosya": "95-Türkiye İletim Hat Uzunluklarının Yıllık Gelişimi (1979-2025).xls | 98-türkiye trafo adet ve güçlerinin primer gerilimlerine göre yıllar İtibariyle gelişimi (1980-2025).xls",
+    "yayin_tarihi": "2026-10-09T07:32:58.343000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:42.768573+03:00",
+    "notlar": "Hat uzunlukları km, trafo kapasiteleri MVA'dır."
+  },
+  "yenilenebilir": {
+    "kaynak_url": "https://www.teias.gov.tr/turkiye-elektrik-uretim-iletim-istatistikleri",
+    "dosya": "9-Türkiye Kurulu Gücünün Birincil Enerji Kaynaklarına  Göre Yıllar İtibariyle Gelişimi (2006-2025).xls | 63-Tür. Brüt El. En. Ür. Birincil Enerji Kaynaklarına Göre Yıllar İtibariyle Gelişimi (2000-2025).xls",
+    "yayin_tarihi": "2026-10-09T07:26:19.923000+00:00",
+    "son_donem": "2025",
+    "alinma_zamani": "2026-11-26T14:18:42.860562+03:00",
+    "notlar": "Paylar TEİAŞ kaynak ve toplam sütunlarından hesaplanmıştır."
+  },
+  "aylik": {
+    "kaynak_url": "https://www.teias.gov.tr/aylik-elektrik-uretim-tuketim-raporlari",
+    "dosya": "2021 Yılı Elektrik Üretim-Tüketim Raporu.xlsx | 2022 Yılı Elektrik Üretim-Tüketim Raporu.xlsx | 2023 Yılı Elektrik Üretim-Tüketim Raporu.xlsx | 2024 Yılı Elektrik Üretim-Tüketim Raporu.xlsx | 2025 Yılı Elektrik Üretim-Tüketim Raporu.xlsx | Ekim 2026 Elektrik Üretim-Tüketim Raporu.xlsx",
+    "yayin_tarihi": "2026-11-23T08:56:38.602000+00:00",
+    "son_donem": "2026-10",
+    "alinma_zamani": "2026-11-26T14:18:45.815715+03:00",
+    "notlar": "Cari yıl değerleri TEİAŞ tarafından geçici olarak işaretlenebilir."
+  },
+  "ytbs_kurulu_guc": {
+    "kaynak_url": "https://ytbsbilgi.teias.gov.tr/ytbsbilgi/frm_istatistikler.jsf",
+    "dosya": null,
+    "yayin_tarihi": null,
+    "son_donem": "2026-11-25",
+    "alinma_zamani": "2026-11-26T14:18:46.339569+03:00",
+    "notlar": "TEİAŞ YTBS geçici işletme verisi; geriye dönük düzeltmeye açıktır, lisanssız üretim ay sonuna kadar tahminidir. Resmî aylık/yıllık TEİAŞ istatistiklerinin yerine geçmez. İstenen tarihe en yakın (önceki) mevcut günün anlık görüntüsüdür. Lisanssız santraller 'Lisanssız Santrallar' kuruluşu altındadır."
+  }
+}

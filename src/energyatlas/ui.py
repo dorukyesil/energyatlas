@@ -98,8 +98,32 @@ def segment(secenekler: list[str], anahtar: str, varsayilan: str | None = None) 
     return secim or varsayilan
 
 
+def teias_notu(*anahtarlar: str, ek: str = "") -> None:
+    """TEİAŞ veri setinin resmi tablo adı ve yayın tarihiyle kaynak notu yazar."""
+    from src.energyatlas import data
+
+    kaynaklar = data.teias_kaynak()
+    parcalar = []
+    for a in anahtarlar:
+        k = kaynaklar.get(a, {})
+        ad = k.get("dosya") or "TEİAŞ"
+        tarih = (k.get("yayin_tarihi") or "")[:10]
+        parcalar.append(f"{ad}" + (f" (yayın: {tarih[8:10]}.{tarih[5:7]}.{tarih[:4]})" if tarih else ""))
+    metin = "Kaynak: TEİAŞ, " + "; ".join(dict.fromkeys(parcalar)) + "."
+    if ek:
+        metin += " " + ek
+    kaynak(metin)
+
+
 # Her tablonun kaynağı (CSV dosya adına göre). Kaynak belirtilmezse buradan alınır.
 TABLO_KAYNAKLARI = {
+    "teias_kurulu_guc.csv": "TEİAŞ, kurulu güç tablosu (turkiye-energy-mcp).",
+    "teias_uretim.csv": "TEİAŞ, brüt elektrik üretimi tablosu (turkiye-energy-mcp).",
+    "teias_talep.csv": "TEİAŞ, talep ve ithalat-ihracat tabloları (turkiye-energy-mcp).",
+    "teias_dis_ticaret.csv": "TEİAŞ, ülke bazında ithalat-ihracat (turkiye-energy-mcp).",
+    "teias_iletim.csv": "TEİAŞ, iletim istatistikleri (turkiye-energy-mcp).",
+    "teias_aylik.csv": "TEİAŞ, aylık enerji istatistikleri (turkiye-energy-mcp).",
+    "teias_ytbs_kurulu_guc.csv": "TEİAŞ YTBS, güncel kurulu güç (geçici işletme verisi).",
     "kurulu_guc.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
     "uretim.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
     "tuketim.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",

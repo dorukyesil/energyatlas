@@ -622,3 +622,29 @@ def gruplu_yatay(df: pd.DataFrame, etiket: str, seri: str, deger: str, baslik: s
                              hovertemplate=f"{ad} - %{{y}}: %{{x:,.1f}} {birim}<extra></extra>"))
     fig.update_layout(barmode="group", yaxis=dict(autorange="reversed", automargin=True))
     return _duzenle(fig, baslik, birim)
+
+
+def pay_yigin_genel(df: pd.DataFrame, x: str, kolonlar: dict[str, str], baslik: str, y_baslik: str = "Pay (%)") -> go.Figure:
+    """Verilen {etiket: sütun} eşlemesiyle yığılmış pay grafiği. Renkler kaynak etiketinden alınır."""
+    fig = go.Figure()
+    for etiket, kolon in kolonlar.items():
+        fig.add_trace(
+            go.Bar(
+                name=etiket,
+                x=df[x].astype(str),
+                y=df[kolon],
+                marker_color=RENKLER.get(etiket),
+                hovertemplate=f"{etiket}: %{{y:,.1f}}<extra></extra>",
+            )
+        )
+    fig.update_layout(barmode="stack")
+    return _duzenle(fig, baslik, y_baslik)
+
+
+def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y_baslik: str) -> go.Figure:
+    """Seri bazında yan yana sütunlar (ör. yıllara göre ithalat ve ihracat)."""
+    fig = go.Figure()
+    for ad, alt in df.groupby(seri, sort=False):
+        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
+    fig.update_layout(barmode="group")
+    return _duzenle(fig, baslik, y_baslik)
