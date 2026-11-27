@@ -30,11 +30,15 @@ def load_dataset(name: str, data_dir: Path = DATA_DIR) -> pd.DataFrame:
 # ---- TEİAŞ (turkiye-energy-mcp) ----
 
 def teias_kurulu_guc() -> pd.DataFrame:
-    """Yıllık kurulu güç, GW ve pay (%). TEİAŞ 'termik' tanımı atık ve biyokütleyi de içerir."""
+    """Yıllık kurulu güç, GW ve pay (%).
+
+    Portal tanımı: biyokütle ve atık ısı YENİLENEBİLİR sayılır. TEİAŞ'in 'termik' toplamından bu iki kalem çıkarılır.
+    """
     d = load_dataset("teias_kurulu_guc")
     out = pd.DataFrame({"yil": d["yil"], "donem": d["yil"].astype(str)})
     out["toplam_gw"] = d["total"] / 1000
-    out["termik_gw"] = d["thermal"] / 1000
+    out["atik_biyokutle_gw"] = d["waste_and_biomass"] / 1000
+    out["termik_gw"] = (d["thermal"] - d["waste_and_biomass"]) / 1000
     out["hidro_gw"] = d["hydro"] / 1000
     out["jeotermal_gw"] = d["geothermal"] / 1000
     out["ruzgar_gw"] = d["wind"] / 1000
@@ -43,10 +47,10 @@ def teias_kurulu_guc() -> pd.DataFrame:
     out["linyit_gw"] = d["lignite"] / 1000
     out["dogalgaz_gw"] = d["natural_gas"] / 1000
     out["sivi_yakit_gw"] = d["liquid_fuels"] / 1000
-    out["atik_biyokutle_gw"] = d["waste_and_biomass"] / 1000
     out["coklu_yakit_gw"] = d["multi_fuel_total"] / 1000
     out["diger_ye_gw"] = out["hidro_gw"] + out["jeotermal_gw"]
-    for kolon, ad in [("termik", "termik"), ("gunes", "gunes"), ("ruzgar", "ruzgar"), ("diger_ye", "diger_ye")]:
+    out["yenilenebilir_gw"] = out[["hidro_gw", "jeotermal_gw", "ruzgar_gw", "gunes_gw", "atik_biyokutle_gw"]].sum(axis=1)
+    for kolon, ad in [("termik", "termik"), ("gunes", "gunes"), ("ruzgar", "ruzgar"), ("diger_ye", "diger_ye"), ("yenilenebilir", "yenilenebilir")]:
         out[f"{ad}_pct"] = out[f"{kolon}_gw"] / out["toplam_gw"] * 100
     out["hidro_pct"] = out["hidro_gw"] / out["toplam_gw"] * 100
     out["jeotermal_pct"] = out["jeotermal_gw"] / out["toplam_gw"] * 100
@@ -54,20 +58,24 @@ def teias_kurulu_guc() -> pd.DataFrame:
 
 
 def teias_uretim() -> pd.DataFrame:
-    """Yıllık brüt elektrik üretimi, TWh ve pay (%). Rüzgar ve jeotermal TEİAŞ tablosunda birleşiktir."""
+    """Yıllık brüt elektrik üretimi, TWh ve pay (%). Rüzgar ve jeotermal TEİAŞ tablosunda birleşiktir.
+
+    Portal tanımı: biyokütle ve atık ısı yenilenebilirdir; 'termik_twh' bu iki kalemi içermez.
+    """
     d = load_dataset("teias_uretim")
     out = pd.DataFrame({"yil": d["yil"], "donem": d["yil"].astype(str)})
     out["toplam_twh"] = d["total"] / 1000
-    out["termik_twh"] = d["thermal"] / 1000
+    out["atik_biyokutle_twh"] = d["waste_and_biomass"] / 1000
+    out["termik_twh"] = (d["thermal"] - d["waste_and_biomass"]) / 1000
     out["hidro_twh"] = d["hydro"] / 1000
     out["ruzgar_jeotermal_twh"] = d["geothermal_and_wind"] / 1000
     out["gunes_twh"] = d["solar"] / 1000
-    out["atik_biyokutle_twh"] = d["waste_and_biomass"] / 1000
+    out["yenilenebilir_twh"] = out[["hidro_twh", "ruzgar_jeotermal_twh", "gunes_twh", "atik_biyokutle_twh"]].sum(axis=1)
     out["dogalgaz_twh"] = d["natural_gas"] / 1000
     out["linyit_twh"] = d["lignite"] / 1000
     out["ithal_komur_twh"] = d["imported_coal"] / 1000
     out["tas_komuru_twh"] = d["hard_coal_and_asphaltite"] / 1000
-    for k in ["termik", "hidro", "ruzgar_jeotermal", "gunes"]:
+    for k in ["termik", "hidro", "ruzgar_jeotermal", "gunes", "atik_biyokutle", "yenilenebilir"]:
         out[f"{k}_pct"] = out[f"{k}_twh"] / out["toplam_twh"] * 100
     return out
 
@@ -107,10 +115,14 @@ def teias_iletim() -> pd.DataFrame:
 
 
 def teias_yenilenebilir() -> pd.DataFrame:
+    """Yenilenebilir kurulu güç ve üretim. Portal tanımına göre biyokütle ve atık ısı eklenir."""
     d = load_dataset("teias_yenilenebilir")
     d["donem"] = d["yil"].astype(str)
-    d["yenilenebilir_gw"] = d["renewable_capacity_mw"] / 1000
-    d["yenilenebilir_uretim_twh"] = d["renewable_generation_gwh"] / 1000
+    kurulu = load_dataset("teias_kurulu_guc")[["yil", "waste_and_biomass"]]
+    uretim = load_dataset("teias_uretim")[["yil", "waste_and_biomass"]]
+    d = d.merge(kurulu, on="yil", how="left").merge(uretim, on="yil", how="left", suffixes=("", "_uretim"))
+    d["yenilenebilir_gw"] = (d["renewable_capacity_mw"] + d["waste_and_biomass"].fillna(0)) / 1000
+    d["yenilenebilir_uretim_twh"] = (d["renewable_generation_gwh"] + d["waste_and_biomass_uretim"].fillna(0)) / 1000
     return d
 
 
@@ -126,7 +138,7 @@ YTBS_GRUPLARI = {
     "akarsu": "Hidro", "barajli": "Hidro",
     "asfaltitkomur": "Termik", "taskomur": "Termik", "ithalkomur": "Termik", "linyit": "Termik",
     "dogalgaz": "Termik", "lng": "Termik", "fueloil": "Termik", "motorin": "Termik", "nafta": "Termik",
-    "lpg": "Termik", "biyokutle": "Termik", "atikisi": "Termik",
+    "lpg": "Termik", "biyokutle": "Biyokütle ve atık", "atikisi": "Biyokütle ve atık",
     "jeotermal": "Jeotermal", "ruzgar": "Rüzgar", "gunes": "Güneş",
 }
 
@@ -270,10 +282,12 @@ def yenile() -> None:
 
 
 def kurulu_guc() -> pd.DataFrame:
+    """Kurulu güç payları (%). Termik payı biyokütle ve atık hariç (fosil) değerdir; yenilenebilir = 100 - termik."""
     return load_dataset("kurulu_guc")
 
 
 def uretim() -> pd.DataFrame:
+    """Üretim payları (%). Termik payı biyokütle ve atık hariç (fosil) değerdir; yenilenebilir = 100 - termik."""
     return load_dataset("uretim")
 
 

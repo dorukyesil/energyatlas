@@ -85,3 +85,10 @@ Not: Bölgeler birbirini kapsayabilir (ör. Kuzey Amerika ve ABD).
 Türkiye, WEO bölgesel kırılımında ayrı yer almaz (Avrupa veya Orta Doğu gruplarında değildir).
 
 Ülke ve bölge karşılaştırma sayfası artık `weo_2026.csv` (güneş PV üretimi) verisini kullanır. Türkiye değeri TEİAŞ kurulu güç ve güneş payından hesaplanır.
+
+## Yenilenebilir ve termik tanımı (portal genelinde)
+
+- **Yenilenebilir:** hidro, jeotermal, rüzgar, güneş, **biyokütle ve atık ısı**.
+- **Termik:** doğal gaz, linyit, ithal ve taş kömürü, asfaltit ve diğer fosil yakıtlar. Biyokütle ve atık ısı bu toplamda yer almaz.
+- TEİAŞ yıllık tablosunda termik toplamı biyokütle ve atığı içerdiği için portal bu iki kalemi termikten çıkarır (`data.py`). `kurulu_guc.csv` ve `uretim.csv` içindeki termik payları da bu tanıma göre girilmiştir.
+- TEİAŞ'in kendi "yenilenebilir" tanımı biyokütleyi içermez; portalda bu değere biyokütle ve atık eklenir.

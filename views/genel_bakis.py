@@ -73,13 +73,13 @@ ytbs_tarih = pd.to_datetime(ytbs["tarih"].iloc[0]).strftime("%d.%m.%Y")
 aylik = data.teias_aylik()
 o26 = aylik[(aylik["yil"] == 2026) & (aylik["ay_no"] <= 10)]
 o25 = aylik[(aylik["yil"] == 2025) & (aylik["ay_no"] <= 10)]
-yen26 = float(o26[["hydro", "wind", "solar", "geothermal"]].sum().sum() / o26["total_generation"].sum() * 100)
+yen26 = float(o26[["hydro", "wind", "solar", "geothermal", "waste_and_biomass"]].sum().sum() / o26["total_generation"].sum() * 100)
 tuk26 = float(o26["gross_demand"].sum()) / 1000
 tuk25 = float(o25["gross_demand"].sum()) / 1000
 tuk_degisim = (tuk26 / tuk25 - 1) * 100
 
 uretim_yillik = data.teias_uretim().copy()
-yenilenebilir_yillik = (uretim_yillik["hidro_twh"] + uretim_yillik["ruzgar_jeotermal_twh"] + uretim_yillik["gunes_twh"]) / uretim_yillik["toplam_twh"] * 100
+yenilenebilir_yillik = uretim_yillik["yenilenebilir_twh"] / uretim_yillik["toplam_twh"] * 100
 yenilenebilir_seri = yenilenebilir_yillik.tolist() + [yen26]
 yenilenebilir_yillar = uretim_yillik["donem"].tolist() + ["2026 Oca-Eki"]
 
