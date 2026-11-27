@@ -18,7 +18,14 @@ def render() -> None:
               "2035": float(h.loc["Rüzgar", "hedef_2035_yenilenebilir_yol_haritasi_gw"]), "2040": float(kg["Rüzgar kurulu gücü 2040"])}
     toplam = {"2025": toplam_2025, "2028": float(h.loc["Toplam", "hedef_2028_stratejik_plan_gw"]),
               "2035": float(h.loc["Toplam", "hedef_2035_yenilenebilir_yol_haritasi_gw"]), "2040": float(kg["Kurulu güç 2040"])}
-    diger = {d: toplam[d] - gunes[d] - ruzgar[d] for d in toplam}
+    # Yenilenebilir: 2025, 2028 ve 2035 için hedef tablosu; 2040 için yenilenebilir payından türetilir (kaynakta GW olarak yok).
+    yenilenebilir = {"2025": float(h.loc["Toplam Yenilenebilir", "gerceklesen_2025_gw"]),
+                     "2028": float(h.loc["Toplam Yenilenebilir", "hedef_2028_stratejik_plan_gw"]),
+                     "2035": float(h.loc["Toplam Yenilenebilir", "hedef_2035_yenilenebilir_yol_haritasi_gw"]),
+                     "2040": float(kg["Kurulu güç 2040"]) * float(kg["Yenilenebilir payı 2040"]) / 100}
+    diger_yenilenebilir = {d: yenilenebilir[d] - gunes[d] - ruzgar[d] for d in toplam}
+    termik = {d: toplam[d] - yenilenebilir[d] for d in toplam}
+    kaynaklar = [("Güneş", gunes), ("Rüzgar", ruzgar), ("Diğer yenilenebilir", diger_yenilenebilir), ("Termik", termik)]
     donemler = ["2025", "2028", "2035", "2040"]
     etiket = {"2025": "2025 gerçekleşen", "2028": "2028 Stratejik Plan", "2035": "2035 Yol Haritası", "2040": "2040 Milli Enerji"}
 
@@ -37,20 +44,20 @@ def render() -> None:
     ])
     ui.kaynak("Kaynak: Enerji ve Tabii Kaynaklar Bakanlığı; 2040 değerleri Milli Enerji 2040 lansmanındaki açıklanan hedeflerdir.")
 
-    ui.bolum("02", "Kurulu güç yolu", "Güneş, rüzgar ve diğer kaynakların dört dönemdeki kurulu gücü (GW).")
+    ui.bolum("02", "Kurulu güç yolu", "Güneş ve rüzgar ayrı; diğer yenilenebilir ve termik kaynakların dört dönemdeki kurulu gücü (GW).")
     uzun = pd.DataFrame([
-        {"donem": etiket[d], "kaynak": k, "deger": v}
+        {"donem": etiket[d], "kaynak": k, "deger": v[d]}
         for d in donemler
-        for k, v in [("Güneş", gunes[d]), ("Rüzgar", ruzgar[d]), ("Diğer (termik, hidro, nükleer vb.)", diger[d])]
+        for k, v in kaynaklar
     ])
     st.plotly_chart(charts.yigin_cubuk(uzun, "donem", "kaynak", "deger", "Kurulu güç: dönemlere göre (GW)", "GW"), use_container_width=True)
-    ui.kaynak("2028 ve 2035 değerleri hedef, 2025 değeri TEİAŞ'a yakın gerçekleşmedir. 2040 'diğer' kalemi termik, hidro ve nükleeri birlikte içerir.")
+    ui.kaynak("2028 ve 2035 değerleri hedef, 2025 değeri TEİAŞ'a yakın gerçekleşmedir. 2040 yenilenebilir değeri, Milli Enerji 2040 yenilenebilir payından (%77) türetilmiştir; termik, nükleer dahil kalan kısmı içerir.")
 
     ui.bolum("03", "Kaynak payı", "Her dönemde toplam kurulu gücün kaynaklara göre dağılımı.")
     cols = st.columns(4)
     for col, d in zip(cols, donemler):
         with col:
-            st.plotly_chart(charts.pay_halkasi(["Güneş", "Rüzgar", "Diğer"], [gunes[d], ruzgar[d], diger[d]], f"{etiket[d]}: {ui.sayi(toplam[d], 0)} GW"), use_container_width=True)
+            st.plotly_chart(charts.pay_halkasi([k for k, _ in kaynaklar], [v[d] for _, v in kaynaklar], f"{etiket[d]}: {ui.sayi(toplam[d], 0)} GW"), use_container_width=True)
 
     ui.bolum("04", "Elektrik talebi", "Brüt elektrik talebi: 2025 gerçekleşen ve hedefler (TWh).")
     talep = pd.DataFrame({"donem": ["2025", "2035 Ulusal Plan", "2040 Milli Enerji"],
