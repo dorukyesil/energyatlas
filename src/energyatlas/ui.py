@@ -132,6 +132,7 @@ TABLO_KAYNAKLARI = {
     "teias_dis_ticaret.csv": "TEİAŞ, ülke bazında ithalat-ihracat (turkiye-energy-mcp).",
     "teias_iletim.csv": "TEİAŞ, iletim istatistikleri (turkiye-energy-mcp).",
     "teias_aylik.csv": "TEİAŞ, aylık enerji istatistikleri (turkiye-energy-mcp).",
+    "ptf_gunluk.csv": "EPİAŞ Piyasa Takas Fiyatı, saatlik dosyalardan türetilmiş günlük özetler.",
     "teias_ytbs_kurulu_guc.csv": "TEİAŞ YTBS, güncel kurulu güç (geçici işletme verisi).",
     "kurulu_guc.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",
     "uretim.csv": "TEİAŞ. Sunum grafiklerinden okunmuştur.",

@@ -33,6 +33,8 @@ Bazı dönemler 9A (ocak-eylül) ve H1 (ilk yarı) olarak ayrı gösterilir; yı
 | `isletmedeki_depolama.csv` | İşletmedeki depolama lisanslı 10 tesis, MWh ve MWe | Toplam 419,5 MWh, 388,5 MWe. Kontrol grubu bilgisi görseldeki dipnottan alındı. |
 | `tarife.csv` | EPDK tek zamanlı ve çok zamanlı enerji bedelleri (kr/kWh) | 4 Nisan 2026 itibarıyla, vergiler hariç. Dağıtım bedelleri ve reaktif enerji bedelleri eklenmedi. Kaynak: EPDK, elektrik faturalarına esas tarife tabloları. |
 | `ptf.csv` | Piyasa takas fiyatı, USD/MWh (2016-2026 9A) | Görseldeki yıllık değerler. |
+| `ptf_gunluk.csv` | EPİAŞ saatlik PTF'den günlük ortalama, en düşük ve en yüksek (TL, USD, EUR/MWh), 2016–2026 | Kullanıcının EPİAŞ'tan indirdiği saatlik PTF dosyalarından `scripts/ptf_xlsx_aktar.py` ile üretilir. Yinelenen saatler atılır. |
+| `ptf_profil.csv` | PTF ortalaması, yıl × ay × saat (TL, USD/MWh) | Aynı betikle üretilir. |
 
 ## Eklenen veriler (14-18. bölümler)
 

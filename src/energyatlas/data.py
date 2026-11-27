@@ -325,6 +325,18 @@ def ptf() -> pd.DataFrame:
     return load_dataset("ptf")
 
 
+def ptf_gunluk() -> pd.DataFrame:
+    """EPİAŞ saatlik PTF'den türetilmiş günlük özet (TL, USD, EUR/MWh; ortalama, en düşük, en yüksek)."""
+    d = load_dataset("ptf_gunluk")
+    d["tarih"] = pd.to_datetime(d["tarih"])
+    return d
+
+
+def ptf_profil() -> pd.DataFrame:
+    """Yıl, ay ve saat bazında PTF ortalaması (TL ve USD/MWh)."""
+    return load_dataset("ptf_profil")
+
+
 def yekdem_fiyat() -> pd.DataFrame:
     return load_dataset("yekdem_fiyat")
 

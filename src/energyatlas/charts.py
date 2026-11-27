@@ -697,6 +697,16 @@ def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Ti
     return _duzenle(fig, baslik, "GW")
 
 
+def ptf_kutu(g: pd.DataFrame, kolon: str, baslik: str, y_baslik: str) -> go.Figure:
+    """Yıl bazında günlük ortalamaların dağılımı (kutu grafiği). Oynaklığı ve yıllar arası kaymayı gösterir."""
+    fig = go.Figure()
+    for yil, alt in g.groupby(g["tarih"].dt.year):
+        fig.add_trace(go.Box(y=alt[kolon], name=str(yil), marker_color=RENKLER["Toplam"],
+                             boxmean=True, line=dict(width=1.4), hovertemplate="%{y:,.1f}<extra>" + str(yil) + "</extra>"))
+    fig.update_layout(showlegend=False)
+    return _duzenle(fig, baslik, y_baslik)
+
+
 def tr_harita(df: pd.DataFrame, deger: str, baslik: str, renk: str, birim: str = "MWe") -> go.Figure:
     """Türkiye il haritası. df: 'ad_key' (il anahtarı) ve `deger` sütunları. Değere göre tek renk tonu."""
     from src.energyatlas import data
