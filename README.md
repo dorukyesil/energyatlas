@@ -69,17 +69,3 @@ Veriler depoda CSV olarak tutulur, dağıtım için ayrıca bir gizli anahtar ge
 
 Veriler resmi raporlardan ve kurum duyurularından alınmıştır. Bazı değerler grafiklerden okunmuştur.
 Kullanmadan önce `data/KAYNAKLAR.md` dosyasındaki notlara bakın ve resmi kaynaktan doğrulayın.
-
-## Mevzuat takibi
-
-Mevzuat bölümü, [enerji-mevzuat-takip](https://github.com/karahanOS/enerji-mevzuat-takip) paketinin
-veritabanından beslenir.
-
-1. Paketi kurun: `git clone https://github.com/karahanOS/enerji-mevzuat-takip` ve `python -m venv .venv && .venv/bin/pip install -e .`
-2. Paketin taramasını çalıştırın (ör. MCP üzerinden `guncelle` veya `enerji-takip` komutu).
-3. Verileri aktarın:
-   `ENERJI_TAKIP_HOME=<veri dizini> <paket>/.venv/bin/python scripts/mevzuat_paket_aktar.py`
-4. Portalı çalıştırın; Mevzuat bölümü `data/mevzuat_belgeler.csv` dosyasını okur.
-
-Proje kökündeki `.mcp.json`, aynı paketi Claude Code içinde MCP sunucusu olarak kullanılabilir kılar
-(`uvx` gerekir; Claude Code bu sunucuyu ilk kullanımda onayınıza sunar).

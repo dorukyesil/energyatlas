@@ -28,7 +28,6 @@ st.navigation(
         sayfa("views/altyapi.py", "Altyapı ve hedefler"),
         sayfa("views/dunya_enerji.py", "Dünya enerji görünümü"),
         sayfa("views/dunya_karsilastirma.py", "Dünya karşılaştırma"),
-        sayfa("views/mevzuat.py", "Mevzuat"),
         sayfa("views/hedefler.py", "Hedefler ve vizyon"),
     ],
     position="hidden",

@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "enerji-mevzuat": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/karahanOS/enerji-mevzuat-takip", "enerji-mevzuat-mcp"]
-    }
-  }
-}
