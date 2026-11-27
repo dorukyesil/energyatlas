@@ -58,9 +58,12 @@ with sag:
     ytbs_tarih = pd.to_datetime(data.teias_ytbs()["tarih"].iloc[0])
     yen_yillik = data.teias_yenilenebilir()["yenilenebilir_gw"].tolist()
     yen_guncel = float(data.teias_ytbs().query("grup != 'Termik'")["kurulu_guc_gw"].sum())
+    termik_yillik = data.teias_kurulu_guc()["termik_gw"].tolist()
+    termik_guncel = float(data.teias_ytbs().query("grup == 'Termik'")["kurulu_guc_gw"].sum())
     st.plotly_chart(
-        charts.canli_kurulu_guc(kurulu_yillik, ytbs_toplam, ytbs_tarih, "Kurulu güç: toplam ve yenilenebilir (GW)",
-                                yen_yillik=yen_yillik, yen_guncel=yen_guncel),
+        charts.canli_kurulu_guc(kurulu_yillik, ytbs_toplam, ytbs_tarih, "Kurulu güç: toplam, yenilenebilir ve termik (GW)",
+                                yen_yillik=yen_yillik, yen_guncel=yen_guncel,
+                                termik_yillik=termik_yillik, termik_guncel=termik_guncel),
         use_container_width=True,
     )
 

@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
 from src.energyatlas.theme import PAS as PAS
+from src.energyatlas.theme import GRI
 from src.energyatlas.theme import TURKUAZ
 from src.energyatlas.theme import PAS as theme_renk_negatif
 from src.energyatlas.theme import TURKUAZ as theme_renk_pozitif
@@ -653,7 +654,8 @@ def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y
 
 
 def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str,
-                     yen_yillik: list[float] | None = None, yen_guncel: float | None = None) -> go.Figure:
+                     yen_yillik: list[float] | None = None, yen_guncel: float | None = None,
+                     termik_yillik: list[float] | None = None, termik_guncel: float | None = None) -> go.Figure:
     """Toplam ve yenilenebilir kurulu güç çizgileri; sonda güncel (YTBS) noktalar. Y ekseni veriye göre daraltılmıştır."""
     x = [str(v) for v in yillik["donem"]]
     y = list(yillik["toplam_gw"])
@@ -682,7 +684,11 @@ def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Ti
     if yen_seri is not None and yen_guncel is not None:
         iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
         iz(x_tam, yen_seri + [yen_guncel], TURKUAZ, "Yenilenebilir", tr(yen_guncel))
-        ymin = min(min(y), min(yen_seri)) * 0.9
+        alt = [min(y), min(yen_seri)]
+        if termik_yillik is not None and termik_guncel is not None:
+            iz(x_tam, list(termik_yillik) + [termik_guncel], GRI, "Termik", tr(termik_guncel))
+            alt.append(min(termik_yillik))
+        ymin = min(alt) * 0.9
         ymax = max(guncel_gw, yen_guncel, max(y)) * 1.12
     else:
         iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
