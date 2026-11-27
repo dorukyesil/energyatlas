@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 
 from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
 from src.energyatlas.theme import PAS as PAS
-from src.energyatlas.theme import GRI
 from src.energyatlas.theme import TURKUAZ
 from src.energyatlas.theme import PAS as theme_renk_negatif
 from src.energyatlas.theme import TURKUAZ as theme_renk_pozitif
@@ -653,6 +652,10 @@ def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y
     return _duzenle(fig, baslik, y_baslik)
 
 
+# Canlı kurulu güç grafiği serilerinin renkleri
+KURULU_RENK = {"Toplam": "#E0A800", "Yenilenebilir": "#2E7D32", "Termik": "#1A1A1A"}
+
+
 def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str,
                      yen_yillik: list[float] | None = None, yen_guncel: float | None = None,
                      termik_yillik: list[float] | None = None, termik_guncel: float | None = None) -> go.Figure:
@@ -682,16 +685,16 @@ def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Ti
     tum_y = y + [guncel_gw]
     x_tam = x + ["Güncel"]
     if yen_seri is not None and yen_guncel is not None:
-        iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
-        iz(x_tam, yen_seri + [yen_guncel], TURKUAZ, "Yenilenebilir", tr(yen_guncel))
+        iz(x_tam, tum_y, KURULU_RENK["Toplam"], "Toplam", tr(guncel_gw))
+        iz(x_tam, yen_seri + [yen_guncel], KURULU_RENK["Yenilenebilir"], "Yenilenebilir", tr(yen_guncel))
         alt = [min(y), min(yen_seri)]
         if termik_yillik is not None and termik_guncel is not None:
-            iz(x_tam, list(termik_yillik) + [termik_guncel], GRI, "Termik", tr(termik_guncel))
+            iz(x_tam, list(termik_yillik) + [termik_guncel], KURULU_RENK["Termik"], "Termik", tr(termik_guncel))
             alt.append(min(termik_yillik))
         ymin = min(alt) * 0.9
         ymax = max(guncel_gw, yen_guncel, max(y)) * 1.12
     else:
-        iz(x_tam, tum_y, RENKLER["Toplam"], "Toplam", tr(guncel_gw))
+        iz(x_tam, tum_y, KURULU_RENK["Toplam"], "Toplam", tr(guncel_gw))
         ymin = min(y) * 0.92
         ymax = max(max(y), guncel_gw) * 1.08
     fig.update_xaxes(type="category", tickangle=0)
