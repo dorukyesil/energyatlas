@@ -8,11 +8,11 @@ gösteren Streamlit tabanlı web portalı.
 | Kategori | Sayfalar |
 |---|---|
 | Genel | Enerji Atlası (ana sayfa), Hakkında |
-| Elektrik piyasası | Kurulu güç, üretim, tüketim (brüt, kişi başına, dış ticaret), iletim ağı (yakında), depolama (şebeke, ön lisanslar, işletmedeki depolama, santral listesi) |
-| Hedefler ve güncel gelişmeler | Geçmiş ve yeni hedefler, piyasa hedefleri, devam eden yatırımlar, güncel gelişmeler (yakında) |
-| Lisanssız üretim | Mevzuat, gelişim ve hesaplamalar (yakında) |
-| Fiyatlandırma | EPDK tarifeleri, PTF, YEKDEM; lisanslı ve lisanssız mekanizmalar (yakında) |
-| Dünya | Dünya enerji görünümü (IEA WEO 2026), dünya karşılaştırma |
+| Türkiye Elektrik Piyasası | Kurulu güç, üretim, tüketim (etkileyen faktörler yakında), elektrik iletim ağı (yakında), elektrik depolama piyasası (şebeke, kullanım türleri (yakında), ön lisanslar, işletmedeki depolama) |
+| Türkiye Elektrik Piyasası Hedefleri ve Güncel Gelişmeler | Geçmiş ve yeni hedefler, devam eden yatırımlar; iletim ağı hedefleri ve güncel gelişmeler (yakında) |
+| Türkiye Lisanssız Elektrik Üretimi Piyasası | Gelişim, mevzuat, yönetmelik değişiklikleri ve hesaplamalar (yakında) |
+| Yenilenebilir Enerji Santralleri için Fiyatlandırma Mekanizmaları | EPDK tarifeleri, PTF, YEKDEM; lisanslı ve lisanssız mekanizmalar, karşılaştırma (yakında) |
+| Dünya İstatistikleri | Dünya enerji görünümü (IEA WEO 2026), bölgesel ve ülke karşılaştırmaları, küresel yatırımlar |
 
 ## Proje yapısı
 

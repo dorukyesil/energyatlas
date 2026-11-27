@@ -6,7 +6,7 @@ from src.energyatlas import ui
 from src.energyatlas.sayfalar import depolama_on_lisans, depolama_sebeke, dis_ticaret
 from src.energyatlas.sayfalar import isletmedeki_depolama, kisi_basina, kurulu_guc, santral_listesi, tuketim, uretim
 
-ui.sayfa_basligi("Elektrik piyasası", "Elektrik piyasası", "Kurulu güç, üretim, tüketim, iletim ağı ve depolama.")
+ui.sayfa_basligi("Türkiye Elektrik Piyasası", "Türkiye Elektrik Piyasası", "Kurulu güç, üretim, tüketim, iletim ağı ve depolama.")
 ui.geri_linki()
 
 sekme_kurulu, sekme_uretim, sekme_tuketim, sekme_iletim, sekme_depolama = st.tabs(
@@ -30,7 +30,7 @@ with sekme_iletim:
     ui.yakinda("Elektrik iletim ağı mevcut durumu")
 with sekme_depolama:
     alt_sebeke, alt_tur, alt_on, alt_isletme, alt_liste = st.tabs(
-        ["Şebeke ilişkisi", "Kullanım türleri", "Ön lisanslar", "İşletmedeki depolama", "EPDK santral listesi"]
+        ["Şebeke ve depolama ilişkisi", "Kullanım türleri", "Ön lisanslar", "İşletmedeki depolama", "EPDK santral listesi"]
     )
     with alt_sebeke:
         depolama_sebeke.render()

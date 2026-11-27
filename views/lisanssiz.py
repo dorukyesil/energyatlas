@@ -2,18 +2,18 @@
 
 from src.energyatlas import ui
 
-ui.sayfa_basligi("Lisanssız üretim", "Lisanssız elektrik üretimi",
+ui.sayfa_basligi("Türkiye Lisanssız Elektrik Üretimi Piyasası", "Türkiye Lisanssız Elektrik Üretimi Piyasası",
                  "Gelişim süreci, mevzuat, kurulu güç, yönetmelik değişiklikleri ve ihtiyaç fazlası hesaplamaları.")
 ui.geri_linki()
 
 BOLUMLER = [
-    "Gelişim süreci, neden bu modele ihtiyaç var, kimler yatırım yapıyor, temel amaç ve öz tüketim",
+    "Gelişim süreci, neden böyle bir modele ihtiyaç var, kimler yatırım yapıyor, temel amaç: öz tüketim, bugün için kısa özet",
     "Lisanssız mevzuatının gelişimi tarihçesi",
     "Lisanssız santrallerin gelişimi, kurulu güç ve temel sürükleyiciler",
     "2 Nisan 2026 yönetmelik değişikliklerinin etkileri",
-    "İhtiyaç fazlası enerji hesaplamaları: örnekler ve interaktif hesaplama",
-    "Saatlik mahsuplaşmada ihtiyaç fazlası enerji hesaplamaları: örnekler ve interaktif hesaplama",
-    "İhtiyaç fazlası enerji: aylık ve saatlik mahsuplaşma karşılaştırması",
+    "İhtiyaç fazlası enerji hesaplamaları: örnekler ve interaktif hesaplama seçeneği",
+    "Saatlik mahsuplaşmada ihtiyaç fazlası enerji hesaplamaları: örnekler ve interaktif hesaplama seçeneği",
+    "İhtiyaç fazlası enerji: aylık mahsuplaşma ve saatlik mahsuplaşma kıyaslamaları",
     "Lisanssız üretimde satış limiti",
     "YEKDEM süresi sona erecek lisanssız tesisler",
 ]

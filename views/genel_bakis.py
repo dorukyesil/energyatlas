@@ -115,24 +115,22 @@ ui.kaynak("Mini grafikler her dönem için en güncel değeri de içerir; noktan
 ui.bolum("01", "Konular", "Her kart bir konu sayfasını açar. Sayfalar kendi içinde sekmelere ayrılmıştır.")
 
 kartlar = [
-    ("⚡", "Elektrik piyasası", "Kurulu güç, üretim, tüketim ve depolama.",
-     ["Kurulu güç", "Üretim", "Tüketim", "Depolama ve ön lisanslar"],
+    ("⚡", "Türkiye Elektrik Piyasası", "Kurulu güç, üretim, tüketim, iletim ağı ve depolama.",
+     ["Kurulu güç verileri analizleri", "Üretim verileri analizleri", "Tüketim verileri analizleri ve etkileyen faktörler",
+      "Elektrik iletim ağı mevcut durumu (yakında)", "Elektrik depolama piyasası"],
      "views/elektrik_piyasasi.py", "Elektrik piyasasına git"),
-    ("🎯", "Hedefler ve güncel gelişmeler", "Geçmiş ve yeni hedefler, devam eden yatırımlar.",
-     ["Hedefler", "Devam eden yatırımlar", "Güncel gelişmeler"],
+    ("🎯", "Hedefler ve güncel gelişmeler", "Geçmiş ve yeni hedefler, devam eden yatırımlar ve güncel gelişmeler.",
+     ["Geçmiş ve yeni hedefler", "Devam eden yatırımlar", "Elektrik iletim ağı hedefleri (yakında)", "Güncel gelişmeler (yakında)"],
      "views/hedefler_gelismeler.py", "Hedeflere git"),
-    ("☀️", "Lisanssız üretim", "Lisanssız üretimin mevzuatı, gelişimi ve ihtiyaç fazlası hesaplamaları.",
-     ["Yakında eklenecek"],
+    ("☀️", "Lisanssız elektrik üretimi", "Lisanssız üretimin gelişimi, mevzuatı ve ihtiyaç fazlası hesaplamaları.",
+     ["Gelişim süreci ve temel amaç (yakında)", "Mevzuat tarihçesi (yakında)", "Yönetmelik değişiklikleri (yakında)", "Hesaplamalar (yakında)"],
      "views/lisanssiz.py", "Lisanssız üretime git"),
-    ("💲", "Fiyatlandırma", "EPDK tarifeleri, piyasa takas fiyatı ve YEKDEM.",
-     ["EPDK tarifeleri", "PTF (piyasa takas fiyatı)", "YEKDEM"],
+    ("💲", "Yenilenebilir santraller için fiyatlandırma", "Lisanslı ve lisanssız mekanizmalar, EPDK tarifeleri, PTF ve YEKDEM.",
+     ["EPDK elektrik tarifeleri", "PTF verileri analizleri", "YEKDEM ve EPİAŞ duyuruları"],
      "views/fiyatlandirma.py", "Fiyatlandırmaya git"),
-    ("🌍", "Dünya enerji görünümü", "IEA WEO 2026 verileri: enerji arzı, elektrik, emisyonlar, talep ve teknolojiler.",
-     ["Güneş kapasitesi", "Birincil enerji arzı", "Elektrik üretimi ve kapasite", "CO2 emisyonları", "Talep ve ekonomi", "Hidrojen ve CCUS"],
-     "views/dunya_enerji.py", "Dünya görünümüne git"),
-    ("🗺️", "Dünya karşılaştırma", "Bölgesel karşılaştırma, ülke güneş üretimi ve küresel yatırımlar.",
-     ["Bölgesel karşılaştırma", "Ülke ve bölge güneş üretimi", "Küresel enerji yatırımları"],
-     "views/dunya_karsilastirma.py", "Karşılaştırmaya git"),
+    ("🌍", "Dünya istatistikleri", "Dünya ile Türkiye verilerinin karşılaştırmaları ve küresel konum.",
+     ["Dünya enerji görünümü (IEA WEO 2026)", "Bölgesel ve ülke karşılaştırmaları", "Küresel enerji yatırımları"],
+     "views/dunya_istatistikleri.py", "Dünya istatistiklerine git"),
 ]
 for i in range(0, len(kartlar), 3):
     for kolon, (ikon, baslik, aciklama, maddeler, yol, etiket) in zip(st.columns(3, gap="medium"), kartlar[i:i + 3]):
