@@ -3,19 +3,13 @@
 import pandas as pd
 import streamlit as st
 
-from src.energyatlas import charts, data, export, guncelleme, ptf_analiz as pa, ui, ytbs_cek
+from src.energyatlas import charts, data, guncelleme, ptf_analiz as pa, ui, ytbs_cek
 
 kurulu = data.kurulu_guc()
 uretim = data.uretim()
 tuketim = data.tuketim()
 kurulu_yillik = data.teias_kurulu_guc()[["donem", "toplam_gw", "yil"]]
 son_9a = {"toplam_gw": data.teias_ytbs()["kurulu_guc_gw"].sum(), "yenilenebilir_gw": data.teias_ytbs().query("grup != 'Termik'")["kurulu_guc_gw"].sum()}
-
-
-@st.cache_data(show_spinner="Sunum hazırlanıyor…")
-def _sunum_bytes(surum: str) -> bytes:
-    """Sunum dosyasını üretir. `surum` (son güncelleme zamanı) değiştiğinde yeniden üretilir."""
-    return export.ozet_sunum_bytes()
 
 
 ui.hero(
@@ -27,7 +21,7 @@ if "guncelleme_mesaji" in st.session_state:
     tur, metin = st.session_state.pop("guncelleme_mesaji")
     (st.success if tur == "ok" else st.error)(metin)
 
-ust1, ust2, ust3 = st.columns([3, 1.2, 1.4])
+ust1, ust2 = st.columns([3, 1.2])
 with ust1:
     st.caption(f"Son güncelleme: {guncelleme.son_guncelleme_metni()}")
 with ust2:
@@ -41,14 +35,6 @@ with ust2:
         st.cache_data.clear()
         data.yenile()
         st.rerun()
-with ust3:
-    st.download_button(
-        "Sunumu indir (.pptx)",
-        data=_sunum_bytes(guncelleme.son_guncelleme_metni()),
-        file_name="enerji_atlasi_sunum.pptx",
-        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        use_container_width=True,
-    )
 
 sol, sag = st.columns([5, 6], gap="large")
 with sol:
