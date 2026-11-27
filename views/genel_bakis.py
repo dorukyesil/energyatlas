@@ -3,12 +3,11 @@
 import pandas as pd
 import streamlit as st
 
-from src.energyatlas import charts, data, export, guncelleme, ui
+from src.energyatlas import charts, data, export, guncelleme, ptf_analiz as pa, ui
 
 kurulu = data.kurulu_guc()
 uretim = data.uretim()
 tuketim = data.tuketim()
-ptf = data.ptf()
 kurulu_yillik = data.teias_kurulu_guc()[["donem", "toplam_gw", "yil"]]
 son_9a = {"toplam_gw": data.teias_ytbs()["kurulu_guc_gw"].sum(), "yenilenebilir_gw": data.teias_ytbs().query("grup != 'Termik'")["kurulu_guc_gw"].sum()}
 
@@ -88,10 +87,12 @@ tuketim_yillik = data.teias_talep()
 kurulu_seri = kurulu_yillik["toplam_gw"].tolist() + [ytbs_toplam]
 kurulu_yillar = kurulu_yillik["donem"].tolist() + ["2026 güncel"]
 
-ptf_yillik = data.tam_yillar(ptf)
-ptf_son = ptf.set_index("donem")
-ptf_seri = ptf_yillik["ptf_usd_mwh"].tolist() + [float(ptf_son.loc["2026 9A", "ptf_usd_mwh"])]
-ptf_yillar = ptf_yillik["donem"].tolist() + ["2026 9A"]
+ptf_yil = pa.yillik(data.ptf_gunluk())
+ptf_son_tarih = data.ptf_gunluk()["tarih"].max().strftime("%d.%m")
+ptf_seri = ptf_yil["usd"].tolist()
+ptf_yillar = ptf_yil["donem"].tolist()
+ptf_2026 = float(ptf_yil.loc[ptf_yil["yil"] == ptf_yil["yil"].max(), "usd"].iloc[0])
+ptf_2025 = float(ptf_yil.loc[ptf_yil["yil"] == 2025, "usd"].iloc[0])
 
 ui.kpi_serit(
     [
@@ -104,8 +105,8 @@ ui.kpi_serit(
         {"etiket": "Brüt tüketim (2026 Ocak-Ekim)", "deger": ui.sayi(tuk26, 0), "birim": "TWh",
          "alt": f"2025 aynı dönem: {ui.sayi(tuk25, 0)} TWh ({tuk_degisim:+.1f}%)".replace(".", ","), "ton": "p" if tuk_degisim >= 0 else "n",
          "seri": tuketim_yillik["brut_talep_twh"].tolist(), "yillar": tuketim_yillik["donem"].tolist(), "ondalik": 0},
-        {"etiket": "PTF (2026 9A ortalama)", "deger": ui.sayi(float(ptf_son.loc["2026 9A", "ptf_usd_mwh"]), 0), "birim": "USD/MWh",
-         "alt": f"2025 tam yıl: {ui.sayi(float(ptf_son.loc['2025', 'ptf_usd_mwh']), 0)} USD/MWh", "ton": "n",
+        {"etiket": f"PTF (2026, 1 Oca–{ptf_son_tarih} ortalama)", "deger": ui.sayi(ptf_2026, 0), "birim": "USD/MWh",
+         "alt": f"2025 tam yıl: {ui.sayi(ptf_2025, 0)} USD/MWh", "ton": "n",
          "seri": ptf_seri, "yillar": ptf_yillar, "ondalik": 0},
     ]
 )
