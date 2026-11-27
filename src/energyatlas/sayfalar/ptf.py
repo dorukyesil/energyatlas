@@ -108,6 +108,33 @@ def render() -> None:
                     use_container_width=True)
     ui.kaynak("Yatay eksen: ay. Dikey eksen: günün saati (0–23). Boş hücreler, o ayın verisinin henüz olmadığını gösterir.")
 
+    yillar_desc = sorted(p["yil"].unique().tolist(), reverse=True)
+    kiyas_secenekleri = ["Yok"] + [str(v) for v in yillar_desc if v != profil_yil]
+    kiyas = st.selectbox("Karşılaştırma yılı", kiyas_secenekleri, key="ptf_kiyas_yil")
+    if kiyas != "Yok":
+        kiyas_yil = int(kiyas)
+        ortalama = []
+        for yil_ in sorted({int(profil_yil), kiyas_yil}):
+            for saat, deger in p[p["yil"] == yil_].groupby("saat")[f"{kolon}_ort"].mean().items():
+                ortalama.append({"saat": int(saat), "yil": str(yil_), "deger": float(deger)})
+        ortalama_df = pd.DataFrame(ortalama)
+        st.plotly_chart(charts.cizgi_coklu(ortalama_df, "saat", "yil", "deger",
+                                           f"Saatlik ortalama PTF: {profil_yil} ve {kiyas_yil} ({profil_para})", profil_para),
+                        use_container_width=True)
+        a = pa.saat_ozeti(p, int(profil_yil), kolon)
+        b = pa.saat_ozeti(p, kiyas_yil, kolon)
+        c1_, c2_ = st.columns(2)
+        c1_.metric(f"{profil_yil}: en yüksek saat", f"{a['en_yuksek_saat']:02d}:00 · {ui.sayi(a['en_yuksek'], 1)}",
+                   f"en düşük {a['en_dusuk_saat']:02d}:00 · {ui.sayi(a['en_dusuk'], 1)}", delta_color="off")
+        c2_.metric(f"{kiyas_yil}: en yüksek saat", f"{b['en_yuksek_saat']:02d}:00 · {ui.sayi(b['en_yuksek'], 1)}",
+                   f"en düşük {b['en_dusuk_saat']:02d}:00 · {ui.sayi(b['en_dusuk'], 1)}", delta_color="off")
+        matris_k = pa.profil_matrisi(p, kiyas_yil, kolon)
+        fark = matris - matris_k
+        st.plotly_chart(charts.isi_haritasi(fark, f"Fark: {profil_yil} − {kiyas_yil} ({profil_para}); kırmızı daha pahalı",
+                                            "sapma", "%{z:,.0f}", profil_para),
+                        use_container_width=True)
+        ui.kaynak(f"Fark ısı haritası: {profil_yil} saatlik ortalaması eksi {kiyas_yil} saatlik ortalaması. Her iki yılda da ay bazında veri olmayan hücreler boş kalır.")
+
     # --- Analiz: tüm sayılar yukarıdaki verilerden hesaplanır
     s25 = pa.saat_ozeti(p, 2025, "usd")
     ui.bolum("05", "Analiz", "Verilerden hesaplanan öne çıkan gelişmeler.")
