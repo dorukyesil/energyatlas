@@ -85,7 +85,7 @@ yenilenebilir_yillar = uretim_yillik["donem"].tolist() + ["2026 Oca-Eki"]
 
 tuketim_yillik = data.teias_talep()
 kurulu_seri = kurulu_yillik["toplam_gw"].tolist() + [ytbs_toplam]
-kurulu_yillar = kurulu_yillik["donem"].tolist() + ["2026 güncel"]
+kurulu_yillar = kurulu_yillik["donem"].tolist() + [f"2026 ({ytbs_tarih})"]
 
 ptf_yil = pa.yillik(data.ptf_gunluk())
 ptf_son_tarih = data.ptf_gunluk()["tarih"].max().strftime("%d.%m")
@@ -96,7 +96,7 @@ ptf_2025 = float(ptf_yil.loc[ptf_yil["yil"] == 2025, "usd"].iloc[0])
 
 ui.kpi_serit(
     [
-        {"etiket": "Kurulu güç (2026 güncel, YTBS)", "deger": ui.sayi(ytbs_toplam), "birim": "GW",
+        {"etiket": f"Kurulu güç (YTBS, {ytbs_tarih})", "deger": ui.sayi(ytbs_toplam), "birim": "GW",
          "alt": f"TEİAŞ 2025: {ui.sayi(kurulu_yillik['toplam_gw'].iloc[-1])} GW · {ytbs_tarih}", "ton": "p",
          "seri": kurulu_seri, "yillar": kurulu_yillar},
         {"etiket": "Yenilenebilir üretim payı (2026 Ocak-Ekim)", "deger": ui.sayi(yen26, 0), "birim": "%",

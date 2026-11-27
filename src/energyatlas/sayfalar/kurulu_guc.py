@@ -15,7 +15,13 @@ KAYNAKLAR = {
     "Toplam": ("toplam_gw", None),
 }
 YTBS_KAYNAK = {"Güneş": "Güneş", "Rüzgar": "Rüzgar", "Termik": "Termik", "Hidro": "Hidro", "Jeotermal": "Jeotermal"}
-GUNCEL = "2026 (güncel)"
+def _guncel_etiket() -> str:
+    """YTBS anlık verisinin tarihini içeren dönem etiketi (ör. '2026 (25.11.2026)')."""
+    tarih = pd.to_datetime(data.teias_ytbs()["tarih"].iloc[0]).strftime("%d.%m.%Y")
+    return f"2026 ({tarih})"
+
+
+GUNCEL = _guncel_etiket()
 
 
 def _tablo() -> pd.DataFrame:

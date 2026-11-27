@@ -12,31 +12,45 @@ KAYNAKLAR = {
     "Güneş": ("gunes_twh", "gunes_pct"),
     "Toplam": ("toplam_twh", None),
 }
-GUNCEL = "2026 Ocak-Ekim"
+AYLAR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
 
 
-def _tablo() -> pd.DataFrame:
-    """Yıllık TEİAŞ satırları ve 2026 Ocak-Ekim (aylık toplam) satırını birlikte döndürür."""
-    yillik = data.teias_uretim().copy()
-    aylik = data.teias_aylik()
-    s = aylik[(aylik["yil"] == 2026) & (aylik["ay_no"] <= 10)]
-    toplam = float(s["total_generation"].sum()) / 1000
+def _satir(donem: str, toplam: float, termik: float, hidro: float, rj: float, gunes: float) -> dict:
     satir = {
-        "donem": GUNCEL,
-        "toplam_twh": toplam,
-        "termik_twh": float(s["thermal"].sum()) / 1000,
-        "hidro_twh": float(s["hydro"].sum()) / 1000,
-        "ruzgar_jeotermal_twh": float((s["wind"] + s["geothermal"]).sum()) / 1000,
-        "gunes_twh": float(s["solar"].sum()) / 1000,
+        "donem": donem, "toplam_twh": toplam, "termik_twh": termik, "hidro_twh": hidro,
+        "ruzgar_jeotermal_twh": rj, "gunes_twh": gunes,
     }
     for k in ["termik", "hidro", "ruzgar_jeotermal", "gunes"]:
-        satir[f"{k}_pct"] = satir[f"{k}_twh"] / toplam * 100
-    return pd.concat([yillik, pd.DataFrame([satir])], ignore_index=True)
+        satir[f"{k}_pct"] = satir[f"{k}_twh"] / toplam * 100 if toplam else 0.0
+    return satir
+
+
+def _aylik_2026() -> pd.DataFrame:
+    """2026 yılının her ayı için TEİAŞ aylık üretimi (TWh). Veri olan aylar listelenir."""
+    aylik = data.teias_aylik()
+    s = aylik[aylik["yil"] == 2026].sort_values("ay_no")
+    satirlar = []
+    for _, r in s.iterrows():
+        satirlar.append(_satir(
+            f"2026 {AYLAR[int(r['ay_no']) - 1]}",
+            float(r["total_generation"]) / 1000,
+            float(r["thermal"]) / 1000,
+            float(r["hydro"]) / 1000,
+            float((r["wind"] + r["geothermal"])) / 1000,
+            float(r["solar"]) / 1000,
+        ))
+    return pd.DataFrame(satirlar)
+
+
+def _yillik() -> pd.DataFrame:
+    return data.teias_uretim().copy()
 
 
 def render() -> None:
-    df = _tablo()
-    donemler = df["donem"].tolist()
+    yillik = _yillik()
+    aylik = _aylik_2026()
+    tum = pd.concat([yillik, aylik], ignore_index=True)
+    donemler = tum["donem"].tolist()
     c1, c2 = st.columns([1, 2])
     with c1:
         kaynak = st.selectbox("Kaynak", list(KAYNAKLAR.keys()), index=0, key="uretim_kaynak")
@@ -44,30 +58,47 @@ def render() -> None:
         donem = st.select_slider("Dönem", options=donemler, value=donemler[-1], key="uretim_donem")
 
     twh_kol, pct_kol = KAYNAKLAR[kaynak]
-    secili = df[df["donem"] == donem].iloc[0]
-    ilk = df[df["donem"] == "2016"].iloc[0]
+    secili = tum[tum["donem"] == donem].iloc[0]
+    aylik_mi = donem.startswith("2026 ")
+    ilk = yillik[yillik["donem"] == "2016"].iloc[0]
     twh = float(secili[twh_kol])
     toplam = float(secili["toplam_twh"])
 
     k1, k2, k3 = st.columns(3)
     k1.metric(f"{kaynak} üretimi ({donem})", f"{ui.sayi(twh)} TWh")
     if kaynak == "Toplam":
-        k2.metric(f"Toplam üretim ({donem})", f"{ui.sayi(toplam)} TWh", f"{toplam - float(ilk['toplam_twh']):+.1f} TWh (2016'ya göre)".replace(".", ","), delta_color="off")
+        if aylik_mi:
+            k2.metric(f"Toplam üretim ({donem})", f"{ui.sayi(toplam)} TWh")
+        else:
+            k2.metric(f"Toplam üretim ({donem})", f"{ui.sayi(toplam)} TWh", f"{toplam - float(ilk['toplam_twh']):+.1f} TWh (2016'ya göre)".replace(".", ","), delta_color="off")
     else:
         pay = twh / toplam * 100
-        k2.metric(f"{kaynak} payı ({donem})", f"%{ui.sayi(pay)}", f"{pay - float(ilk[pct_kol]):+.1f} puan (2016'ya göre)".replace(".", ","), delta_color="off")
+        if aylik_mi:
+            k2.metric(f"{kaynak} payı ({donem})", f"%{ui.sayi(pay)}")
+        else:
+            k2.metric(f"{kaynak} payı ({donem})", f"%{ui.sayi(pay)}", f"{pay - float(ilk[pct_kol]):+.1f} puan (2016'ya göre)".replace(".", ","), delta_color="off")
     k3.metric("Dönem", donem)
 
-    ui.bolum("01", f"{kaynak}: zaman içinde", "Seçilen kaynağın üretimi (sütun) ve toplam içindeki payı (çizgi). 2026 satırı Ocak-Ekim toplamıdır.")
+    ui.bolum("01", f"{kaynak}: yıllık gelişim", "Seçilen kaynağın yıllık üretimi (sütun) ve toplam içindeki payı (çizgi).")
     if kaynak == "Toplam":
-        st.plotly_chart(charts.toplam_cubuk(df, "toplam_twh", "Toplam brüt üretim (TWh)", "TWh"), use_container_width=True)
+        st.plotly_chart(charts.toplam_cubuk(yillik, "toplam_twh", "Yıllık toplam brüt üretim (TWh)", "TWh"), use_container_width=True)
     else:
-        st.plotly_chart(charts.toplam_cubuk(df, twh_kol, f"{kaynak} üretimi (TWh)", "TWh"), use_container_width=True)
-        st.plotly_chart(charts.cizgi_alan(df[df["donem"] != GUNCEL], "donem", pct_kol, f"{kaynak} payı (%)", "%", "%"), use_container_width=True)
-    ui.teias_notu("uretim", "aylik", ek="2026 Ocak-Ekim satırı TEİAŞ aylık tablosundan hesaplanmıştır; rüzgar ve jeotermal birleşiktir, atık termik içindedir.")
+        st.plotly_chart(charts.toplam_cubuk(yillik, twh_kol, f"{kaynak} üretimi (TWh)", "TWh"), use_container_width=True)
+        st.plotly_chart(charts.cizgi_alan(yillik, "donem", pct_kol, f"{kaynak} payı (%)", "%", "%"), use_container_width=True)
 
-    ui.bolum("02", "Kaynaklara göre karşılaştırma", f"{donem} dönemi, tüm kaynaklar.")
+    ui.bolum("02", "2026 aylık üretim", "Her ayın kendi üretimi (TWh). Veri olan aylar gösterilir.")
+    if aylik.empty:
+        st.info("2026 için aylık veri yok.")
+    else:
+        if kaynak == "Toplam":
+            st.plotly_chart(charts.toplam_cubuk(aylik, "toplam_twh", "2026 aylık toplam brüt üretim (TWh)", "TWh"), use_container_width=True)
+        else:
+            st.plotly_chart(charts.toplam_cubuk(aylik, twh_kol, f"2026 aylık {kaynak} üretimi (TWh)", "TWh"), use_container_width=True)
+            st.plotly_chart(charts.cizgi_alan(aylik, "donem", pct_kol, f"2026 aylık {kaynak} payı (%)", "%", "%"), use_container_width=True)
+    ui.teias_notu("uretim", "aylik", ek="2026 satırları TEİAŞ aylık tablosundan hesaplanmıştır; rüzgar ve jeotermal birleşiktir, atık termik içindedir.")
+
+    ui.bolum("03", "Kaynaklara göre karşılaştırma", f"{donem} dönemi, tüm kaynaklar.")
     satirlar = [(ad, float(secili[twh])) for ad, (twh, _) in KAYNAKLAR.items() if ad != "Toplam"]
     st.plotly_chart(charts.yatay_deger_cubuk(pd.DataFrame(satirlar, columns=["kaynak", "twh"]), "kaynak", "twh", f"Kaynaklara göre üretim, {donem} (TWh)", "TWh"), use_container_width=True)
 
-    ui.veri_tablosu(df.assign(donem=df["donem"]), "Veri tablosu (yıllık ve 2026)", "teias_uretim.csv")
+    ui.veri_tablosu(tum, "Veri tablosu (yıllık ve 2026 aylık)", "teias_uretim.csv")
