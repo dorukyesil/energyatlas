@@ -43,7 +43,7 @@ def render() -> None:
     donemler = df["donem"].tolist()
     c1, c2 = st.columns([1, 2])
     with c1:
-        kaynak = st.selectbox("Kaynak", list(KAYNAKLAR.keys()), index=0, key="kg_kaynak")
+        kaynak = st.selectbox("Kaynak", list(KAYNAKLAR.keys()), index=list(KAYNAKLAR.keys()).index("Toplam"), key="kg_kaynak")
     with c2:
         donem = st.select_slider("Dönem", options=donemler, value=donemler[-1], key="kg_donem")
 
