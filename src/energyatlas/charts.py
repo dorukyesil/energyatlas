@@ -668,6 +668,7 @@ def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Ti
         ))
         fig.add_trace(go.Scatter(
             x=[xs[-2], xs[-1]], y=[ys[-2], ys[-1]], mode="lines+markers+text", name=ad + " (güncel)",
+            showlegend=False,
             line=dict(color=PAS if not kesik else renk, width=2, dash="dot"),
             marker=dict(size=[6, 12], color=[renk, PAS], line=dict(color="white", width=2)),
             text=["", f"<b>{guncel_nokta_metin}</b>"], textposition="top center", textfont=dict(color=PAS, size=12),
