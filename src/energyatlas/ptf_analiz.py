@@ -59,3 +59,11 @@ def saat_ozeti(p: pd.DataFrame, yil: int, para: str) -> dict:
         "en_yuksek_saat": int(s.idxmax()), "en_yuksek": float(s.max()),
         "en_dusuk_saat": int(s.idxmin()), "en_dusuk": float(s.min()),
     }
+
+
+def cagr(baslangic_deger: float, bitis_deger: float, baslangic_yil: int, bitis_yil: int) -> float | None:
+    """Bileşik yıllık büyüme oranı (%). Başlangıç değeri sıfır veya negatifse, ya da yıllar eşit/ters ise None."""
+    n = bitis_yil - baslangic_yil
+    if n <= 0 or baslangic_deger <= 0 or bitis_deger <= 0:
+        return None
+    return ((bitis_deger / baslangic_deger) ** (1 / n) - 1) * 100

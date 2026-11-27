@@ -1,5 +1,6 @@
 """Piyasa takas fiyatı (PTF): TL ve USD bazlı tarihsel ortalamalar, kur etkisi, aylık ve saatlik profil."""
 
+import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, ptf_analiz as pa, ui
@@ -47,6 +48,29 @@ def render() -> None:
         kolon = "usd" if gorunum == "USD/MWh" else "tl"
         st.plotly_chart(charts.cizgi_alan(y, "donem", kolon, f"Yıllık ortalama PTF ({gorunum})", gorunum, gorunum),
                         use_container_width=True)
+    st.markdown("**Bileşik yıllık büyüme (CAGR)**")
+    yil_listesi = y["yil"].tolist()
+    cb, ce = st.columns(2)
+    baslangic = cb.selectbox("Başlangıç yılı", yil_listesi, index=0, key="ptf_cagr_bas")
+    bitis = ce.selectbox("Bitiş yılı", yil_listesi, index=len(yil_listesi) - 2 if len(yil_listesi) > 1 else 0, key="ptf_cagr_bit")
+    if bitis <= baslangic:
+        st.info("CAGR için bitiş yılı başlangıç yılından sonra olmalıdır.")
+    else:
+        v0 = y[y["yil"] == baslangic].iloc[0]
+        v1 = y[y["yil"] == bitis].iloc[0]
+        satirlar = []
+        for ad, kol in [("USD/MWh", "usd"), ("TL/MWh", "tl"), ("EUR/MWh", "eur"), ("TL/USD kuru", "kur")]:
+            oran = pa.cagr(float(v0[kol]), float(v1[kol]), int(baslangic), int(bitis))
+            satirlar.append({
+                "Gösterge": ad,
+                f"{baslangic} ortalama": round(float(v0[kol]), 2),
+                f"{bitis} ortalama": round(float(v1[kol]), 2),
+                "Yıl sayısı": int(bitis) - int(baslangic),
+                "CAGR (%)": None if oran is None else round(oran, 1),
+            })
+        st.dataframe(pd.DataFrame(satirlar), hide_index=True, use_container_width=True)
+        if bool(v1["kismi"]):
+            st.caption(f"{bitis} yılı kısmidir (1 Ocak–{son_tarih[:5]}); bu yılın CAGR'ı tam yıl değerlerine göre yorumlanmamalıdır.")
     ui.kaynak(f"Veri: EPİAŞ saatlik PTF, 2016–{yil_son} ({son_tarih} itibarıyla). {yil_son} yılı kısmidir. "
               "TL/USD kuru, TL ortalamasının USD ortalamasına oranıdır.")
 

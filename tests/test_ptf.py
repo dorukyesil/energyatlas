@@ -33,3 +33,11 @@ def test_aylik_on_eki_ve_yil_dizisi():
     assert set(a["ay_adi"]) <= set(pa.AYLAR)
     assert a["ay"].between(1, 12).all()
     assert isinstance(a["yil"].iloc[0], str)
+
+
+def test_cagr_hesabi():
+    # 100 -> 200 iki yılda: yıllık yaklaşık %41,4
+    assert abs(pa.cagr(100, 200, 2020, 2022) - 41.42) < 0.01
+    assert pa.cagr(100, 100, 2020, 2025) == 0
+    assert pa.cagr(0, 100, 2020, 2025) is None
+    assert pa.cagr(100, 200, 2025, 2025) is None
