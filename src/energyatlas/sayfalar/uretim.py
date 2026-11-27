@@ -8,6 +8,7 @@ import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, ui
+from src.energyatlas.theme import kaynak_rengi
 
 # Kaynak adı -> TWh kolonu. Kurulu güç sayfasıyla aynı kırılım.
 KAYNAKLAR = {
@@ -112,14 +113,14 @@ def render() -> None:
 
     ui.bolum("01", f"{kaynak}: yıllık gelişim", "Yıllık üretim (sütun) ve toplam içindeki payı (çizgi). Rüzgar ve jeotermal 2021'den itibaren ayrı verilebilir.")
     yillik_kaynak = yillik.dropna(subset=[kol])
-    st.plotly_chart(charts.toplam_cubuk(yillik_kaynak, kol, f"{kaynak} üretimi (TWh)", "TWh"), use_container_width=True)
+    st.plotly_chart(charts.toplam_cubuk(yillik_kaynak, kol, f"{kaynak} üretimi (TWh)", "TWh", renk=kaynak_rengi(kaynak)), use_container_width=True)
     if kaynak != "Toplam":
         st.plotly_chart(charts.cizgi_alan(yillik.dropna(subset=[pct_kol]), "donem", pct_kol, f"{kaynak} payı (%)", "%", "%"),
                         use_container_width=True)
 
     ui.bolum("02", "2026 kümülatif üretim", "Ocak'tan seçilen aya kadar biriken üretim (TWh) ve payı.")
     kumu = tum[tum["donem"].str.startswith("2026")].dropna(subset=[kol])
-    st.plotly_chart(charts.toplam_cubuk(kumu, kol, f"2026 kümülatif {kaynak} üretimi (TWh)", "TWh"), use_container_width=True)
+    st.plotly_chart(charts.toplam_cubuk(kumu, kol, f"2026 kümülatif {kaynak} üretimi (TWh)", "TWh", renk=kaynak_rengi(kaynak)), use_container_width=True)
     if kaynak != "Toplam":
         st.plotly_chart(charts.cizgi_alan(kumu, "donem", pct_kol, f"2026 kümülatif {kaynak} payı (%)", "%", "%"), use_container_width=True)
     ui.teias_notu("uretim", "aylik", ek="2026 değerleri birikimli toplamdır. Rüzgar ve jeotermal 2021 öncesinde yıllık tabloda birleşiktir.")

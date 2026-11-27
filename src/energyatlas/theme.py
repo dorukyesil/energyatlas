@@ -36,19 +36,58 @@ ACIK_GRI = ADACAYI
 ZEMIN = KAGIT
 
 # Kaynak renkleri (grafikler arasında tutarlı kullanılır)
+# Kaynak renkleri: portal genelinde aynı kaynak her zaman aynı renkte görünür.
+# Güneş sarı, rüzgar yeşil, hidro mavi; termik kalemleri koyu tonlarda.
 KAYNAK_RENK = {
-    "Termik": "#4A4A48",
-    "Güneş": "#D9A21B",
-    "Rüzgar": TURKUAZ,
-    "Diğer Yenilenebilir": ADACAYI,
-    "Hidro": CELIK,
-    "Jeotermal": "#8B5CF6",
-    "Rüzgar + jeotermal": TURKUAZ,
+    "Güneş": "#E8B317",
+    "Rüzgar": "#2E8B57",
+    "Hidro": "#2F6FB0",
+    "Jeotermal": "#B5651D",
+    "Biyokütle ve atık ısı": "#C7A2D6",
+    "Diğer yenilenebilir": "#7FB3D5",
+    "Yenilenebilir (toplam)": "#1F5F4A",
+    "Termik": "#2B2B2B",
+    "Termik (toplam)": "#2B2B2B",
+    "Doğal gaz": "#3D3D3D",
+    "Linyit": "#5B4A3A",
+    "İthal ve taş kömür": "#1F1F1F",
+    "Diğer termik": "#6B6B6B",
     "Toplam": MUREKKEP,
     "Türkiye": PAS,
     "OECD": CELIK,
     "Dünya": "#8A8578",
 }
+
+# Serbest adlar için anahtar kelime eşleşmesi (sıra önemlidir: önce yenilenebilir, sonra termik)
+_ANAHTAR_RENK = [
+    ("yenilenebilir", KAYNAK_RENK["Yenilenebilir (toplam)"]),
+    ("biyokütle", KAYNAK_RENK["Biyokütle ve atık ısı"]),
+    ("atık", KAYNAK_RENK["Biyokütle ve atık ısı"]),
+    ("jeotermal", KAYNAK_RENK["Jeotermal"]),
+    ("hidro", KAYNAK_RENK["Hidro"]),
+    ("akarsu", KAYNAK_RENK["Hidro"]),
+    ("güneş", KAYNAK_RENK["Güneş"]),
+    ("gunes", KAYNAK_RENK["Güneş"]),
+    ("rüzgar", KAYNAK_RENK["Rüzgar"]),
+    ("ruzgar", KAYNAK_RENK["Rüzgar"]),
+    ("termik", KAYNAK_RENK["Termik"]),
+    ("linyit", KAYNAK_RENK["Linyit"]),
+    ("doğal gaz", KAYNAK_RENK["Doğal gaz"]),
+    ("dogalgaz", KAYNAK_RENK["Doğal gaz"]),
+    ("kömür", KAYNAK_RENK["İthal ve taş kömür"]),
+]
+
+
+def kaynak_rengi(ad: str, varsayilan: str = "#8A8578") -> str:
+    """Bir kaynak adına karşılık gelen sabit rengi döndürür. Tanımsız adlar için varsayılan kullanılır."""
+    if ad in KAYNAK_RENK:
+        return KAYNAK_RENK[ad]
+    k = str(ad).casefold()
+    for anahtar, renk in _ANAHTAR_RENK:
+        if anahtar in k:
+            return renk
+    return varsayilan
+
 
 SERI_RENKLERI = [MUREKKEP, TURKUAZ, OKRA, PAS, CELIK, ZEYTIN, "#8A8578", ADACAYI]
 

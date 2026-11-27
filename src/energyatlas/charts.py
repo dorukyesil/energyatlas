@@ -3,7 +3,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 
-from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ
+from src.energyatlas.theme import KAYNAK_RENK, SABLON, SAPMA_SKALA, SIRALI_PAS, SIRALI_TURKUAZ, kaynak_rengi
 from src.energyatlas.theme import PAS as PAS
 from src.energyatlas.theme import TURKUAZ
 from src.energyatlas.theme import PAS as theme_renk_negatif
@@ -34,13 +34,13 @@ def _duzenle(fig: go.Figure, baslik: str, y_baslik: str) -> go.Figure:
     return fig
 
 
-def toplam_cubuk(df: pd.DataFrame, deger: str, baslik: str, y_baslik: str) -> go.Figure:
-    """Dönem bazında toplam değerleri gösteren sütun grafiği."""
+def toplam_cubuk(df: pd.DataFrame, deger: str, baslik: str, y_baslik: str, renk: str | None = None) -> go.Figure:
+    """Dönem bazında toplam değerleri gösteren sütun grafiği. renk verilmezse toplam rengi kullanılır."""
     fig = go.Figure(
         go.Bar(
             x=df["donem"],
             y=df[deger],
-            marker_color=RENKLER["Toplam"],
+            marker_color=renk or RENKLER["Toplam"],
             text=df[deger],
             texttemplate="%{text:,.1f}",
             textposition="outside",
@@ -59,7 +59,7 @@ def pay_yiginli_cubuk(df: pd.DataFrame, baslik: str) -> go.Figure:
                 name=etiket,
                 x=df["donem"],
                 y=df[kolon],
-                marker_color=RENKLER[etiket],
+                marker_color=kaynak_rengi(etiket),
                 hovertemplate=f"{etiket}: %{{y}}%<extra></extra>",
             )
         )
@@ -121,8 +121,6 @@ def hedef_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
     }
     satir = df.set_index("kaynak")
     fig = go.Figure()
-    renkler = {"Güneş": RENKLER.get("Güneş", "#D9A21B"), "Rüzgar": RENKLER.get("Rüzgar", "#1F6670"),
-               "Toplam Yenilenebilir": KURULU_RENK["Yenilenebilir"], "Toplam Termik": KURULU_RENK["Termik"]}
     gosterim = {"Toplam Yenilenebilir": "Toplam yenilenebilir", "Toplam Termik": "Toplam termik"}
     for kaynak in ["Güneş", "Rüzgar", "Toplam Yenilenebilir", "Toplam Termik"]:
         if kaynak not in satir.index:
@@ -132,7 +130,7 @@ def hedef_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
                 name=gosterim.get(kaynak, kaynak),
                 x=list(senaryolar.keys()),
                 y=[satir.loc[kaynak, kolon] for kolon in senaryolar.values()],
-                marker_color=renkler[kaynak],
+                marker_color=kaynak_rengi(kaynak),
                 hovertemplate=f"{kaynak}: %{{y:,.1f}} GW<extra></extra>",
             )
         )
@@ -148,7 +146,7 @@ def pay_halkasi(etiketler: list[str], degerler: list[float], baslik: str) -> go.
             values=degerler,
             hole=0.55,
             sort=False,
-            marker=dict(colors=[RENKLER.get(e, "#A9B8B5") for e in etiketler]),
+            marker=dict(colors=[kaynak_rengi(e, "#A9B8B5") for e in etiketler]),
             hovertemplate="%{label}: %{value:,.1f} GW (%{percent})<extra></extra>",
         )
     )
@@ -588,7 +586,7 @@ def yatay_deger_cubuk(df: pd.DataFrame, etiket: str, deger: str, baslik: str, bi
             x=sirali[deger],
             y=sirali[etiket],
             orientation="h",
-            marker_color=RENKLER["Toplam"],
+            marker_color=[kaynak_rengi(e, RENKLER["Toplam"]) for e in sirali[etiket]],
             text=sirali[deger],
             texttemplate="%{text:,.1f}",
             textposition="outside",
@@ -604,7 +602,8 @@ def yigin_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y_
     """Seri bazında yığılmış sütun grafiği (ör. yıllara göre bölge katkıları)."""
     fig = go.Figure()
     for ad, alt in df.groupby(seri, sort=False):
-        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
+        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], marker_color=kaynak_rengi(str(ad), None),
+                             hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
     fig.update_layout(barmode="stack")
     return _duzenle(fig, baslik, y_baslik)
 
@@ -638,7 +637,7 @@ def pay_yigin_genel(df: pd.DataFrame, x: str, kolonlar: dict[str, str], baslik: 
                 name=etiket,
                 x=df[x].astype(str),
                 y=df[kolon],
-                marker_color=RENKLER.get(etiket),
+                marker_color=kaynak_rengi(etiket),
                 hovertemplate=f"{etiket}: %{{y:,.1f}}<extra></extra>",
             )
         )
@@ -650,13 +649,14 @@ def gruplu_cubuk(df: pd.DataFrame, x: str, seri: str, deger: str, baslik: str, y
     """Seri bazında yan yana sütunlar (ör. yıllara göre ithalat ve ihracat)."""
     fig = go.Figure()
     for ad, alt in df.groupby(seri, sort=False):
-        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
+        fig.add_trace(go.Bar(name=str(ad), x=alt[x].astype(str), y=alt[deger], marker_color=kaynak_rengi(str(ad), None),
+                             hovertemplate=f"{ad}: %{{y:,.1f}}<extra></extra>"))
     fig.update_layout(barmode="group")
     return _duzenle(fig, baslik, y_baslik)
 
 
 # Canlı kurulu güç grafiği serilerinin renkleri
-KURULU_RENK = {"Toplam": "#E0A800", "Yenilenebilir": "#2E7D32", "Termik": "#1A1A1A"}
+KURULU_RENK = {"Toplam": KAYNAK_RENK["Toplam"], "Yenilenebilir": KAYNAK_RENK["Yenilenebilir (toplam)"], "Termik": KAYNAK_RENK["Termik (toplam)"]}
 
 
 def canli_kurulu_guc(yillik: pd.DataFrame, guncel_gw: float, guncel_tarih: pd.Timestamp, baslik: str,

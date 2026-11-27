@@ -7,6 +7,7 @@ import pandas as pd
 import streamlit as st
 
 from src.energyatlas import charts, data, ui
+from src.energyatlas.theme import kaynak_rengi
 
 # Kaynak adı -> (yıllık TEİAŞ kolonu, YTBS kaynak kodları). None: toplam satırlarıdır, ayrıca hesaplanır.
 KAYNAKLAR = {
@@ -97,7 +98,7 @@ def render() -> None:
     if kaynak == "Toplam":
         st.plotly_chart(charts.toplam_cubuk(df, "toplam_gw", "Toplam kurulu güç (GW)", "GW"), use_container_width=True)
     else:
-        st.plotly_chart(charts.toplam_cubuk(df, gw_kol, f"{kaynak} kurulu gücü (GW)", "GW"), use_container_width=True)
+        st.plotly_chart(charts.toplam_cubuk(df, gw_kol, f"{kaynak} kurulu gücü (GW)", "GW", renk=kaynak_rengi(kaynak)), use_container_width=True)
         st.plotly_chart(charts.cizgi_alan(df.iloc[:-1], "donem", pct_kol, f"{kaynak} payı (%)", "%", "%"), use_container_width=True)
     ui.teias_notu("kurulu_guc", ek=f"{GUNCEL} satırı YTBS güncel gün verisidir; yıllık TEİAŞ tablosuyla tam karşılaştırılabilir değildir. "
                                   "Yıllık 'İthal ve taş kömür' TEİAŞ'te birleşik yazıldığından YTBS değeri ithal, taş ve asfaltiti toplar.")
