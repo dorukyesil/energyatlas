@@ -22,13 +22,12 @@ st.navigation(
     [
         sayfa("views/genel_bakis.py", "Enerji Atlası", varsayilan=True),
         sayfa("views/hakkinda.py", "Hakkında"),
-        sayfa("views/elektrik.py", "Elektrik sistemi"),
-        sayfa("views/depolama.py", "Depolama ve yatırımlar"),
-        sayfa("views/fiyatlar.py", "Fiyatlar ve tarifeler"),
-        sayfa("views/altyapi.py", "Altyapı ve hedefler"),
+        sayfa("views/elektrik_piyasasi.py", "Elektrik piyasası"),
+        sayfa("views/hedefler_gelismeler.py", "Hedefler ve güncel gelişmeler"),
+        sayfa("views/lisanssiz.py", "Lisanssız üretim"),
+        sayfa("views/fiyatlandirma.py", "Fiyatlandırma"),
         sayfa("views/dunya_enerji.py", "Dünya enerji görünümü"),
         sayfa("views/dunya_karsilastirma.py", "Dünya karşılaştırma"),
-        sayfa("views/hedefler.py", "Hedefler ve vizyon"),
     ],
     position="hidden",
 ).run()

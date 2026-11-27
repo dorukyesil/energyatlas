@@ -182,6 +182,12 @@ def geri_linki() -> None:
     st.page_link("views/genel_bakis.py", label="← Ana sayfa", icon="🏠")
 
 
+def yakinda(baslik: str, no: str = "") -> None:
+    """İçeriği henüz eklenmemiş bölüm için yer tutucu. Başlık görünür, gövde boş kalır."""
+    bolum(no, baslik) if no else st.markdown(f"#### {html.escape(baslik)}")
+    st.caption("Bu bölümün içeriği yakında eklenecek.")
+
+
 def kategori_karti_basit(ikon: str, baslik: str, aciklama: str, maddeler: list[str], yol: str, etiket: str) -> None:
     """Ana sayfadaki konu kartı: kısa açıklama, alt başlıklar ve tek bir bağlantı."""
     with st.container(border=True, height=300):
