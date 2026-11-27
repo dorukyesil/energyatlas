@@ -20,8 +20,8 @@ def render() -> None:
     c2.metric("Toplam kurulu güç (2035 yol haritası)", f"{ui.sayi(toplam_2035)} GW", f"{toplam_2035 - toplam_2025:+.1f} GW (2025'e göre)".replace(".", ","))
     c3.metric("Güneş + rüzgar kapasitesi (2035)", f"{ui.sayi(gunes_ruzgar_2035)} GW", f"yenilenebilir toplam {ui.sayi(yenilenebilir_2035)} GW", delta_color="off")
 
-    ui.bolum("01", "Senaryo karşılaştırması", "Güneş, rüzgar ve termik kurulu güç hedeflerinin senaryolara göre değişimi.")
-    st.plotly_chart(charts.hedef_karsilastirma(df, "Senaryolara göre güneş, rüzgar ve termik kurulu güç (GW)"), use_container_width=True)
+    ui.bolum("01", "Senaryo karşılaştırması", "Güneş, rüzgar, toplam yenilenebilir ve termik kurulu güç hedeflerinin senaryolara göre değişimi.")
+    st.plotly_chart(charts.hedef_karsilastirma(df, "Senaryolara göre güneş, rüzgar, toplam yenilenebilir ve termik kurulu güç (GW)"), use_container_width=True)
     ui.kaynak("Yol haritasındaki toplam ve yenilenebilir değerlerin dipnotu (*) kaynakta açıklanmamıştır.")
 
     ui.bolum("02", "Kaynak payı", "2025, 2028 ve 2035 için toplam kurulu gücün kaynaklara dağılımı. Diğer yenilenebilir, toplamdan hesaplanmıştır.")

@@ -121,15 +121,18 @@ def hedef_karsilastirma(df: pd.DataFrame, baslik: str) -> go.Figure:
     }
     satir = df.set_index("kaynak")
     fig = go.Figure()
-    for kaynak in ["Güneş", "Rüzgar", "Toplam Termik"]:
+    renkler = {"Güneş": RENKLER.get("Güneş", "#D9A21B"), "Rüzgar": RENKLER.get("Rüzgar", "#1F6670"),
+               "Toplam Yenilenebilir": KURULU_RENK["Yenilenebilir"], "Toplam Termik": KURULU_RENK["Termik"]}
+    gosterim = {"Toplam Yenilenebilir": "Toplam yenilenebilir", "Toplam Termik": "Toplam termik"}
+    for kaynak in ["Güneş", "Rüzgar", "Toplam Yenilenebilir", "Toplam Termik"]:
         if kaynak not in satir.index:
             continue
         fig.add_trace(
             go.Bar(
-                name=kaynak,
+                name=gosterim.get(kaynak, kaynak),
                 x=list(senaryolar.keys()),
                 y=[satir.loc[kaynak, kolon] for kolon in senaryolar.values()],
-                marker_color=RENKLER.get(kaynak.replace("Toplam ", ""), "#8A8578"),
+                marker_color=renkler[kaynak],
                 hovertemplate=f"{kaynak}: %{{y:,.1f}} GW<extra></extra>",
             )
         )
