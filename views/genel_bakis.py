@@ -3,7 +3,7 @@
 import pandas as pd
 import streamlit as st
 
-from src.energyatlas import charts, data, export, guncelleme, ptf_analiz as pa, ui
+from src.energyatlas import charts, data, export, guncelleme, ptf_analiz as pa, ui, ytbs_cek
 
 kurulu = data.kurulu_guc()
 uretim = data.uretim()
@@ -23,14 +23,23 @@ ui.hero(
     "Türkiye ve dünya elektrik sektörü: kurulu güç, üretim, tüketim, depolama, fiyatlar ve hedefler tek yerde.",
 )
 
+if "guncelleme_mesaji" in st.session_state:
+    tur, metin = st.session_state.pop("guncelleme_mesaji")
+    (st.success if tur == "ok" else st.error)(metin)
+
 ust1, ust2, ust3 = st.columns([3, 1.2, 1.4])
 with ust1:
     st.caption(f"Son güncelleme: {guncelleme.son_guncelleme_metni()}")
 with ust2:
-    if st.button("Verileri güncelle", use_container_width=True, help="Veri dosyalarını yeniden okur ve sunumu yeniler."):
+    if st.button("Verileri güncelle", use_container_width=True, help="Güncel YTBS kurulu güç verisini çeker ve sayfayı yeniler."):
+        try:
+            sonuc = ytbs_cek.guncelle_ytbs()
+            guncelleme.guncelle()
+            st.session_state["guncelleme_mesaji"] = ("ok", f"YTBS güncellendi: {pd.Timestamp(sonuc['tarih']):%d.%m.%Y} itibarıyla {ui.sayi(sonuc['toplam_gw'])} GW ({sonuc['kaynak_sayisi']} kaynak).")
+        except Exception as hata:
+            st.session_state["guncelleme_mesaji"] = ("hata", f"Güncelleme yapılamadı, mevcut veriler korundu: {hata}")
         st.cache_data.clear()
         data.yenile()
-        guncelleme.guncelle()
         st.rerun()
 with ust3:
     st.download_button(
